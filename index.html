@@ -1,16 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        
-    </style>
+    <meta content='width=device-width, initial-scale=1' name='viewport'/>
+    <title>Portfolio Website Alessia Bertana</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <img src="Home.png" style="width:100%"/>
-    <img src="About.png" style="width: 100%;"/>
-    <img src="EducationHobbies.png" style="width: 100%;"/>
+
+    <div class="navbar">
+        <l>
+            <span class="dot"></span>
+            <strong>  Alessia Bertana</strong>&nbsp HCID Student
+        </l>
+        <l-rechts>
+            <a href="mailto:alesbertana@gmail.com">Email</a>
+            <a href="https://www.linkedin.com/in/alessiabertana">LinkedIn</a>
+            <a href="CurriculumVitaeAlessiaBertana.pdf" download>Resume</a>
+        </l-rechts>
+        <span class="menu-icon" onclick="toggleMenu()">
+            <img src="images/menu-icon.png" alt="Menu">
+        </span>
+    </div>
+    <div id="navbar-links" class="navbar-links">
+        <a href="mailto:alesbertana@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/alessiabertana">LinkedIn</a>
+        <a href="CurriculumVitaeAlessiaBertana.pdf" download>Resume</a>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var x = document.getElementById("navbar-links");
+            if (x.style.display === "block") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "block";
+            }
+        }
+    </script>
+    
+    
+
+    <br><br>
+    <div class="home">
+        <div class="container">
+            <div class="text">
+                <h2 style="font-size:2.8vw">My name is Alessia Bertana</h2>
+                <div class="streeprechts">
+                    <img src="images/streep.png" style="width: 28%;"/>
+                </div>
+            </div>
+            <div class="image">
+                <img src="images/profielfoto.jpeg" style="width: 40%;"/>
+            </div>
+            <h5 style="font-size:1.5vw">I am currently a double degree <b>Human Computer Interaction<br> 
+                and Design</b> student at Trento University</h5>
+        </div>
+    </div>
+
+    <br><br><br>
+
+    <html>
+    <a href="#down"><buttonarrow></buttonarrow></a>
+    <div id="down">
+        <div class="About">
+            <br><br>
+            <div class="beigebackground">
+                <img src="images/About.png" style="width:100%"/>
+                <div class="textbox">
+                    <h1>Who Am I?</h1>
+                    <p>An energetic, creative and hardworking person 
+                    who has a passion for using technology to enhance people's day-to-day lives. Currently in 
+                    the final year of the double degree master of <a href="https://masterschool.eitdigital.eu/human-computer-interaction-and-design">EIT Digital Master School</a>
+                    <b>Human Computer Interaction 
+                    Technology and Design</b> at the University of Trento (European 
+                    Institute of Innovation & Technology). Upon completion, specialized in 
+                    <b>interaction technology</b> and <b>computer science</b>computer science. 
+                    Want to know more about my previous work? Make sure to check out the section 
+                    below ! </p>
+                </div>
+            </div>
+            <button onclick="document.location='default.asp'">See </button>
+        </div>
+    </div>
+    </html>
+
+    <div class="EducationHobbies">
+        <img src="images/EducationHobbies.png" style="width:100%"/>
+    </div>
+
 </body>
 </html>
