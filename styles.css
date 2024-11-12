@@ -21,38 +21,6 @@ html {
     overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
-.beigebackground {
-    background-color: #f8ede4;
-    color: black;
-}
-
-.textbox {
-    text-align: justify;
-    position: relative;
-    line-height: 1.8;
-    font-size: 10px;
-    right: 10px;
-    left: 420px;
-}
-
-#down {
-    margin-top: 100%;
-    padding-bottom: 25%;
-}
-
-buttonlook {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    margin-left: -16px;
-    display: block;
-    width: 32px;
-    height: 32px;
-    border: 2px solid #FFF;
-    background-size: 14px auto;
-    border-radius: 50%;
-}
-
 .dot {
     height: 12px;
     width: 12px;
@@ -106,41 +74,266 @@ buttonlook {
     font-size: 14px;
 }
 
-.container {
-    display: grid;
+
+.nav-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+@media (min-width: 640px) {
+    .nav-container {
+        gap: 2rem;
+    }
+}
+.nav-link {
+    display: flex;
     align-items: center;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 1px;
+    gap: 0.5rem;
+    transition: color 0.3s ease;
 }
 
-h2 {
-    text-align: justify;
-    position: relative;
-    left: 43px;
-    font-size: 25px;
+.nav-link:hover {
+    color: #000000;
 }
 
-h5 {
+.dark .nav-link:hover {
+    color: #ffffff;
+}
+.tech-icon {
+    width: 64px;
+    height: 64px;
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+.tech-icon {
+    filter: invert(0.4);
+}
+.tech-icon:hover {
+    filter: invert(0);
+    transform: scale(1.5);
+}
+.dark .tech-icon:hover {
+    filter: invert(1);
+    transform: scale(1.5);
+}
+.dark .tech-icon:hover {
+    filter: invert(1);
+}
+.squircle {
+    width: 350px;
+    height: 350px;
+    border-radius: 100%;
+    overflow: hidden;
+}
+.section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+@media (min-width: 740px) {
+    .nav-container {
+        display: grid;
+        grid-template-columns: repeat(6, auto);
+        justify-content: center;
+        gap: 2rem;
+    }
+    .squircle {
+        width: 350px;
+        height: 350px;
+    }
+}
+.font-space-mono {
+    font-family: 'Space Mono', monospace;
+}
+.footer-text {
+    transition: letter-spacing 0.8s ease;
+}
+.footer-text:hover {
+    letter-spacing: 4px;
+}
+.button {
+    font-size: 17px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 980px;
+    transition: all 0.3s ease;
+}
+.button-filled {
+    background-color: #ff8c00;
+    color: #000000;
+}
+.button-filled:hover {
+    transform: scale(1.15);
+}
+.button-outlined {
+    background-color: #007AFF;
+    border: 2px solid #007AFF;
+    color: #FFFFFF;
+}
+.button-outlined:hover {
+    transform: scale(1.15);
+}
+.chevron-down {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    40% {
+        transform: translateX(-50%) translateY(-20px);
+    }
+    60% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+}
+.about-text {
+    font-size: 15px; /* Default size for mobile */
+    font: myFont;
     text-align: justify;
     position: relative;
-    font-weight: normal;
-    left: 43px;
-    font-size: 1.5vw;
-    margin-top: -40%;
 }
+
+@media (min-width: 768px) {
+    .about-text {
+        font-size: 17px; /* Larger size for desktop */
+        font: myFont;
+        text-align: justify;
+        position: relative;
+    }
+}
+
+.rdk-hover {
+    text-decoration: underline;
+    cursor: pointer;
+    position: relative;
+}
+
+.rdk-hover::after {
+    content: "What is RDK-B?";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #147eff;
+    color: #282232;
+    padding: 4px 8px;
+    border-radius: 7px;
+    font-size: 16px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.rdk-hover:hover::after {
+    opacity: 1;
+}
+
+.project-thumbnail {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    aspect-ratio: 2 / 1;
+}
+
+.project-thumbnail:hover {
+    transform: scale(1.05);
+}
+
+.project-thumbnail:hover .redirect-icon {
+    opacity: 1;
+}
+
+.redirect-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.redirect-icon svg {
+    color: white;
+    width: 2rem;
+    height: 2rem;
+}
+
+.read-more {
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    text-decoration: underline;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+@media (max-width: 640px) {
+    .projects-container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    
+    .project-tile {
+        margin-bottom: 1rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+
+    }
+}
+
+.repo-actions {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.repo-action {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    color: #718096;
+    transition: color 0.3s ease;
+}
+
+.repo-action:hover {
+    color: #2d3748;
+}
+
+.dark .repo-action:hover {
+    color: #e2e8f0;
+}
+
+
 
 .image {
     position: relative;
-    left: 35%;
+    left: 50%;
     top: 10%;
 }
 
-.streeprechts {
-    position: relative;
-    object-fit: contain;
-    width: 200%;
-    left: 35%;
-}
+
 
 /* Default styles */
 .navbar .menu-icon {
@@ -183,7 +376,6 @@ h5 {
         position: absolute;
         top: 50px; /* Adjust this value to match the height of your navbar */
         width: 100%;
-        background-color: black;
         text-align: center;
         z-index: 1;
     }
@@ -210,35 +402,11 @@ h5 {
     .image {
         margin: 0 auto;
         top: 0px;
-        left: 0%;
+        left: 30%;
     }
 
     .image img {
         border-radius: 20%;
-        max-width: 700px; /* Adjust this value as needed */
-    }
-
-    .text {
-        text-align: center;
-        margin-top: 0px;
-    }
-
-    .streeprechts {
-        left: 5%;
-        width: 250vh;
-        max-width: 600px;
-    }
-
-    h2 {
-        text-align: center;
-        left: 0px;
-        font-size: 5vw;
-        margin-top: 30px;
-    }
-
-    h5 {
-        text-align: center;
-        left: 0px;
-        margin-top: 20px;
+        max-width: 100%; /* Adjust this value as needed */
     }
 }
