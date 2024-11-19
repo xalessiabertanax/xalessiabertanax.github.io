@@ -335,6 +335,10 @@ h3 {
     padding: 0; /* Remove any extra padding */
 }
 
+.icon-container:hover{
+    transform: scale(1.05);   
+}
+
 /* Responsive text and buttons */
 @media screen and (min-width: 640px) {
     h1 {
