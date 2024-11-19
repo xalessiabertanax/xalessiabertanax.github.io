@@ -52,7 +52,7 @@ h2 {
 h3 {
     font-size: 1.3em;
     background: -webkit-linear-gradient(left, #9C83FF, #FF9051);
-    -webkit-background-clip: text;
+
     -webkit-text-fill-color: transparent;
 }
 
