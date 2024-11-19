@@ -323,21 +323,19 @@ h3 {
 .icon-container {
     display: flex;
     justify-content: center;
-    gap: 80px; /* Adjust the gap as needed */
+    gap: 50px; /* Adjust the gap as needed */
     flex-wrap: nowrap; /* Prevent wrapping */
-    margin: 40px; /* Add some space between the title and icons */
+    margin: 30px; /* Add some space between the title and icons */
 }
 
 .icon-container a img {
-    width: 40px; /* Ensure all icons have the same size */
-    height: 40px; /* Ensure all icons have the same size */
+    width: 30px; /* Ensure all icons have the same size */
+    height: 30px; /* Ensure all icons have the same size */
     margin: 0; /* Remove any extra margin */
     padding: 0; /* Remove any extra padding */
 }
 
-.icon-container:hover{
-    transform: scale(1.05);   
-}
+
 
 /* Responsive text and buttons */
 @media screen and (min-width: 640px) {
@@ -391,6 +389,25 @@ h3 {
     .about-text .button {
         font-size: 0.8rem;
         padding: 8px 16px;
+    }
+
+    .icon-container {
+        display: flex;
+        justify-content: center;
+        gap: 80px; /* Adjust the gap as needed */
+        flex-wrap: nowrap; /* Prevent wrapping */
+        margin: 40px; /* Add some space between the title and icons */
+    }
+    
+    .icon-container a img {
+        width: 40px; /* Ensure all icons have the same size */
+        height: 40px; /* Ensure all icons have the same size */
+        margin: 0; /* Remove any extra margin */
+        padding: 0; /* Remove any extra padding */
+    }
+    
+    .icon-container:hover{
+        transform: scale(1.05);   
     }
 }
 
