@@ -1,8 +1,10 @@
+/* Imported font */
 @font-face {
     font-family: myFont;
     src: url(garet.ttf);
 }
 
+/* General settings  */
 * {
     margin: 0;
     padding: 0;
@@ -21,6 +23,14 @@ html {
     overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
+.name{
+    margin: auto;
+    width: 50%;
+
+    align-items: center;
+}
+
+/*Navbar settings*/
 .dot {
     height: 12px;
     width: 12px;
@@ -46,7 +56,6 @@ html {
     padding: 12px 22px;
     text-decoration: none;
     font-size: 14px;
-
 }
 
 .navbar a:hover {
@@ -83,43 +92,7 @@ html {
 }
 
 @media (min-width: 640px) {
-    .nav-container {
-        gap: 2rem;
-    }
-}
-.nav-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: color 0.3s ease;
-}
 
-.nav-link:hover {
-    color: #000000;
-}
-
-.dark .nav-link:hover {
-    color: #ffffff;
-}
-.tech-icon {
-    width: 64px;
-    height: 64px;
-    transition: filter 0.3s ease, transform 0.3s ease;
-}
-.tech-icon {
-    filter: invert(0.4);
-}
-.tech-icon:hover {
-    filter: invert(0);
-    transform: scale(1.5);
-}
-.dark .tech-icon:hover {
-    filter: invert(1);
-    transform: scale(1.5);
-}
-.dark .tech-icon:hover {
-    filter: invert(1);
-}
 .squircle {
     width: 350px;
     height: 350px;
@@ -136,27 +109,7 @@ html {
     opacity: 1;
     transform: translateY(0);
 }
-@media (min-width: 740px) {
-    .nav-container {
-        display: grid;
-        grid-template-columns: repeat(6, auto);
-        justify-content: center;
-        gap: 2rem;
-    }
-    .squircle {
-        width: 350px;
-        height: 350px;
-    }
-}
-.font-space-mono {
-    font-family: 'Space Mono', monospace;
-}
-.footer-text {
-    transition: letter-spacing 0.8s ease;
-}
-.footer-text:hover {
-    letter-spacing: 4px;
-}
+
 .button {
     font-size: 17px;
     font-weight: 600;
@@ -172,8 +125,7 @@ html {
     transform: scale(1.15);
 }
 .button-outlined {
-    background-color: #007AFF;
-    border: 2px solid #007AFF;
+    background-color: rgb(176, 65, 176);
     color: #FFFFFF;
 }
 .button-outlined:hover {
@@ -301,53 +253,12 @@ html {
     }
 }
 
-.repo-actions {
-    display: flex;
-    justify-content: flex-start;
-    gap: 1rem;
-    margin-top: 0.5rem;
-}
+@media (min-width: 740px) {
 
-.repo-action {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    font-size: 0.875rem;
-    color: #718096;
-    transition: color 0.3s ease;
-}
-
-.repo-action:hover {
-    color: #2d3748;
-}
-
-.dark .repo-action:hover {
-    color: #e2e8f0;
-}
-
-
-
-.image {
-    position: relative;
-    left: 50%;
-    top: 10%;
-}
-
-
-
-/* Default styles */
-.navbar .menu-icon {
-    display: none;
-}
-
-.navbar-links {
-    display: none;
-    position: absolute;
-    top: 20px; /* Adjust this value to match the height of your navbar */
-    width: 100%;
-    background-color: black;
-    text-align: center;
-    z-index: 1;
+    .squircle {
+        width: 350px;
+        height: 350px;
+    }
 }
 
 /* Media query for screens smaller than 768px */
@@ -410,3 +321,55 @@ html {
         max-width: 100%; /* Adjust this value as needed */
     }
 }
+
+.repo-actions {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.repo-action {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    color: #718096;
+    transition: color 0.3s ease;
+}
+
+.repo-action:hover {
+    color: #2d3748;
+}
+
+.dark .repo-action:hover {
+    color: #e2e8f0;
+}
+
+
+
+.image {
+    position: relative;
+    left: 50%;
+    top: 10%;
+}
+
+
+
+/* Default styles */
+.navbar .menu-icon {
+    display: none;
+}
+
+.navbar-links {
+    display: none;
+    position: absolute;
+    top: 20px; /* Adjust this value to match the height of your navbar */
+    width: 100%;
+    background-color: black;
+    text-align: center;
+    z-index: 1;
+}
+
+
+  

@@ -6,23 +6,12 @@
     <meta content='width=device-width, initial-scale=1' name='viewport'/>
     <title>Portfolio Website Alessia Bertana</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="assets/dp.jpeg" type="image/jpeg">
 
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        dark: "#0a0a0a",
-                        light: "#fcfbf7",
-                    },
-                },
-            },
-        }
-    </script>
+    <script src="https://unpkg.com/lucide@latest"></script> 
+
+
 </head>
 
 
@@ -65,53 +54,42 @@
         }
     </script>
 
-
-
-    <body class="bg-light dark:bg-dark text-dark dark:text-white min-h-screen flex flex-col font-['Inter'] transition-colors duration-300"></body>
-    <div class="absolute top-8 right-8 z-10">
-        <button id="themeToggle" class="p-2 rounded-lg bg-dark dark:bg-light text-light dark:text-dark w-10 h-10 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-            </svg>
-        </button>
-    </div>    
-
-
     
-    <main class="flex-grow flex flex-col">
-       <!-- Hero Section -->
-        <div class="home">
-            <section class="flex items-center justify-center min-h-screen">
-                <div class="text-center max-w-4xl mx-auto px-4">
-                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-black mb-2 tracking-tighter leading-none">
-                        Alessia Bertana
-                    </h1>
-                    <p class="text-xl md:text-2xl font-semibold mb-8">
-                        <span class="text-gray-600 dark:text-[#C9C9C9]">Human Computer Interaction & </span>
-                        <span class="bg-gradient-to-r from-[#9C83FF] to-[#FF9051] text-transparent bg-clip-text">Design Student</span>
-                    </p>
+    <!-- If I want, add color toggle button again -->
+    <section id="themeToggle"></section>
+    
+
+    <div class="home">
+        <section class="name">
+            <div class="text-center max-w-4xl mx-auto px-4">
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-black mb-2 tracking-tighter leading-none">
+                    Alessia Bertana
+                </h1>
+                <p class="text-xl md:text-2xl font-semibold mb-8">
+                    <span class="text-gray-600 dark:text-[#C9C9C9]">Human Computer Interaction & </span>
+                    <span class="bg-gradient-to-r from-[#9C83FF] to-[#FF9051] text-transparent bg-clip-text">Design Student</span>
+                </p>
 
                     <!-- Buttons -->
-                    <div class="flex justify-center space-x-4 mb-12">
-                        <a href="CurriculumVitaeAlessiaBertana.pdf" download class="button button-filled flex items-center space-x-2">
-                            <span>Resume</span>
-                            <i data-lucide="download" class="w-5 h-5"></i>
-                        </a>
-                        <a href="mailto:alesbertana@gmail.com" class="button button-outlined flex items-center space-x-2">
-                            <span>Contact Me</span>
-                            <i data-lucide="mail" class="w-5 h-5"></i>
-                        </a>
-                    </div>
+                <div class="flex justify-center space-x-4 mb-12">
+                    <a href="CurriculumVitaeAlessiaBertana.pdf" download class="button button-filled flex items-center space-x-2">
+                        <span>Resume</span>
+                        <i data-lucide="download" class="w-5 h-5"></i>
+                    </a>
+                    <a href="mailto:alesbertana@gmail.com" class="button button-outlined flex items-center space-x-2">
+                        <span>Contact Me</span>
+                        <i data-lucide="mail" class="w-5 h-5"></i>
+                    </a>
+               </div>
+            </div>
+            <!-- Add the chevron-down icon -->
+            <a data-scroll href="#about">
+                <div class="chevron-down">
+                    <i data-lucide="chevron-down" class="w-8 h-8"></i>
                 </div>
-                <!-- Add the chevron-down icon -->
-                <a data-scroll href="#about">
-                    <div class="chevron-down">
-                        <i data-lucide="chevron-down" class="w-8 h-8"></i>
-                    </div>
-                </a>
-            </section>
-        </div>         
-    </div>
+            </a>
+        </section>
+    </div>      
 
 
     <!-- About Me Section -->
@@ -147,10 +125,34 @@
         <div class="container mx-auto px-8 sm:px-16">
             <h2 class="text-3xl font-bold mb-16 text-left font-myFont">My Educational Journey</h2>
         </div>
+        <div class='education'>
+            <div class='education__content'>
+                <h5>National University of Computer & Emerging Sciences, Lahore</h5>
+                <span class='year'>2018</span>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores veniam libero sapiente cumque sed, eum ipsa amet! Recusandae, harum aut. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, aliquid.</p>
+              </div>
+              <div class='education__content'>
+                <h5>KIPS Academy, Lahore</h5>
+                <span class='year'>2015</span>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+              </div>
+              <div class='education__content'>
+                <h5>Punjab College, Okara</h5>
+                <span class='year'>2014</span>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores veniam libero sapiente cumque sed, eum ipsa amet! Recusandae, harum aut.</p>
+              </div>
+              <div class='education__content'>
+                <h5>Kahnur Education House, Renala Khurd</h5>
+                <span class='year'>2012</span>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores veniam libero sapiente cumque sed, eum ipsa amet!</p>
+              </div>
+        </div>
     </section>
 
+
+
     <!-- Skills Section -->
-    <section id="hobies" class="section py-16">
+    <section id="hobies" class="section py-16" style="background-color:#f8ede4; color: black;">
         <div class="container mx-auto px-8 sm:px-16">
             <h2 class="text-1.7xl text-left font-myFont">Apart From Work</h2>
             <h2 class="text-3xl font-bold mb-16 text-left font-myFont">You Might Find Me</h2>
@@ -162,7 +164,7 @@
         </div>
     </section>
 
-    
+
    
     <!-- Projects Section -->
     <section id="projects" class="section py-20" style="background-color:#f8ede4; color: black;>
@@ -203,7 +205,7 @@
 
     </main>
     <footer class="w-full py-4 border-t border-gray-300 dark:border-gray-700">
-        <p class="text-center font-myFont text-sm uppercase cursor-pointer footer-text" onclick="rickRoll()">
+        <p class="text-center font-myFont text-sm uppercase cursor-pointer footer-text">
             Portfolio Website Alessia Bertana
         </p>
     </footer>
@@ -279,8 +281,7 @@
 
         // Toggle theme when button is clicked
         themeToggle.addEventListener('click', () => {
-            const isDark = !html.classList.contains('dark');
-            setTheme(isDark);
+            setTheme(!isDark);
         });
 
         // Listen for system preference changes
@@ -292,10 +293,6 @@
 
         // Set initial theme
         setInitialTheme();
-
-        function rickRoll() {
-            window.open("https://www.youtube.com/watch?v=xvFZjo5PgG0", "_blank");
-        }
 
         document.addEventListener('DOMContentLoaded', function() {
             const rdkElements = document.querySelectorAll('.rdk-hover');
