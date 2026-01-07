@@ -1,203 +1,539 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content='width=device-width, initial-scale=1' name='viewport'/>
-    <title>Portfolio Website Alessia Bertana</title>
+    <title>Alessia Bertana | Creative Technologist</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- 1. IMAGE ZOOM & ALIGNMENT FIXES --- */
+        .image-blobs img, .milestone-content img, .project-thumbnail img {
+            filter: none !important;
+            -webkit-filter: none !important;
+        }
+
+        .image-blobs .main-img {
+            object-position: center 25% !important;
+        }
+
+        .image-frame {
+            width: 100%;
+            aspect-ratio: 3 / 2; 
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .image-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            object-position: center center;
+            transition: transform 0.5s ease;
+        }
+
+        .zigzag-timeline .milestone:nth-of-type(4) .image-frame img {
+            object-position: center bottom !important;
+        }
+        
+        .milestone-content.image-block a {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        .milestone-content.image-block:hover img {
+            transform: scale(1.05);
+        }
+
+        /* --- 2. UPDATED OCEAN / TURTLE INTERACTION --- */
+        .ocean-container {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .ocean-wrapper {
+            width: 260px;
+            height: 70px;
+            position: relative;
+            cursor: pointer;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f4f4f5;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+            transition: all 0.5s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* The Trigger Text */
+        .ocean-static-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 5;
+            white-space: nowrap;
+        }
+
+        /* The Water Levels */
+        .ocean-fill {
+            position: absolute;
+            bottom: -150%; 
+            left: 0;
+            width: 100%;
+            height: 150%;
+            background: linear-gradient(180deg, #4facfe 0%, #00f2fe 100%);
+            opacity: 0.9;
+            transition: bottom 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1;
+        }
+
+        .wave {
+            position: absolute;
+            top: -15px;
+            left: 0;
+            width: 200%;
+            height: 30px;
+            background-repeat: repeat-x;
+            background-size: 50% 100%;
+        }
+
+        .wave-front {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 88.7'%3E%3Cpath d='M800 56.9c-155.5 0-204.9-50-405.5-49.9-200 0-250 49.9-394.5 49.9v31.8h800v-.2-31.6z' fill='%234facfe'/%3E%3C/svg%3E");
+            animation: waveMove 4s linear infinite;
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .wave-back {
+            top: -20px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 88.7'%3E%3Cpath d='M800 56.9c-155.5 0-204.9-50-405.5-49.9-200 0-250 49.9-394.5 49.9v31.8h800v-.2-31.6z' fill='%2300f2fe'/%3E%3C/svg%3E");
+            animation: waveMove 6s linear infinite reverse;
+            opacity: 0.6;
+            z-index: 1;
+        }
+
+        /* The Turtle */
+        .turtle-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, 100px) rotate(0deg); 
+            color: #fff;
+            z-index: 10;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+        }
+        
+        .bubble {
+            position: absolute;
+            background: rgba(255,255,255,0.4);
+            border-radius: 50%;
+            bottom: -20px;
+            z-index: 2;
+            animation: rise 2s infinite ease-in;
+        }
+
+        /* --- HOVER STATES --- */
+        .ocean-wrapper:hover .ocean-fill {
+            bottom: 0;
+        }
+        
+        .ocean-wrapper:hover .ocean-static-label {
+            opacity: 0;
+            transform: translate(-50%, -150%);
+        }
+
+        .ocean-wrapper:hover .turtle-icon {
+            transform: translate(-50%, -50%);
+            animation: swimRotate 3s ease-in-out infinite alternate;
+        }
+
+        .caption-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            min-height: 20px;
+            font-style: italic;
+            transition: color 0.3s;
+        }
+        
+        .ocean-wrapper:hover + .caption-text {
+            color: #4facfe;
+            font-style: normal;
+            font-weight: 500;
+        }
+
+        @keyframes waveMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes swimRotate {
+            0% { transform: translate(-50%, -50%) rotate(-5deg); }
+            100% { transform: translate(-50%, -50%) rotate(5deg); }
+        }
+        
+        @keyframes rise {
+            0% { bottom: -10px; transform: translateX(0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { bottom: 100%; transform: translateX(-20px); opacity: 0; }
+        }
+    </style>
 </head>
 <body>
 
-    <!--Navbar-->
-    <div class="navbar">
-        <l>
-            <span class="dot"></span>
-            <strong>  Alessia Bertana</strong>&nbsp HCID Student
-        </l>
-        <l-rechts>
-            <a href="#contact">Contact</a>
-            <a href="#portfolio">Portfolio</a>
-            <a href="#about">About</a>
-            <a href="#home">Home</a>
-        </l-rechts>
-        <span class="menu-icon" onclick="toggleMenu()">
-            <img src="images/menu-icon.png" alt="Menu">
-        </span>
-    </div>
-    <div id="navbar-links" class="navbar-links">
-        <l-rechts>
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#portfolio">Portfolio</a>
-            <a href="#contact">Contact</a>
-        </l-rechts>
-    </div>
+    <div class="cursor"></div>
 
-    <!--Home Screen-->
-    <section class="home">
-        <div class="center">
-            <h1>Alessia Bertana</h1>
-            <h2>Human Computer Interaction &</h2>
-            <h3>Design Student</h3>
-            <div class="button-container">
-                <a href="CurriculumVitaeAlessiaBertana.pdf" class="button orange-button" download>
-                    <img src="images/save.png" alt="Download Icon"> Resume
-                </a>
-                <a href="mailto:alesbertana@gmail.com" class="button pink-button">
-                    <img src="images/emailicon.png" alt="Email Icon"> Contact Me
-                </a>
-                <!-- Add the chevron-down icon -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">Alessia<span class="dot">.</span></div>
+            
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="#work">Work</a></li>
+                    <li><a href="#journey">Journey</a></li>
+                </ul>
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+                    <i data-lucide="moon" class="moon-icon"></i>
+                    <i data-lucide="sun" class="sun-icon"></i>
+                </button>
             </div>
-            <a data-scroll href="#about">
-                <div class="chevron-down">
-                    <img src="images/arrow-down.png" alt="Chevron Down">
-                </div>
-            </a>
-        </div> <br><br><br><br><br><br><br><br><br><br>
-    </section>
+        </div>
+    </nav>
 
+    <section id="hero" class="hero-section">
+        <div class="container hero-layout">
+            
+            <div class="hero-text-content hidden-left">
+                <h1 class="main-title">
+                    Designing <span class="gradient-text">Interactions.</span><br>
+                    Connecting <span class="highlight-text">People.</span>
+                </h1>
+                
+                <h2 class="hero-subtitle">
+                    EIT Digital Master Alumni | UX & Front-End Designer
+                </h2>
+                
+                <p class="hero-desc">
+                    I bridge the gap between design and code, turning user insights into beautiful functional interfaces.
+                </p>
 
-    <!-- About Me Section -->
-    <div class id="about">
-        <div class="about-section">
-            <br><br>
-            <h2>Who Am I?</h2>
-            <div class="about-container">
-                <div class="profile-pic">
-                    <img src="images/About.png" alt="Profile Picture">
+                <div class="cta-wrapper">
+                    <a href="#work" class="btn-primary magnetic">View Portfolio</a>
+                    <a href="about.html" class="btn-text magnetic">My Story <i data-lucide="arrow-right"></i></a>
                 </div>
-                <div class="about-text">
-                    <p>I'm Alessia. An energetic, creative and hardworking person who has a passion for using technology to enhance people's day-to-day lives. Currently in the final year of the double degree master of EIT Digital Master School Human Computer Interaction Technology and Design at the University of Trento (European Institute of Innovation & Technology). Upon completion, specialized in interaction technology and computer science. Want to know more about my previous work? Make sure to check out the section below!</p>
-                    <a href="#portfolio" class="black-button">See What I've Done</a>
+            </div>
+
+            <div class="hero-visual magnetic-wrap hidden-right">
+                <div class="image-blobs">
+                    <img src="images/about.png" alt="Alessia Graduation" class="main-img">
+                    <img src="images/About_creative.png" alt="Alessia Creative" class="creative-img">
                 </div>
-            </div><br><br><br><br><br>
+                <div class="circle-decoration"></div>
+            </div>
         </div>
     </section>
-   
-    <!-- Projects Section -->
-    <section id="portfolio">
-        <div class="projects-section">
-            <h2>Projects</h2>
-            <div id="projects-container">
-                <!-- Example of a project tile -->
-                <div class="project-tile">
-                    <img src="images/BCI.png" style="width: 200px; height: 200px;">
-                    <h4>Brain Computer Interface</h4>
-                    <p>We developed an adaptive version of PacMan that adjusts its game mechanics based on the balance of  cognitive workload and engagement of the participant. We worked with a Unicorn headset to measure the EEG data. </p>
-                </div>
-                <div class="project-tile">
-                    <a href="https://www.figma.com/proto/TSPMwuJXZ2sbC4XqWyk6SJ/Virtual-Reality?node-id=10-79&starting-point-node-id=1%3A2&t=fMtnfddyVuLEB6eX-0&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&locale=en" style="text-decoration: none; color: black;">
-                        <img src="images/VRNS.jpg" style="width: 200px; height: 200px;">
-                        <h4>Virtual Reality Exposure Therapy for Train Staff</h4>
-                        <p>Safety in trains has been a highly public issue at NS and other train providers. The solution we created is a controlled virtual train environment where NS personnel can be gradually and safely guided back into the train again. Exposure therapy is a proven cognitive behavior therapy method which helps patients face their fears in a controlled environment.</p>
-                    </a>
+
+    <section class="about-section">
+        <div class="container">
+            <div class="bio-block hidden-up">
+                <span class="section-label">THE BRIDGE</span> 
+                <h2 class="bio-title">The Creative Technologist.</h2>
+                <p class="bio-text">
+                    I’m Alessia, and I thrive at the <strong>dynamic intersection</strong> of Design and Engineering. 
+                    With a BSc in Creative Technology and a Double Master's in HCI from EIT Digital (28 Digital), 
+                    I always aim to understand both the technical <em>how</em> and the human <em>why</em>.
+                </p>
+                
+                <div class="ocean-container">
+                    <div class="ocean-wrapper" id="oceanBox">
+                        <span class="ocean-static-label">My Approach?</span>
+                        
+                        <div class="ocean-fill">
+                            <div class="wave wave-back"></div>
+                            <div class="wave wave-front"></div>
+                        </div>
+                        
+                        <div class="turtle-icon">
+                            <i data-lucide="turtle" style="width: 36px; height: 36px;"></i>
+                        </div>
                     </div>
-                <div class="project-tile">
-                    <a href="https://essay.utwente.nl/93856/1/Bertana_BA_EEMCS.pdf" style="text-decoration: none; color: black;">
-                        <img src="images/v2g.png" style="width: 200px; height: 200px;">
-                        <h4>Explaining Vehicle to Grid (V2G) through Animation</h4>
-                        <p>I conducted my bachelor thesis at the company Enodes. The topic was about explaining the concept of Vehicle-to-Grid, which refers to using electric cars as a buffer for the electricity grid in the Netherlands. The animation elements were created in Adobe Illustrator and the Animation was made in Adobe After Effects.</p>
-                        <a href="https://www.youtube.com/watch?v=IezSJGvc5SQ">
-                            <button style="background-color: rgb(152, 66, 152); color: white; padding: 4px; margin: 20px;">Check It Out</button>
-                        </a>
-                    </a>      
+                    <p class="caption-text" id="oceanCaption">(Hover to find out)</p>
                 </div>
-                <div class="project-tile">
-                    <img src="/images/desks.png" style="width: 200px; height: 200px;">
-                    <h4>Redesigning Workspace with Maya & Unity</h4>
-                    <p>For a project in my bachelor, I created a workspace within Maya and Unity.</p>
+
+                <br>
+                <a href="about.html" class="btn-primary">Read My Full Story</a>
+            </div>
+            
+            <div class="toolkit-block hidden-up">
+                <h3>Technical Toolkit</h3>
+                <div class="skill-cloud">
+                    <span>Figma</span>
+                    <span>HTML/CSS/JS</span>
+                    <span>Power BI</span>
+                    <span>Python</span>
+                    <span>Arduino & Sensors</span>
+                    <span>User Research</span>
+                    <span>Prototyping</span>
+                    <span>Storytelling</span>
                 </div>
-                <div class="project-tile">
-                    <a href="https://youngsolarchallenge.nl/young-solar-teams/" style="text-decoration: none; color: black;">
-                        <img src="images/solarteam.JPG" style="width: 200px; height: 200px;">
-                        <h4>Young Solar Competition</h4>
-                        <p>With a team of seven, we built a solar boat from scratch and competed in the national Young Solar Boat Challenge.</p>
-                    </a>
-                </div> <br><br><br><br><br><br>
-                <!-- Add more project tiles as needed -->
             </div>
         </div>
     </section>
 
-    <!-- Skills Section 
-    <section id="hobies" style="background-color:#f8ede4; color: black;">
-        <h2>Apart From Work</h2>
-        <h2>You Might Find Me</h2>
-            <img src="images/swimming.png" style="width: 100px; height: 100px;">
-            <img src="images/sushi.png" style="width: 100px; height: 100px;">
-            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/python.svg" style="width: 100px; height: 100px;">
-    </section>
-    -->
+    <section id="work" class="portfolio-section">
+        <div class="container">
+            <h2 class="section-header align-left hidden-left">Case Studies <span class="dot">.</span></h2>
+            <p class="section-subtitle hidden-left">Iterative projects from user research studies to real-world implementations.</p>
+            
+            <div class="project-list">
+                
+                <div class="project-item featured hidden-up">
+                    <div class="project-text">
+                        <span class="project-year">2025</span>
+                        <h3>Baker Hughes <span class="badge">Enterprise</span></h3>
+                        <p class="project-desc">A year-long digital transformation journey. I created an automated Power BI dashboard, created various MVP's in figma for an application that should gather pain points from customer-facing personnel, and built an e-learning module on through storytelling.</p>
+                        <div class="tech-row">
+                            <span>Figma</span><span>Power Automate</span><span>Storyline 360</span>
+                        </div>
+                    </div>
+                    <div class="project-thumbnail">
+                        <img src="images/BakerHughes.jpeg" alt="Baker Hughes">
+                        <a href="https://purl.utwente.nl/essays/108870" target="_blank" class="thumb-overlay">View Master Thesis <i data-lucide="external-link" style="margin-left:5px; width:16px;"></i></a>
+                    </div>
+                </div>
 
-    <!-- Navigation Links Section -->
-    <section id="contact" style="border-top: 0.7px solid grey">
-        <div class="contact-section">
-            <h2>Connect with me</h2>
-            <nav class="icon-container">
-                <a href="CurriculumVitaeAlessiaBertana.pdf" download>
-                    <img src="images/savewhite.png">
-                </a>
-                <a href="https://www.linkedin.com/in/alessiabertana">
-                    <img src="images/linkedinicon.png">
-                </a>
-                <a href="https://www.instagram.com/xalessiabertanax/">
-                    <img src="images/instagram.png">
-                </a>
-                <a href="mailto:alesbertana@gmail.com">
-                    <img src="images/emailicon.png">
-                </a>
-            </nav>
+                <div class="project-item hidden-up">
+                    <div class="project-text">
+                        <span class="project-year">2024</span>
+                        <h3>Multisensory ASL Glove</h3>
+                        <p class="project-desc">
+                            A haptic glove designed to teach American Sign Language. I engineered the hardware (flex sensors & actuators) and handled Serial communication between Arduino and Processing to test if multimodal feedback improves memory retention.
+                        </p>
+                        <div class="tech-row">
+                            <span>Arduino</span><span>Processing</span><span>Physical Computing</span><span>UX Research</span>
+                        </div>
+                    </div>
+                    <div class="project-thumbnail">
+                        <img src="images/glove.jpeg" alt="ASL Glove Project">
+                        <a href="https://lnkd.in/evK4-MzM" target="_blank" class="thumb-overlay">View Project <i data-lucide="external-link" style="margin-left:5px; width:16px;"></i></a>
+                    </div>
+                </div>
+
+                <div class="project-item hidden-up">
+                    <div class="project-text">
+                        <span class="project-year">2023</span>
+                        <h3>Brain Computer Interface</h3>
+                        <p class="project-desc">Adaptive PacMan game mechanics that respond to real-time EEG cognitive workload data. I handled the logic in processing to adjust game mechanics based on obtained brain data.</p>
+                        <div class="tech-row">
+                            <span>Python</span><span>Unicorn Headset</span><span>UX Research</span>
+                        </div>
+                    </div>
+                    <div class="project-thumbnail">
+                        <img src="images/BCI.png" alt="BCI">
+                        <a href="#" class="thumb-overlay">View Report</a>
+                    </div>
+                </div>
+
+                <div class="project-item hidden-up">
+                    <div class="project-text">
+                        <span class="project-year">2023</span>
+                        <h3>VR Exposure Therapy</h3>
+                        <p class="project-desc">A virtual reality environment designed to help train staff to get back on the train after the occurence of a traumatizing event. In a team of six, I handled all the Virtual Reality and created levels that users should complete.</p>
+                        <div class="tech-row">
+                            <span>Unity</span><span>C#</span>
+                        </div>
+                    </div>
+                    <div class="project-thumbnail">
+                        <img src="images/VRNS.jpg" alt="VR">
+                        <a href="https://www.figma.com/proto/TSPMwuJXZ2sbC4XqWyk6SJ/Virtual-Reality?node-id=1-45&starting-point-node-id=1%3A2&t=sJBiMdrrijxHWExI-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&locale=en" target="_blank" class="thumb-overlay">View Figma <i data-lucide="external-link" style="margin-left:5px; width:16px;"></i></a>
+                    </div>
+                </div>
+
+                <div class="project-item hidden-up">
+                    <div class="project-text">
+                        <span class="project-year">2023</span>
+                        <h3>Vehicle-to-Grid</h3>
+                        <p class="project-desc">Animation and storytelling to explain complex energy transition concepts. I conducted interviews with the biggest actors in the V2G industry in the Netherlands, learned how to work with various Adobe Applications, and completed my Bachelor Thesis assignment for Enodes.</p>
+                        <div class="tech-row">
+                            <span>Animation</span><span>Storytelling</span><span>Adobe Illustrator</span><span>Adobe After Effects</span>
+                        </div>
+                    </div>
+                    <div class="project-thumbnail">
+                        <img src="images/v2g.jpg" alt="V2G">
+                        <a href="https://www.youtube.com/watch?v=IezSJGvc5SQ" target="_blank" class="thumb-overlay">View Video <i data-lucide="youtube" style="margin-left:5px; width:16px;"></i></a>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
 
+    <section id="journey" class="journey-section">
+        <div class="container">
+            <h2 class="section-header align-left hidden-left">My Route <span class="dot">.</span></h2>
+            <div class="zigzag-timeline">
+                <div class="timeline-line"></div>
+                
+                <div class="milestone hidden-right">
+                    <div class="milestone-content text-block">
+                        <span class="year">2024 - 2025</span>
+                        <h3>University of Trento (Exit)</h3>
+                        <h4>MSc Computer Science</h4>
+                        <p>Specialization in Computer Science. Final Thesis on developing an automated training evaluation dashboard for Baker Hughes.</p>
+                    </div>
+                    <div class="milestone-content image-block">
+                        <div class="image-frame tilt-right">
+                            <a href="https://www.unitn.it/en" target="_blank" title="Visit UniTrento">
+                                <img src="images/EITGraduationCeremony.jpeg" alt="EIT Graduation">
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
-    <footer style="background-color: black; color: white; border-top: 0.7px solid grey; padding: 14px; text-align: center">
-        <p>Portfolio Website Alessia Bertana  </p>
-    </footer>
+                <div class="milestone reverse hidden-left">
+                    <div class="milestone-content image-block">
+                        <div class="image-frame tilt-left">
+                            <a href="https://www.utwente.nl/en/" target="_blank" title="Visit UTwente">
+                                <img src="images/University-of-twente-letters.jpg" alt="Twente Master">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="milestone-content text-block">
+                        <span class="year">2023 - 2024</span>
+                        <h3>University of Twente (Entry)</h3>
+                        <h4>MSc Interaction Technology</h4>
+                        <p>Focus on Interaction Technology and User Experience.</p>
+                    </div>
+                </div>
 
+                <div class="milestone hidden-right">
+                    <div class="milestone-content text-block">
+                        <span class="year">2019 - 2023</span>
+                        <h3>BSc Creative Technology</h3>
+                        <h4>University of Twente</h4>
+                        <p>The foundation. Rapid prototyping, sensors, and physical computing.</p>
+                    </div>
+                    <div class="milestone-content image-block">
+                        <div class="image-frame tilt-right">
+                            <a href="https://www.utwente.nl/en/education/bachelor/creative-technology/" target="_blank" title="Visit Create Degree">
+                                <img src="images/Bachelor.jpg" alt="Bachelor">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="milestone reverse hidden-left">
+                    <div class="milestone-content image-block">
+                        <div class="image-frame tilt-left">
+                            <a href="https://www.upv.es/en" target="_blank" title="Visit UPV">
+                                <img src="images/palms.jpeg" alt="Valencia Minor">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="milestone-content text-block">
+                        <span class="year">2023</span>
+                        <h3>Minor in Valencia</h3>
+                        <h4>Universitat Politècnica de València</h4>
+                        <p>Expanded my technical skillset with CAD and UI Wireframing while immersing myself in Spanish culture.</p>
+                    </div>
+                </div>
+
+                <div class="milestone hidden-right">
+                    <div class="milestone-content text-block">
+                        <span class="year">2017 - 2018</span>
+                        <h3>Rotary Youth Exchange</h3>
+                        <h4>Colegio San Tomaso | Ecuador</h4>
+                        <p>A transformative year in Portoviejo. I learned fluent Spanish, adaptability, and how to navigate entirely new environments.</p>
+                    </div>
+                    <div class="milestone-content image-block">
+                        <div class="image-frame tilt-right">
+                            <a href="https://www.rotary.org/en/our-programs/youth-exchanges" target="_blank" title="Rotary Youth Exchange">
+                                <img src="images/colegio.JPG" alt="Exploring Ecuador">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-header hidden-up">Let's Connect <span class="dot">.</span></h2>
+            
+            <p class="contact-subtitle hidden-up delay-100" style="max-width: 600px; margin: 0 auto 40px auto; line-height: 1.6;">
+                Whether you need a UX designer who codes, a facilitator for your workshop, or just want to chat about design, travel, and building the future - I'm here for it!
+            </p>
+            
+            <a href="mailto:alesbertana@gmail.com" class="big-email-center hidden-up delay-200">Email Me</a>
+
+            <div class="social-links hidden-up delay-200" style="margin-top: 40px;">
+                <a href="https://linkedin.com/in/alessiabertana" target="_blank" class="social-icon"><i data-lucide="linkedin"></i></a>
+                <a href="https://instagram.com/xalessiabertanax" target="_blank" class="social-icon"><i data-lucide="instagram"></i></a>
+            </div>
+            
+            <footer class="simple-footer hidden-up delay-300">
+                <p>&copy; 2026 Alessia Bertana. Designed with Energy ⚡</p>
+            </footer>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    
     <script>
-        function toggleMenu() {
-            var x = document.getElementById("navbar-links");
-            if (x.style.display === "block") {
-                x.style.display = "none";
-            } else {
-                x.style.display = "block";
-            }
+        const ocean = document.getElementById('oceanBox');
+        const caption = document.getElementById('oceanCaption');
+        let bubbleInterval;
+
+        function createBubble() {
+            const fill = ocean.querySelector('.ocean-fill');
+            if(!fill) return;
+
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble');
+            const size = Math.random() * 8 + 4 + 'px';
+            bubble.style.width = size;
+            bubble.style.height = size;
+            bubble.style.left = Math.random() * 100 + '%';
+            bubble.style.animationDuration = Math.random() * 2 + 1 + 's';
+            
+            fill.appendChild(bubble);
+
+            setTimeout(() => { bubble.remove(); }, 3000);
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            lucide.createIcons();
-            createProjectTiles();
+        ocean.addEventListener('mouseenter', () => {
+            // New "Reveal" text
+            caption.innerText = "Boundless Energy & Empathy";
+            bubbleInterval = setInterval(createBubble, 250);
         });
 
-        function createProjectTiles() {
-            const projectsContainer = document.getElementById('projects-container');
+        ocean.addEventListener('mouseleave', () => {
+            caption.innerText = "(Hover to find out)";
+            clearInterval(bubbleInterval);
+            const bubbles = ocean.querySelectorAll('.bubble');
+            bubbles.forEach(b => b.remove());
+        });
 
-            // Example project data
-            const projects = [
-                { title: 'Project 1', description: 'Description of project 1', icon: 'icon1' },
-                { title: 'Project 2', description: 'Description of project 2', icon: 'icon2' },
-                { title: 'Project 3', description: 'Description of project 3', icon: 'icon3' },
-                // Add more projects as needed
-            ];
-
-            projects.forEach(project => {
-                const projectTile = document.createElement('div');
-                projectTile.classList.add('project-tile');
-
-                projectTile.innerHTML = `
-                    <div class="project-icon">
-                        <i data-lucide="${project.icon}"></i>
-                    </div>
-                    <h3>${project.title}</h3>
-                    <p>${project.description}</p>
-                `;
-
-                projectsContainer.appendChild(projectTile);
-            });
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
         }
     </script>
-
 </body>
 </html>
