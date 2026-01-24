@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expat Matchmaker - Start Your Journey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- STYLING: TRAVEL VIBE & GLASSMORPHISM --- */
+        :root {
+            --primary: #FF6B6B; /* Warm Coral */
+            --primary-hover: #ee5253;
+            --text-dark: #2d3436;
+            --glass-bg: rgba(255, 255, 255, 0.95);
+            --glass-border: rgba(255, 255, 255, 0.5);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            /* High Res Background Image */
+            background: url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed; 
+            background-size: cover;
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
+        }
+
+        /* Dark overlay for readability */
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 40px auto;
+        }
+
+        /* MAIN CARD (GLASS EFFECT) */
+        .wizard-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            border: 1px solid var(--glass-border);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        h1 { margin: 0 0 10px 0; color: #2d3436; font-weight: 600; }
+        p.subtitle { color: #636e72; margin-bottom: 30px; font-size: 0.95em; }
+
+        /* INPUT STYLING */
+        .form-group { margin-bottom: 20px; text-align: left; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9em; color: #555; }
+        
+        input, select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #dfe6e9;
+            border-radius: 12px;
+            font-size: 16px;
+            background: #fff;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* BUTTON STYLING */
+        button.cta-btn {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+        button.cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        /* LOADING ANIMATION */
+        #loader {
+            display: none;
+            text-align: center;
+            padding: 40px 0;
+        }
+        .spinner {
+            width: 50px; height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px auto;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .loading-text { font-style: italic; color: #666; animation: fadeIn 0.5s; }
+
+        /* RESULTS SECTION */
+        #results-section { display: none; text-align: left; }
+        
+        .result-card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            border-left: 6px solid var(--primary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .badge {
+            background: #e0f2f1; color: #00695c;
+            padding: 4px 8px; border-radius: 4px; font-size: 0.75em; font-weight: bold;
+            display: inline-block; margin-bottom: 5px;
+        }
+
+        /* UPSELL BOX */
+        .upsell-box {
+            background: #fff0f0;
+            border: 2px dashed #ffb8b8;
+            padding: 25px;
+            text-align: center;
+            border-radius: 12px;
+            margin-top: 30px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .wizard-card { padding: 25px; }
+            h1 { font-size: 1.5em; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="overlay"></div>
+
+<div class="container">
+    <div class="wizard-card" id="main-card">
+        
+        <div id="input-section">
+            <h1>🌍 Ready for Departure?</h1>
+            <p class="subtitle">Find the city that matches your budget, career, and dreams.</p>
+
+            <div class="form-group">
+                <label>💼 What is your profession?</label>
+                <input type="text" id="jobTitle" placeholder="e.g. Graphic Designer, Developer, Writer">
+            </div>
+            
+            <div class="form-group">
+                <label>💰 Monthly Budget (Rent + Living)?</label>
+                <select id="budget">
+                    <option value="" disabled selected>Choose your budget...</option>
+                    <option value="1000">Up to €1,000 (Low Cost)</option>
+                    <option value="2000">€1,000 - €2,000 (Comfortable)</option>
+                    <option value="3500">€2,000 - €3,500 (Western Standard)</option>
+                    <option value="5000">€3,500+ (Luxury)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>🌴 What is your Vibe?</label>
+                <select id="vibe">
+                    <option value="chill">Chill, Nature & Beach</option>
+                    <option value="city">Bustling City & Nightlife</option>
+                    <option value="nomad">Digital Nomad Community & WiFi</option>
+                </select>
+            </div>
+
+            <button class="cta-btn" onclick="startSearch()">🚀 Find My Destination</button>
+        </div>
+
+        <div id="loader">
+            <div class="spinner"></div>
+            <div class="loading-text" id="loading-msg">Connecting to global database...</div>
+        </div>
+
+        <div id="results-section">
+            <h2 style="text-align:center; color: var(--text-dark);">Your Top 3 Matches ✨</h2>
+            <div id="matches-container"></div>
+
+            <div class="upsell-box">
+                <h3>📦 Want everything sorted?</h3>
+                <p>Save 40+ hours of research. Download your personalized <strong>Expat Roadmap</strong>.</p>
+                <ul style="text-align: left; list-style: none; padding: 0; font-size: 0.9em; margin: 15px 0;">
+                    <li>✅ Visa roadmap & Checklists</li>
+                    <li>✅ Best neighborhoods in <span id="upsell-city">your top city</span></li>
+                    <li>✅ Tax rules for <span id="upsell-job">your job</span></li>
+                </ul>
+                <button class="cta-btn" onclick="alert('This redirects to the payment page (€19)')">Download Report (€19)</button>
+            </div>
+            
+            <p style="text-align:center; margin-top:20px; font-size:0.8em; color:#888; cursor:pointer;" onclick="location.reload()">🔄 Start over</p>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // FAKE DATABASE
+    const citiesDatabase = [
+        { name: "Valencia", country: "Spain", cost: 1600, vibe: "chill", job_score: 70 },
+        { name: "Canggu", country: "Bali", cost: 1400, vibe: "nomad", job_score: 60 },
+        { name: "Lisbon", country: "Portugal", cost: 1900, vibe: "nomad", job_score: 80 },
+        { name: "Berlin", country: "Germany", cost: 2400, vibe: "city", job_score: 90 },
+        { name: "Medellin", country: "Colombia", cost: 1100, vibe: "city", job_score: 50 },
+        { name: "Cape Town", country: "South Africa", cost: 1300, vibe: "chill", job_score: 60 },
+        { name: "Tokyo", country: "Japan", cost: 2800, vibe: "city", job_score: 85 },
+        { name: "Tulum", country: "Mexico", cost: 2200, vibe: "chill", job_score: 40 }
+    ];
+
+    function startSearch() {
+        const job = document.getElementById('jobTitle').value;
+        const budget = document.getElementById('budget').value;
+        
+        if(!job || !budget) {
+            alert("Please fill in all fields so we can find your perfect match! 😉");
+            return;
+        }
+
+        // 1. HIDE INPUT, SHOW LOADER
+        document.getElementById('input-section').style.display = 'none';
+        document.getElementById('loader').style.display = 'block';
+
+        // 2. SIMULATE "AI COMPUTATION" (Theatrics)
+        const msgs = document.getElementById('loading-msg');
+        setTimeout(() => { msgs.innerText = `Searching jobs for '${job}'...` }, 800);
+        setTimeout(() => { msgs.innerText = "Analyzing cost of living..." }, 1600);
+        setTimeout(() => { msgs.innerText = "Checking visa requirements..." }, 2400);
+
+        // 3. SHOW RESULTS AFTER 3.5 SECONDS
+        setTimeout(() => {
+            calculateAndShowResults(job, parseInt(budget));
+        }, 3200);
+    }
+
+    function calculateAndShowResults(job, budget) {
+        document.getElementById('loader').style.display = 'none';
+        document.getElementById('results-section').style.display = 'block';
+
+        const vibePref = document.getElementById('vibe').value;
+
+        // Filter & Sort logic
+        let matches = citiesDatabase.filter(c => c.cost <= (budget + 200)); // Margin of error
+        
+        matches.sort((a, b) => {
+            // Simple score: Vibe match is priority
+            let scoreA = (a.vibe === vibePref ? 1000 : 0) + (budget - a.cost);
+            let scoreB = (b.vibe === vibePref ? 1000 : 0) + (budget - b.cost);
+            return scoreB - scoreA;
+        });
+
+        const top3 = matches.slice(0, 3);
+        const container = document.getElementById('matches-container');
+        container.innerHTML = "";
+
+        if(top3.length === 0) {
+            container.innerHTML = "<p>Wow, tight budget! Have you considered Southeast Asia?</p>";
+        } else {
+            top3.forEach((city, index) => {
+                const savings = budget - city.cost;
+                const savingsText = savings > 0 ? `You save €${savings} /mo` : "Fits budget tightly";
+                
+                container.innerHTML += `
+                    <div class="result-card">
+                        <div class="badge">#${index + 1} Match</div>
+                        <h3 style="margin: 5px 0; color: #2d3436;">${city.name}, ${city.country}</h3>
+                        <p style="font-size: 0.9em; color: #636e72;">
+                            🎒 Vibe: ${city.vibe.toUpperCase()}<br>
+                            💶 Cost: ~€${city.cost} / month
+                        </p>
+                        <div style="font-weight: bold; color: #27ae60; font-size: 0.9em;">
+                            ✨ ${savingsText}
+                        </div>
+                    </div>
+                `;
+            });
+            // Update upsell text dynamically
+            document.getElementById('upsell-city').innerText = top3[0].name;
+            document.getElementById('upsell-job').innerText = job;
+        }
+    }
+</script>
+
+</body>
+</html>

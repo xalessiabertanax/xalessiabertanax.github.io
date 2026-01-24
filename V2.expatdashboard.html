@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExpatMatch - The Relocation Intelligence Platform</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FF6B6B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'></path><circle cx='12' cy='10' r='3' fill='%23FF6B6B' stroke='none'></circle></svg>">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <style>
+        /* --- BRANDING & VARS --- */
+        :root {
+            --primary: #FF6B6B; 
+            --primary-gradient: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            --glass-bg: rgba(255, 255, 255, 0.96);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --bg-gray: #f8f9fa;
+            --success: #00b894;
+            --warning: #fdcb6e;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0; padding: 0;
+            background: url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--text-dark);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- UI UTILS --- */
+        .brand-header-flex { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .sidebar .brand-header-flex { justify-content: flex-start; margin-bottom: 15px; }
+        .brand-icon { width: 32px; height: 32px; }
+        .brand-logo {
+            font-size: 32px; font-weight: 800; letter-spacing: -1px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        /* --- SCREEN 1: WIZARD --- */
+        #landing-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 2000; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px);
+            transition: opacity 0.5s ease;
+        }
+        .wizard-card {
+            background: var(--glass-bg); padding: 40px 50px; border-radius: 24px;
+            width: 90%; max-width: 550px; box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+            border: 1px solid white; text-align: center;
+        }
+
+        .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: left; }
+        .full-width { grid-column: span 2; }
+        .form-group { margin-bottom: 5px; }
+        
+        label { font-weight: 600; font-size: 0.75em; text-transform: uppercase; color: #b2bec3; letter-spacing: 1px; display: block; margin-bottom: 5px; }
+        
+        select, input {
+            width: 100%; padding: 12px; 
+            border: 2px solid #dfe6e9; border-radius: 10px;
+            font-size: 14px; font-family: 'Poppins', sans-serif;
+            background-color: white; transition: 0.3s; appearance: none;
+        }
+        select {
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FF6B6B%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat; background-position: right 15px top 50%; background-size: 10px auto;
+        }
+        select:focus, input:focus { outline: none; border-color: #FF6B6B; box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.1); }
+
+        button.cta-btn {
+            background: var(--primary-gradient); color: white; border: none;
+            padding: 16px; width: 100%; border-radius: 50px; font-size: 16px; font-weight: 700;
+            cursor: pointer; margin-top: 20px; box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+            transition: transform 0.2s;
+        }
+        button.cta-btn:hover { transform: translateY(-3px); }
+
+        /* --- SCREEN 2: LOADER --- */
+        #loading-screen {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: white; z-index: 2500;
+            flex-direction: column; align-items: center; justify-content: center; text-align: center;
+        }
+        .spinner {
+            width: 50px; height: 50px; border: 4px solid #f3f3f3;
+            border-top: 4px solid #FF6B6B; border-radius: 50%;
+            animation: spin 1s linear infinite; margin-bottom: 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* --- SCREEN 3: MAIN APP --- */
+        #main-app { display: none; height: 100%; width: 100%; position: relative; opacity: 0; transition: opacity 0.5s ease; }
+        #map { height: 100%; width: 100%; z-index: 1; }
+
+        .sidebar {
+            position: absolute; top: 20px; left: 20px; bottom: 20px; width: 360px;
+            background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(15px);
+            border-radius: 20px; padding: 25px; z-index: 1000;
+            display: flex; flex-direction: column; border: 1px solid white;
+            box-shadow: 10px 0 30px rgba(0,0,0,0.1);
+        }
+
+        .profile-summary {
+            background: #f8f9fa; border-radius: 12px; padding: 15px; margin-bottom: 20px;
+            border: 1px solid #eee; display: flex; gap: 10px; align-items: center;
+        }
+        .profile-text { font-size: 0.8em; color: #636e72; line-height: 1.4; }
+        .profile-edit { color: #FF6B6B; font-weight: 700; cursor: pointer; text-decoration: underline; margin-left: auto; font-size: 0.8em;}
+
+        .match-card {
+            background: white; padding: 15px; border-radius: 12px;
+            margin-bottom: 10px; border: 1px solid #f1f2f6; border-left: 5px solid #FF6B6B;
+            cursor: pointer; transition: 0.2s; display: flex; justify-content: space-between; align-items: center;
+        }
+        .match-card:hover { transform: translateX(5px); box-shadow: 0 5px 10px rgba(0,0,0,0.05); }
+
+        .premium-teaser {
+            margin-top: auto; background: #2d3436; color: white; padding: 20px;
+            border-radius: 16px; text-align: center; cursor: pointer; transition: 0.2s;
+            background-image: linear-gradient(45deg, #2d3436 0%, #000000 100%);
+        }
+        .premium-teaser:hover { transform: scale(1.02); }
+
+        /* --- MODAL STYLING (THE HUB) --- */
+        #city-modal, #true-match-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 4000;
+            align-items: center; justify-content: center;
+        }
+        .modal-card {
+            background: #fff; width: 95%; max-width: 800px; max-height: 90vh;
+            border-radius: 24px; overflow: hidden; display: flex; flex-direction: column;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3); animation: slideUp 0.3s ease;
+        }
+        @keyframes slideUp { from {transform: translateY(50px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
+
+        .modal-header-img {
+            height: 160px; background: var(--primary-gradient); position: relative;
+            padding: 30px; color: white; display: flex; flex-direction: column; justify-content: flex-end;
+        }
+        .close-btn-abs { position: absolute; top: 20px; right: 20px; font-size: 28px; cursor: pointer; color: rgba(255,255,255,0.8); }
+        .modal-tabs { display: flex; background: white; border-bottom: 1px solid #eee; }
+        .tab-btn {
+            flex: 1; text-align: center; padding: 15px; cursor: pointer;
+            font-weight: 600; color: #b2bec3; font-size: 0.9em;
+            border-bottom: 3px solid transparent; transition: 0.2s;
+        }
+        .tab-btn.active { color: #FF6B6B; border-bottom-color: #FF6B6B; }
+        .modal-body { padding: 30px; overflow-y: auto; background: #fff; flex-grow: 1; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* --- ORGANIZED CONTENT BLOCKS (NEW) --- */
+        h3 { font-size: 1.0em; text-transform: uppercase; letter-spacing: 1px; color: #b2bec3; margin: 30px 0 15px 0; }
+        h3:first-child { margin-top: 0; }
+        
+        /* 1. BENEFIT CARD */
+        .benefit-card {
+            background: linear-gradient(135deg, #fffbeb 0%, #fff 100%);
+            border: 1px solid #fcd34d; border-radius: 12px; padding: 15px 20px;
+            display: flex; align-items: center; gap: 15px; margin-bottom: 20px;
+        }
+        .benefit-icon { font-size: 24px; background: #fff; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+
+        /* 2. COST CARD (Simplified) */
+        .cost-card {
+            background: var(--bg-gray); border-radius: 12px; padding: 20px;
+            display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;
+        }
+        .cost-row { display: flex; justify-content: space-between; font-size: 0.9em; color: #636e72; }
+        .cost-total { border-top: 1px solid #dfe6e9; padding-top: 10px; font-weight: 700; font-size: 1.1em; color: var(--text-dark); display: flex; justify-content: space-between; }
+
+        /* 3. PDF UPSELL (Dark) */
+        .pdf-card {
+            background: #2d3436; color: white; border-radius: 12px; padding: 20px;
+            display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; cursor: pointer; transition: 0.2s;
+        }
+        .pdf-card:hover { transform: scale(1.02); }
+        .pdf-btn { background: #FF6B6B; padding: 8px 15px; border-radius: 20px; font-weight: 700; font-size: 0.85em; }
+
+        /* 4. TOOLKIT LIST (Cleaner than Grid) */
+        .toolkit-list { display: flex; flex-direction: column; gap: 10px; }
+        .tool-item {
+            display: flex; align-items: center; gap: 15px; padding: 15px;
+            border: 1px solid #eee; border-radius: 12px; cursor: pointer; transition: 0.2s;
+        }
+        .tool-item:hover { border-color: #FF6B6B; background: #fff5f5; }
+        .tool-icon { font-size: 20px; width: 40px; text-align: center; }
+        .tool-content { flex-grow: 1; }
+        .tool-title { font-weight: 600; font-size: 0.9em; color: #2d3436; display: block; }
+        .tool-sub { font-size: 0.75em; color: #999; }
+        .tool-arrow { color: #ccc; }
+
+        /* General Tags & Status */
+        .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+        .data-tag { background: #f1f2f6; padding: 5px 10px; border-radius: 6px; font-size: 0.8em; color: #636e72; font-weight: 600; }
+        .visa-box { padding: 15px; border-radius: 10px; margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
+        .visa-green { background: #e6fffa; border: 1px solid #b2f5ea; color: #00695c; }
+        .visa-orange { background: #fff7ed; border: 1px solid #ffedd5; color: #9a3412; }
+
+        /* Funnel & Checkout */
+        .tm-container { width: 90%; max-width: 500px; text-align: center; background: white; padding: 40px; border-radius: 24px; position: relative; }
+        .tm-step { display: none; animation: fadeIn 0.5s; }
+        .tm-step.active { display: block; }
+        .quiz-option { background: white; border: 2px solid #eee; padding: 15px; border-radius: 12px; margin-bottom: 10px; cursor: pointer; text-align: left; transition: 0.2s; display: flex; align-items: center; gap: 10px; }
+        .quiz-option:hover, .quiz-option.selected { border-color: #FF6B6B; background: #fff5f5; }
+        .tm-loader { width: 100%; height: 6px; background: #eee; border-radius: 3px; margin: 20px 0; overflow: hidden; }
+        .tm-bar { height: 100%; background: var(--primary-gradient); width: 0%; transition: width 3s linear; }
+        .checkout-box { background: #f8f9fa; border: 1px solid #eee; padding: 20px; border-radius: 16px; margin: 20px 0; text-align: left; }
+        .checkout-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9em; }
+        .checkout-total { border-top: 1px solid #ddd; padding-top: 10px; font-weight: 800; font-size: 1.1em; margin-top: 10px; }
+
+    </style>
+</head>
+<body>
+
+<div id="landing-screen">
+    <div class="wizard-card">
+        <div class="brand-header-flex">
+            <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="url(#p-grad-1)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <defs><linearGradient id="p-grad-1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#FF6B6B"/><stop offset="100%" style="stop-color:#FF8E53"/></linearGradient></defs>
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3" fill="url(#p-grad-1)" stroke="none"></circle>
+            </svg>
+            <div class="brand-logo">ExpatMatch</div>
+        </div>
+        <p style="color:#636e72; margin-bottom: 25px;">Intelligent relocation based on your citizenship & situation.</p>
+        <div class="input-grid">
+            <div class="form-group full-width"><label>I hold a passport from...</label><select id="w-passport"><option value="eu">🇪🇺 EU / EEA / Switzerland</option><option value="usa">🇺🇸 United States</option><option value="uk">🇬🇧 United Kingdom</option><option value="other">🌍 Other (Global)</option></select></div>
+            <div class="form-group full-width"><label>My Profession</label><input type="text" id="w-job-title" placeholder="e.g. Software Engineer"></div>
+            <div class="form-group"><label>Moving with...</label><select id="w-status"><option value="1">👤 Solo</option><option value="1.6">👥 Partner</option><option value="2.3">👨‍👩‍👧 Family</option></select></div>
+            <div class="form-group"><label>Work</label><select id="w-work"><option value="remote">💻 Remote</option><option value="local">💼 Local Job</option><option value="business">🚀 Starting Biz</option></select></div>
+            <div class="form-group full-width"><label>Total Budget (€)</label><input type="number" id="w-budget" placeholder="e.g. 2500"></div>
+            <div class="form-group full-width"><label>Vibe</label><select id="w-vibe"><option value="sun">Sun & Life</option><option value="tech">Career Hub</option><option value="culture">Culture</option></select></div>
+        </div>
+        <button class="cta-btn" onclick="calculateAndStart()">Generate Matches</button>
+    </div>
+</div>
+
+<div id="loading-screen">
+    <div class="spinner"></div>
+    <div class="loading-text" id="load-msg">Analyzing Visa Requirements...</div>
+</div>
+
+<div id="main-app">
+    <div id="map"></div>
+    <div class="sidebar">
+        <div class="brand-header-flex">
+            <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="url(#p-grad-2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <defs><linearGradient id="p-grad-2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#FF6B6B"/><stop offset="100%" style="stop-color:#FF8E53"/></linearGradient></defs>
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3" fill="url(#p-grad-2)" stroke="none"></circle>
+            </svg>
+            <div class="brand-logo" style="font-size: 24px;">ExpatMatch</div>
+        </div>
+        <div class="profile-summary">
+            <div class="profile-icon">👤</div>
+            <div class="profile-text"><span id="p-passport">EU</span> • <span id="p-status">Solo</span><br>Budget: <span id="p-budget">€2000</span></div>
+            <div class="profile-edit" onclick="editProfile()">Edit</div>
+        </div>
+        <div style="font-size:0.75em; text-transform:uppercase; color:#b2bec3; font-weight:700; margin-bottom:10px;">Top Matches</div>
+        <div id="results-list" style="overflow-y:auto; flex-grow:1; padding-right:5px;"></div>
+        
+        <div class="premium-teaser" onclick="startTrueMatch()">
+            <div style="font-size:1.2em;">✨ Find My <b>True</b> Match</div>
+            <div style="font-size:0.8em; color:#ddd; margin-top:5px;">Get a custom plan for schools, pets & tax.</div>
+            <div style="margin-top:10px; background:white; color:black; font-weight:bold; font-size:0.8em; padding:5px; border-radius:20px; display:inline-block;">Start for €4.95</div>
+        </div>
+    </div>
+</div>
+
+<div id="city-modal">
+    <div class="modal-card">
+        <div class="modal-header-img">
+            <span class="close-btn-abs" onclick="closeCity()">×</span>
+            <h1 id="d-city" style="margin:0; font-size:2.8em;">City</h1>
+            <span id="d-country" style="font-size:1.2em; opacity:0.9;">Country</span>
+        </div>
+
+        <div class="modal-tabs">
+            <div class="tab-btn active" onclick="openTab('tab-vibe', this)">The Vibe</div>
+            <div class="tab-btn" onclick="openTab('tab-work', this)">Work & Visa</div>
+            <div class="tab-btn" onclick="openTab('tab-move', this)">Move & Money</div>
+        </div>
+        
+        <div class="modal-body">
+            
+            <div id="tab-vibe" class="tab-content active">
+                <h3>📍 The Basics</h3>
+                <p id="d-desc" style="font-size:1.1em; color:#2d3436;">Short description...</p>
+                
+                <div class="tag-row">
+                    <div class="data-tag">🛡️ Safety: <span id="d-safety">High</span></div>
+                    <div class="data-tag">🍃 Air: <span id="d-aqi">Good</span></div>
+                    <div class="data-tag">📶 Internet: <span id="d-internet">Fast</span></div>
+                </div>
+
+                <h3>👯 Expat Community</h3>
+                <p id="d-community">Loading community info...</p>
+
+                <h3>⚠️ Real Talk: Hazards</h3>
+                <div style="background:#fff5f5; border-left:4px solid #ff7675; padding:15px; border-radius:4px; font-size:0.9em; color:#636e72;">
+                    <strong style="color:#d63031;">Be Aware:</strong> <span id="d-hazards">Loading...</span>
+                </div>
+            </div>
+
+            <div id="tab-work" class="tab-content">
+                <h3>🛂 Entry Requirements</h3>
+                <div id="visa-box" class="visa-box visa-green">
+                    <div style="font-size:24px;">📝</div>
+                    <div>
+                        <strong id="visa-title" style="display:block; margin-bottom:2px;">Visa Status</strong>
+                        <div id="visa-desc" style="font-size:0.9em;">Details...</div>
+                    </div>
+                </div>
+
+                <h3>💼 Job Market</h3>
+                <div style="background:#f8f9fa; padding:15px; border-radius:10px; border:1px solid #eee; margin-bottom:20px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="color:#666; font-weight:600;">Openings for "<span id="d-user-job">Role</span>"</span>
+                        <span style="font-weight:800; color:#2d3436; font-size:1.2em;" id="d-jobs">0</span>
+                    </div>
+                    <div style="font-size:0.75em; color:#999; margin-top:5px;">*Estimated active listings via Indeed/LinkedIn</div>
+                </div>
+
+                <h3>💻 Work Culture</h3>
+                <p id="d-work-culture">Loading work culture info...</p>
+            </div>
+
+            <div id="tab-move" class="tab-content">
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">🏆</div>
+                    <div>
+                        <strong style="color:#d97706; text-transform:uppercase; font-size:0.75em; letter-spacing:1px;">Golden Ticket</strong>
+                        <div id="d-benefit" style="font-weight:700; font-size:1.1em; color:#2d3436; margin-top:2px;">Loading...</div>
+                    </div>
+                </div>
+
+                <h3>📉 Monthly Budget (<span id="d-household">Solo</span>)</h3>
+                <div class="cost-card">
+                    <div class="cost-row"><span>Rent (City Center)</span> <span id="val-rent">€0</span></div>
+                    <div class="cost-row"><span>Groceries & Lifestyle</span> <span id="val-food">€0</span></div>
+                    <div class="cost-total"><span>TOTAL ESTIMATE</span> <span id="val-total" style="color:var(--primary);">€0</span></div>
+                </div>
+
+                <div class="pdf-card" onclick="buyGuide()">
+                    <div style="display:flex; align-items:center; gap:15px;">
+                        <div style="font-size:28px;">📄</div>
+                        <div>
+                            <div style="font-weight:700; font-size:1.0em;">Get The <span id="d-pdf-city">City</span> Blueprint</div>
+                            <div style="font-size:0.75em; color:#ccc; margin-top:2px;">PDF Guide: Neighborhoods, Safety Maps & Rental Hacks.</div>
+                        </div>
+                    </div>
+                    <div class="pdf-btn">€4.95</div>
+                </div>
+
+                <h3>🧰 Relocation Toolkit</h3>
+                <div class="toolkit-list">
+                    <div class="tool-item" onclick="alert('Affiliate: HousingAnywhere')">
+                        <div class="tool-icon">🏠</div>
+                        <div class="tool-content"><span class="tool-title">Find Housing</span><span class="tool-sub">Verified apartments & rooms</span></div>
+                        <div class="tool-arrow">→</div>
+                    </div>
+                    <div class="tool-item" onclick="alert('Affiliate: Wise / N26')">
+                        <div class="tool-icon">💳</div>
+                        <div class="tool-content"><span class="tool-title">Open Bank Account</span><span class="tool-sub">Get a local IBAN before arrival</span></div>
+                        <div class="tool-arrow">→</div>
+                    </div>
+                    <div class="tool-item" onclick="alert('Affiliate: SafetyWing')">
+                        <div class="tool-icon">🛡️</div>
+                        <div class="tool-content"><span class="tool-title">Health Insurance</span><span class="tool-sub">Coverage for nomads & expats</span></div>
+                        <div class="tool-arrow">→</div>
+                    </div>
+                    <div class="tool-item" onclick="alert('Affiliate: iVisa')">
+                        <div class="tool-icon">🛂</div>
+                        <div class="tool-content"><span class="tool-title">Check Visa Requirements</span><span class="tool-sub">Official government forms</span></div>
+                        <div class="tool-arrow">→</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="true-match-modal">
+    <div class="tm-container">
+        
+        <div id="tm-step-1" class="tm-step active">
+            <h2 style="margin-bottom:10px;">Let's go deeper...</h2>
+            <p style="color:#666; margin-bottom:30px;">To find your 100% match, we need a few details.</p>
+            
+            <div class="quiz-option" onclick="this.classList.toggle('selected')">
+                <span style="font-size:1.2em;">🐶</span> <span>I'm moving with pets (Need Import rules)</span>
+            </div>
+            <div class="quiz-option" onclick="this.classList.toggle('selected')">
+                <span style="font-size:1.2em;">🏫</span> <span>I need International Schools</span>
+            </div>
+            <div class="quiz-option" onclick="this.classList.toggle('selected')">
+                <span style="font-size:1.2em;">🚑</span> <span>I have specific health needs</span>
+            </div>
+            <div class="quiz-option" onclick="this.classList.toggle('selected')">
+                <span style="font-size:1.2em;">📅</span> <span>Moving within 3 months</span>
+            </div>
+
+            <button class="cta-btn" onclick="nextTrueMatchStep(2)">Analyze Profile</button>
+            <div style="margin-top:15px; cursor:pointer; color:#999;" onclick="document.getElementById('true-match-modal').style.display='none'">Cancel</div>
+        </div>
+
+        <div id="tm-step-2" class="tm-step">
+            <h2>Analyzing Matches...</h2>
+            <p style="color:#666;">We are compiling your personal relocation report.</p>
+            
+            <div class="tm-loader"><div class="tm-bar" id="tm-progress"></div></div>
+            
+            <div id="email-capture-box" style="display:none; opacity:0; transition:opacity 1s;">
+                <p style="font-weight:600; margin-bottom:10px;">Where should we send your results?</p>
+                <input type="email" id="user-email" placeholder="name@email.com" style="margin-bottom:15px; text-align:center;">
+                <button class="cta-btn" onclick="submitEmail()">Unlock Results</button>
+            </div>
+        </div>
+
+        <div id="tm-step-3" class="tm-step">
+            <div style="font-size:50px;">🎉</div>
+            <h2 style="margin:10px 0;">Your Report is Ready!</h2>
+            <p style="color:#666; font-size:0.9em; margin-bottom:20px;">
+                We found 3 perfect cities matching your visa, school & pet requirements.
+            </p>
+
+            <div class="checkout-box">
+                <div class="checkout-row"><span>Custom Match Report</span><span>€4.95</span></div>
+                <div class="checkout-row"><span>Visa Roadmap (PDF)</span><span>Included</span></div>
+                <div class="checkout-total checkout-row"><span>Total</span><span>€4.95</span></div>
+            </div>
+
+            <button class="cta-btn" onclick="alert('Redirecting to Stripe Payment Gateway...')">Get My Report</button>
+            
+            <div style="margin-top:15px; color:#999; font-size:0.8em;">
+                🔒 SSL Secure • 💳 Stripe
+            </div>
+            <div style="margin-top:10px; cursor:pointer; color:#999; font-size:0.8em; text-decoration:underline;" onclick="document.getElementById('true-match-modal').style.display='none'">No thanks, I'll search myself</div>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<script>
+    // --- 1. RICH DATASET ---
+    const cities = [
+        { 
+            name: "Valencia", country: "Spain", region: "eu", coords: [39.46, -0.37], base_cost: 1600, vibe: "sun", 
+            desc: "Sun, beach, and tech. Very high quality of life.",
+            community: "Huge international scene in Ruzafa. Very welcoming.",
+            safety: "High", aqi: "Good", internet: "Fast",
+            hazards: "Summer heatwaves (40°C+). Occasional heavy rains.",
+            work_culture: "Relaxed but modernizing. Long lunch breaks common.",
+            benefit: "Beckham Law (24% Flat Tax)",
+            guide_id: "valencia_pdf",
+            jobs: 140
+        },
+        { 
+            name: "Lisbon", country: "Portugal", region: "eu", coords: [38.72, -9.13], base_cost: 2000, vibe: "sun", 
+            desc: "The Nomad capital of Europe. Hills, trams, and endless ocean views.",
+            community: "Massive. English spoken everywhere.",
+            safety: "Very High", aqi: "Moderate", internet: "Fast",
+            hazards: "Slippery cobblestones. Pickpockets on trams.",
+            work_culture: "Startups are modern, traditional firms hierarchical.",
+            benefit: "NHR Tax Regime (Legacy/Tech Visa)",
+            guide_id: "lisbon_pdf",
+            jobs: 210
+        },
+        { 
+            name: "Berlin", country: "Germany", region: "eu", coords: [52.52, 13.40], base_cost: 2300, vibe: "tech", 
+            desc: "Gritty, creative, startup hub.",
+            community: "Diverse niche groups. Harder to make local friends.",
+            safety: "Moderate", aqi: "Good", internet: "Average",
+            hazards: "Housing crisis (hard to find flat). Dark winters.",
+            work_culture: "Direct, efficient, English-friendly in Tech.",
+            benefit: "EU Blue Card (Fast PR)",
+            guide_id: "berlin_pdf",
+            jobs: 850
+        },
+        { 
+            name: "Bali", country: "Indonesia", region: "asia", coords: [-8.40, 115.18], base_cost: 1400, vibe: "sun", 
+            desc: "Tropical paradise for remote workers.",
+            community: "Transient influencers & yogis.",
+            safety: "Moderate", aqi: "Fair", internet: "Improving",
+            hazards: "Traffic accidents (scooters). Dengue fever.",
+            work_culture: "Remote dominant. Local pace is slow.",
+            benefit: "Second Home Visa (Tax benefits)",
+            guide_id: "bali_pdf",
+            jobs: 40
+        },
+        { 
+            name: "Amsterdam", country: "Netherlands", region: "eu", coords: [52.36, 4.90], base_cost: 3200, vibe: "culture", 
+            desc: "Canals, bikes, high salaries.",
+            community: "Very international. English is main biz language.",
+            safety: "High", aqi: "Good", internet: "Ultra Fast",
+            hazards: "Housing shortage. Grey weather.",
+            work_culture: "Flat hierarchy, direct communication.",
+            benefit: "30% Ruling (Tax Free Salary)",
+            guide_id: "amsterdam_pdf",
+            jobs: 600
+        },
+        { 
+            name: "Austin", country: "USA", region: "na", coords: [30.26, -97.74], base_cost: 3500, vibe: "tech", 
+            desc: "Live music capital. Tech boomtown.",
+            community: "Friendly southern hospitality meets tech bros.",
+            safety: "Moderate", aqi: "Moderate", internet: "Fast",
+            hazards: "Extreme summer heat. High property tax.",
+            work_culture: "Hustle culture but casual dress code.",
+            benefit: "No State Income Tax",
+            guide_id: "austin_pdf",
+            jobs: 400
+        },
+        { 
+            name: "Tokyo", country: "Japan", region: "asia", coords: [35.67, 139.65], base_cost: 2600, vibe: "culture", 
+            desc: "Future meets tradition. Safe & clean.",
+            community: "Tight expat bubbles. Can feel isolating.",
+            safety: "Very High", aqi: "Good", internet: "Fast",
+            hazards: "Earthquakes. Typhoons.",
+            work_culture: "Intense. Long hours expected.",
+            benefit: "Highly Skilled Professional Visa",
+            guide_id: "tokyo_pdf",
+            jobs: 120
+        }
+    ];
+
+    // --- 2. GLOBAL STATE ---
+    let map;
+    let markers = [];
+    let user = {};
+    let currentCityGuideId = "";
+
+    // --- 3. WIZARD LOGIC ---
+    function calculateAndStart() {
+        // 1. Capture Data
+        user.passport = document.getElementById('w-passport').value;
+        user.status = parseFloat(document.getElementById('w-status').value); // Multiplier
+        user.work = document.getElementById('w-work').value;
+        user.budget = parseInt(document.getElementById('w-budget').value) || 2000;
+        user.vibe = document.getElementById('w-vibe').value;
+        user.jobTitle = document.getElementById('w-job-title').value || "Professional";
+
+        // 2. Update Sidebar Profile
+        let statusText = document.getElementById('w-status').options[document.getElementById('w-status').selectedIndex].text.split(' ')[1];
+        if(statusText === 'Just') statusText = "Solo";
+        document.getElementById('p-passport').innerText = user.passport.toUpperCase();
+        document.getElementById('p-status').innerText = statusText;
+        document.getElementById('p-budget').innerText = "€" + user.budget;
+
+        // 3. Visual Transition
+        document.getElementById('landing-screen').style.opacity = '0';
+        setTimeout(() => {
+            document.getElementById('landing-screen').style.display = 'none';
+            document.getElementById('loading-screen').style.display = 'flex';
+            
+            const msg = document.getElementById('load-msg');
+            msg.innerText = `Checking Visa Rules for ${user.passport.toUpperCase()} Citizens...`;
+
+            setTimeout(() => {
+                document.getElementById('loading-screen').style.display = 'none';
+                document.getElementById('main-app').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('main-app').style.opacity = '1';
+                    if (!map) initMap();
+                    filterResults();
+                }, 50);
+            }, 2000);
+        }, 500);
+    }
+
+    function editProfile() {
+        document.getElementById('main-app').style.opacity = '0';
+        setTimeout(() => {
+            document.getElementById('main-app').style.display = 'none';
+            document.getElementById('landing-screen').style.display = 'flex';
+            setTimeout(() => document.getElementById('landing-screen').style.opacity = '1', 50);
+        }, 500);
+    }
+
+    // --- 4. MAP LOGIC ---
+    function initMap() {
+        map = L.map('map', { zoomControl: false }).setView([30, 0], 2);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap',
+            subdomains: 'abcd',
+            maxZoom: 19
+        }).addTo(map);
+        L.control.zoom({ position: 'bottomright' }).addTo(map);
+    }
+
+    function filterResults() {
+        const list = document.getElementById('results-list');
+        list.innerHTML = "";
+        markers.forEach(m => map.removeLayer(m));
+        markers = [];
+
+        let filtered = cities.filter(city => {
+            let householdCost = Math.round(city.base_cost * user.status);
+            return householdCost <= (user.budget + 800); // Flexible buffer
+        });
+
+        filtered.sort((a,b) => (a.vibe === user.vibe ? -1 : 1));
+
+        filtered.forEach(city => {
+            let householdCost = Math.round(city.base_cost * user.status);
+            
+            list.innerHTML += `
+                <div class="match-card" onclick="openCity('${city.name}')">
+                    <div>
+                        <div style="font-weight:700; color:#2d3436;">${city.name}</div>
+                        <div style="font-size:0.8em; color:#888;">${city.country}</div>
+                    </div>
+                    <div style="font-weight:700; color:#FF6B6B;">€${householdCost}</div>
+                </div>
+            `;
+
+            const icon = L.divIcon({
+                className: 'custom-dot',
+                html: `<div style="width:14px; height:14px; background:#FF6B6B; border-radius:50%; border:2px solid white; box-shadow:0 0 10px rgba(255,107,107,0.5);"></div>`,
+                iconSize: [14, 14]
+            });
+            const m = L.marker(city.coords, {icon: icon}).addTo(map).on('click', () => openCity(city.name));
+            markers.push(m);
+        });
+    }
+
+    // --- 5. CITY MODAL LOGIC ---
+    function openCity(name) {
+        const city = cities.find(c => c.name === name);
+        if(!city) return;
+
+        // Header
+        document.getElementById('d-city').innerText = city.name;
+        document.getElementById('d-country').innerText = city.country;
+
+        // Tab 1: Vibe
+        document.getElementById('d-desc').innerText = city.desc;
+        document.getElementById('d-community').innerText = city.community;
+        document.getElementById('d-hazards').innerText = city.hazards;
+        document.getElementById('d-safety').innerText = city.safety;
+        document.getElementById('d-aqi').innerText = city.aqi;
+        document.getElementById('d-internet').innerText = city.internet;
+
+        // Tab 2: Work & Visa
+        document.getElementById('d-user-job').innerText = user.jobTitle;
+        document.getElementById('d-jobs').innerText = city.jobs; 
+        document.getElementById('d-work-culture').innerText = city.work_culture;
+
+        const vBox = document.getElementById('visa-box');
+        const vTitle = document.getElementById('visa-title');
+        const vDesc = document.getElementById('visa-desc');
+        
+        // Visa Logic
+        if (user.passport === 'eu' && city.region === 'eu') {
+            vBox.className = "visa-box visa-green";
+            vTitle.innerText = "Freedom of Movement";
+            vDesc.innerText = "You can live & work here freely (EU Citizen).";
+        } else if (user.passport === 'usa' && city.name === 'Austin') {
+             vBox.className = "visa-box visa-green";
+             vTitle.innerText = "Citizen / Resident";
+             vDesc.innerText = "No restrictions.";
+        } else {
+            vBox.className = "visa-box visa-orange";
+            vTitle.innerText = "Visa Required";
+            vDesc.innerText = "Check Digital Nomad or Work Visa reqs.";
+        }
+
+        // Tab 3: Move & Money
+        document.getElementById('d-benefit').innerText = city.benefit;
+        document.getElementById('d-pdf-city').innerText = city.name;
+        currentCityGuideId = city.guide_id;
+        
+        // Cost Calculation
+        let householdText = document.getElementById('w-status').options[document.getElementById('w-status').selectedIndex].text;
+        document.getElementById('d-household').innerText = householdText;
+
+        let total = Math.round(city.base_cost * user.status);
+        let rent = Math.round(total * 0.4);
+        let food = Math.round(total * 0.6); // Food + Misc
+        
+        document.getElementById('val-rent').innerText = "€" + rent;
+        document.getElementById('val-food').innerText = "€" + food;
+        document.getElementById('val-total').innerText = "€" + total;
+
+        document.getElementById('city-modal').style.display = 'flex';
+        openTab('tab-vibe', document.querySelector('.tab-btn')); 
+    }
+
+    function openTab(tabId, btn) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        btn.classList.add('active');
+    }
+
+    function closeCity() { document.getElementById('city-modal').style.display = 'none'; }
+
+    function buyGuide() {
+        alert("Redirecting to Gumroad/Stripe for PDF Guide ID: " + currentCityGuideId);
+    }
+
+    // --- 6. TRUE MATCH FUNNEL ---
+    function startTrueMatch() {
+        document.getElementById('true-match-modal').style.display = 'flex';
+        document.getElementById('tm-step-1').classList.add('active');
+        document.getElementById('tm-step-2').classList.remove('active');
+        document.getElementById('tm-step-3').classList.remove('active');
+    }
+
+    function nextTrueMatchStep(step) {
+        if(step === 2) {
+            document.getElementById('tm-step-1').classList.remove('active');
+            document.getElementById('tm-step-2').classList.add('active');
+            
+            setTimeout(() => { document.getElementById('tm-progress').style.width = "100%"; }, 100);
+            
+            setTimeout(() => {
+                document.getElementById('email-capture-box').style.display = 'block';
+                setTimeout(() => document.getElementById('email-capture-box').style.opacity = '1', 50);
+            }, 2500);
+        }
+        if(step === 3) {
+            document.getElementById('tm-step-2').classList.remove('active');
+            document.getElementById('tm-step-3').classList.add('active');
+        }
+    }
+
+    function submitEmail() {
+        let email = document.getElementById('user-email').value;
+        if(email.includes('@')) {
+            nextTrueMatchStep(3);
+        } else {
+            alert("Please enter a valid email.");
+        }
+    }
+
+</script>
+
+</body>
+</html>
