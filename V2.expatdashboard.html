@@ -237,14 +237,13 @@
             </svg>
             <div class="brand-logo">ExpatMatch</div>
         </div>
-        <p style="color:#636e72; margin-bottom: 25px;">Intelligent relocation based on your citizenship & situation.</p>
+        <p style="color:#636e72; margin-bottom: 25px;">Intelligent relocation based on your budget, nationality & work situation.</p>
         <div class="input-grid">
             <div class="form-group full-width"><label>I hold a passport from...</label><select id="w-passport"><option value="eu">🇪🇺 EU / EEA / Switzerland</option><option value="usa">🇺🇸 United States</option><option value="uk">🇬🇧 United Kingdom</option><option value="other">🌍 Other (Global)</option></select></div>
-            <div class="form-group full-width"><label>My Profession</label><input type="text" id="w-job-title" placeholder="e.g. Software Engineer"></div>
             <div class="form-group"><label>Moving with...</label><select id="w-status"><option value="1">👤 Solo</option><option value="1.6">👥 Partner</option><option value="2.3">👨‍👩‍👧 Family</option></select></div>
-            <div class="form-group"><label>Work</label><select id="w-work"><option value="remote">💻 Remote</option><option value="local">💼 Local Job</option><option value="business">🚀 Starting Biz</option></select></div>
-            <div class="form-group full-width"><label>Total Budget (€)</label><input type="number" id="w-budget" placeholder="e.g. 2500"></div>
-            <div class="form-group full-width"><label>Vibe</label><select id="w-vibe"><option value="sun">Sun & Life</option><option value="tech">Career Hub</option><option value="culture">Culture</option></select></div>
+            <div class="form-group"><label>Work Situation</label><select id="w-work"><option value="remote">💻 Remote</option><option value="local">💼 Local Job</option><option value="business">🚀 Entrepreneur</option></select></div>
+            <div class="form-group full-width"><label>Total Monthly Budget (€)</label><input type="number" id="w-budget" placeholder="e.g. 2500" min="500" step="50" required></div>
+            <div class="form-group full-width"><label>Preferred Vibe</label><select id="w-vibe"><option value="sun">Sun & Life</option><option value="tech">Career Hub</option><option value="culture">Culture</option></select></div>
         </div>
         <button class="cta-btn" onclick="calculateAndStart()">Generate Matches</button>
     </div>
@@ -309,11 +308,11 @@
                 </div>
 
                 <h3>👯 Expat Community</h3>
-                <p id="d-community">Loading community info...</p>
+                <p id="d-community">Community details...</p>
 
                 <h3>⚠️ Real Talk: Hazards</h3>
                 <div style="background:#fff5f5; border-left:4px solid #ff7675; padding:15px; border-radius:4px; font-size:0.9em; color:#636e72;">
-                    <strong style="color:#d63031;">Be Aware:</strong> <span id="d-hazards">Loading...</span>
+                    <strong style="color:#d63031;">Be Aware:</strong> <span id="d-hazards">Key things to know...</span>
                 </div>
             </div>
 
@@ -335,6 +334,10 @@
                     </div>
                     <div style="font-size:0.75em; color:#999; margin-top:5px;">*Estimated active listings via Indeed/LinkedIn</div>
                 </div>
+
+                <button class="cta-btn" style="font-size:0.9em; padding:12px; margin-top:0;" onclick="openJobSearch()">
+                    Search jobs in this city
+                </button>
 
                 <h3>💻 Work Culture</h3>
                 <p id="d-work-culture">Loading work culture info...</p>
@@ -370,22 +373,22 @@
 
                 <h3>🧰 Relocation Toolkit</h3>
                 <div class="toolkit-list">
-                    <div class="tool-item" onclick="alert('Affiliate: HousingAnywhere')">
+                    <div class="tool-item" onclick="openAffiliate('housing')">
                         <div class="tool-icon">🏠</div>
                         <div class="tool-content"><span class="tool-title">Find Housing</span><span class="tool-sub">Verified apartments & rooms</span></div>
                         <div class="tool-arrow">→</div>
                     </div>
-                    <div class="tool-item" onclick="alert('Affiliate: Wise / N26')">
+                    <div class="tool-item" onclick="openAffiliate('bank')">
                         <div class="tool-icon">💳</div>
                         <div class="tool-content"><span class="tool-title">Open Bank Account</span><span class="tool-sub">Get a local IBAN before arrival</span></div>
                         <div class="tool-arrow">→</div>
                     </div>
-                    <div class="tool-item" onclick="alert('Affiliate: SafetyWing')">
+                    <div class="tool-item" onclick="openAffiliate('insurance')">
                         <div class="tool-icon">🛡️</div>
                         <div class="tool-content"><span class="tool-title">Health Insurance</span><span class="tool-sub">Coverage for nomads & expats</span></div>
                         <div class="tool-arrow">→</div>
                     </div>
-                    <div class="tool-item" onclick="alert('Affiliate: iVisa')">
+                    <div class="tool-item" onclick="openAffiliate('visa')">
                         <div class="tool-icon">🛂</div>
                         <div class="tool-content"><span class="tool-title">Check Visa Requirements</span><span class="tool-sub">Official government forms</span></div>
                         <div class="tool-arrow">→</div>
@@ -447,7 +450,7 @@
                 <div class="checkout-total checkout-row"><span>Total</span><span>€4.95</span></div>
             </div>
 
-            <button class="cta-btn" onclick="alert('Redirecting to Stripe Payment Gateway...')">Get My Report</button>
+            <button class="cta-btn" onclick="openTrueMatchCheckout()">Get My Report</button>
             
             <div style="margin-top:15px; color:#999; font-size:0.8em;">
                 🔒 SSL Secure • 💳 Stripe
@@ -554,9 +557,15 @@
         user.passport = document.getElementById('w-passport').value;
         user.status = parseFloat(document.getElementById('w-status').value); // Multiplier
         user.work = document.getElementById('w-work').value;
-        user.budget = parseInt(document.getElementById('w-budget').value) || 2000;
+        const rawBudget = parseInt(document.getElementById('w-budget').value, 10);
+        if (isNaN(rawBudget) || rawBudget <= 0) {
+            alert("Please enter your monthly budget to see accurate matches.");
+            return;
+        }
+        user.budget = rawBudget;
         user.vibe = document.getElementById('w-vibe').value;
-        user.jobTitle = document.getElementById('w-job-title').value || "Professional";
+        // Keep job title generic in MVP; can be made user-configurable later
+        user.jobTitle = "Professional";
 
         // 2. Update Sidebar Profile
         let statusText = document.getElementById('w-status').options[document.getElementById('w-status').selectedIndex].text.split(' ')[1];
@@ -612,23 +621,67 @@
         markers.forEach(m => map.removeLayer(m));
         markers = [];
 
-        let filtered = cities.filter(city => {
-            let householdCost = Math.round(city.base_cost * user.status);
-            return householdCost <= (user.budget + 800); // Flexible buffer
+        // Filter by broad budget fit first
+        let filtered = cities
+            .map(city => {
+                const householdCost = Math.round(city.base_cost * user.status);
+                const leftover = user.budget - householdCost;
+
+                // Basic score: budget, vibe, and passport-region compatibility
+                let score = 0;
+                if (householdCost <= user.budget) {
+                    score += 3;
+                } else if (householdCost <= user.budget + 400) {
+                    score += 1;
+                }
+                if (city.vibe === user.vibe) {
+                    score += 2;
+                }
+                if (user.passport === 'eu' && city.region === 'eu') {
+                    score += 1;
+                }
+                if (user.passport === 'usa' && city.name === 'Austin') {
+                    score += 1;
+                }
+
+                return { city, householdCost, leftover, score };
+            })
+            .filter(item => item.householdCost <= (user.budget + 800)); // flexible upper bound
+
+        // Sort by score, then by leftover budget
+        filtered.sort((a, b) => {
+            if (b.score !== a.score) return b.score - a.score;
+            return b.leftover - a.leftover;
         });
 
-        filtered.sort((a,b) => (a.vibe === user.vibe ? -1 : 1));
+        filtered.forEach(({ city, householdCost, leftover, score }) => {
+            // Build simple tags for the card
+            const tags = [];
+            const easyVisa = (user.passport === 'eu' && city.region === 'eu') ||
+                             (user.passport === 'usa' && city.name === 'Austin');
+            if (easyVisa) tags.push("Easy visa");
+            if (user.work === 'remote') tags.push("Great for remote");
+            if (user.status > 1.5) tags.push("Family-friendly");
 
-        filtered.forEach(city => {
-            let householdCost = Math.round(city.base_cost * user.status);
-            
+            const leftoverLabel = leftover >= 300
+                ? `≈€${leftover} left`
+                : leftover >= 0
+                    ? "Tight for budget"
+                    : `Over by €${Math.abs(leftover)}`;
+
+            const tagHtml = tags.slice(0, 2).map(t => `<span class="data-tag">${t}</span>`).join(' ');
+
             list.innerHTML += `
                 <div class="match-card" onclick="openCity('${city.name}')">
                     <div>
                         <div style="font-weight:700; color:#2d3436;">${city.name}</div>
                         <div style="font-size:0.8em; color:#888;">${city.country}</div>
+                        <div style="margin-top:6px; font-size:0.75em; color:#636e72;">${leftoverLabel}</div>
+                        <div class="tag-row" style="margin-top:6px;">${tagHtml}</div>
                     </div>
-                    <div style="font-weight:700; color:#FF6B6B;">€${householdCost}</div>
+                    <div style="text-align:right;">
+                        <div style="font-weight:700; color:#FF6B6B;">€${householdCost}</div>
+                    </div>
                 </div>
             `;
 
@@ -714,7 +767,32 @@
     function closeCity() { document.getElementById('city-modal').style.display = 'none'; }
 
     function buyGuide() {
-        alert("Redirecting to Gumroad/Stripe for PDF Guide ID: " + currentCityGuideId);
+        // Placeholder Stripe/Gumroad link for city blueprint
+        const guideUrl = "https://example.com/guide/" + currentCityGuideId;
+        window.open(guideUrl, "_blank");
+    }
+
+    function openAffiliate(type) {
+        // Central place to manage outbound affiliate links
+        const links = {
+            housing: "https://example.com/housing",
+            bank: "https://example.com/banking",
+            insurance: "https://example.com/insurance",
+            visa: "https://example.com/visa-check"
+        };
+        const url = links[type];
+        if (url) {
+            window.open(url, "_blank");
+        }
+    }
+
+    function openJobSearch() {
+        // Simple LinkedIn search based on city name and generic role
+        const cityName = document.getElementById('d-city').innerText || "";
+        const role = (user.jobTitle || "professional") + " " + cityName;
+        const encoded = encodeURIComponent(role.trim());
+        const url = "https://www.linkedin.com/jobs/search/?keywords=" + encoded;
+        window.open(url, "_blank");
     }
 
     // --- 6. TRUE MATCH FUNNEL ---
@@ -751,6 +829,23 @@
             alert("Please enter a valid email.");
         }
     }
+
+    function openTrueMatchCheckout() {
+        // Placeholder checkout URL for the €4.95 True Match report
+        const checkoutUrl = "https://example.com/checkout/true-match";
+        window.open(checkoutUrl, "_blank");
+    }
+
+    // --- 7. ANALYTICS PLAN (to be wired later) ---
+    // Recommended events to track once an analytics tool is added:
+    // - funnel_start            : user sees the landing wizard
+    // - funnel_complete_wizard  : user successfully generates matches
+    // - city_open               : user opens a specific city modal (with city name)
+    // - true_match_start        : user opens the True Match funnel
+    // - true_match_email_submit : user submits their email
+    // - true_match_checkout     : user clicks through to the €4.95 checkout
+    // - affiliate_click         : user clicks a housing/bank/insurance/visa affiliate link (with type)
+    // - job_search_click        : user clicks the \"Search jobs in this city\" button
 
 </script>
 
