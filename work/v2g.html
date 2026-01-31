@@ -150,6 +150,9 @@
         @media (max-width: 900px) { 
             .project-hero { padding-top: 100px; }
             .study-grid { grid-template-columns: 1fr; gap: 50px; } 
+            
+            /* --- FIXED: Reset sticky positioning on mobile so the card scrolls away --- */
+            .study-context { position: relative; top: 0; width: 100%; }
         }
     </style>
 </head>
