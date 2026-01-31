@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle-to-Grid | Alessia Bertana</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- BACKGROUND SPLIT (Hero differentiation) --- */
+        body {
+            background: linear-gradient(
+                to bottom, 
+                var(--bg-secondary) 0%, 
+                var(--bg-secondary) 650px, 
+                var(--bg-main) 650px, 
+                var(--bg-main) 100%
+            ) !important;
+        }
+
+        /* --- PAGE SPECIFIC STYLES --- */
+        .project-hero { 
+            padding-top: 120px; 
+            padding-bottom: 80px;
+        }
+        
+        .study-grid { 
+            display: grid; 
+            grid-template-columns: 380px 1fr; 
+            gap: 80px; 
+            align-items: start; 
+            margin-bottom: 100px; 
+        }
+        
+        /* --- STICKY SIDEBAR --- */
+        .study-context { 
+            position: sticky; 
+            top: 120px; 
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 0; 
+            overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        .context-header-img {
+            width: 100%;
+            height: 200px; 
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-light);
+            display: block;
+        }
+
+        .context-inner { padding: 30px; }
+
+        .study-year { 
+            font-family: monospace; color: var(--accent-pink); 
+            font-size: 0.85rem; font-weight: 700; 
+            display: block; margin-bottom: 10px; 
+            letter-spacing: 1px;
+        }
+        
+        .study-title { 
+            font-size: 2rem; 
+            font-weight: 800; margin-bottom: 20px; 
+            line-height: 1.1; color: var(--text-main); 
+        }
+        
+        .study-intro { 
+            font-size: 0.95rem; line-height: 1.7; 
+            color: var(--text-muted); margin-bottom: 30px; 
+        }
+
+        .study-meta { 
+            display: flex; flex-direction: column; gap: 25px; 
+            padding: 25px 0; 
+            border-top: 1px solid var(--border-light); 
+            border-bottom: 1px solid var(--border-light);
+            margin-bottom: 25px;
+        }
+
+        .meta-group h4 { 
+            font-size: 0.7rem; text-transform: uppercase; 
+            letter-spacing: 1px; color: var(--accent-pink); 
+            margin-bottom: 10px; font-weight: 700;
+        }
+
+        .meta-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        
+        .tag { 
+            font-size: 0.75rem; padding: 5px 12px; 
+            background: var(--bg-secondary); 
+            border-radius: 15px; 
+            color: var(--text-main); 
+            border: 1px solid var(--border-light); 
+        }
+
+        .btn-text { 
+            color: var(--text-main); text-decoration: none; font-weight: 600; 
+            display: inline-flex; align-items: center; gap: 8px; 
+            border-bottom: 2px solid var(--accent-pink); padding-bottom: 4px; 
+            transition: all 0.3s ease; font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        .btn-text:hover { gap: 12px; color: var(--accent-pink); }
+
+        /* --- CONTENT STYLING --- */
+        .study-content { padding-top: 0; }
+        
+        .content-block { margin-bottom: 60px; }
+        
+        .content-block h2 { 
+            font-size: 1.8rem; margin-bottom: 25px; 
+            color: var(--text-main); font-weight: 700;
+        }
+        
+        .content-block p { 
+            font-size: 1.05rem; line-height: 1.8; 
+            color: var(--text-muted); margin-bottom: 20px; 
+        }
+
+        .highlight-box {
+            background: var(--bg-secondary);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow);
+            margin: 30px 0;
+            transition: transform 0.3s ease;
+        }
+        .highlight-box h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--accent-pink); font-weight: 700; }
+        
+        /* Specific Stats for this page */
+        .stat-badge {
+            display: inline-block;
+            background: var(--bg-main);
+            border: 1px solid var(--border-light);
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            color: var(--accent-pink);
+            font-size: 1.1rem;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        @media (max-width: 900px) { 
+            .project-hero { padding-top: 100px; }
+            .study-grid { grid-template-columns: 1fr; gap: 50px; } 
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo"><a href="../index.html" style="text-decoration:none; color:inherit;">Alessia<span class="dot">.</span></a></div>
+            
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../work.html" class="active" style="color:var(--accent-pink);">Work</a></li>
+                    <li><a href="../index.html#journey">Journey</a></li>
+                </ul>
+                <button id="theme-toggle" class="theme-btn"><i data-lucide="moon" class="moon-icon"></i><i data-lucide="sun" class="sun-icon"></i></button>
+                <button id="hamburger-btn" class="hamburger-btn"><i data-lucide="menu"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container project-hero">
+        
+        <a href="../work.html" style="text-decoration:none; color:var(--text-muted); font-size:0.9rem; margin-bottom:40px; display:inline-flex; align-items:center; gap:8px; transition: color 0.3s;">
+            <i data-lucide="arrow-left" style="width:18px;"></i> Back to Projects
+        </a>
+
+        <div class="study-grid">
+            
+            <aside class="study-context">
+                <img src="../images/v2g.jpg" alt="Vehicle-to-Grid Illustration" class="context-header-img">
+                
+                <div class="context-inner">
+                    <span class="study-year">2023 • BACHELOR THESIS</span>
+                    <h1 class="study-title">Vehicle-to-Grid</h1>
+                    
+                    <p class="study-intro">
+                        Communicating the potential of V2G in business parks to sustainability officials. A research-driven animation project for Enodes.
+                    </p>
+
+                    <div class="study-meta">
+                        <div class="meta-group">
+                            <h4>Client / Context</h4>
+                            <div class="meta-tags">
+                                <span class="tag">Enodes</span>
+                                <span class="tag">University of Twente</span>
+                            </div>
+                        </div>
+                        <div class="meta-group">
+                            <h4>Role</h4>
+                            <div class="meta-tags">
+                                <span class="tag">Creative Technologist</span>
+                                <span class="tag">Storyteller</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display:flex; flex-direction:column; align-items:flex-start;">
+                        <a href="https://www.youtube.com/watch?v=IezSJGvc5SQ" target="_blank" rel="noopener noreferrer" class="btn-text">
+                            Watch Animation <i data-lucide="youtube" style="width:16px;"></i>
+                        </a>
+                        <a href="https://enodes.nl/vehicle-to-grid/" target="_blank" rel="noopener noreferrer" class="btn-text">
+                            Enodes V2G Page <i data-lucide="link" style="width:16px;"></i>
+                        </a>
+                        <a href="http://essay.utwente.nl/93856/1/Bertana_BA_EEMCS.pdf" target="_blank" rel="noopener noreferrer" class="btn-text">
+                            Read Thesis <i data-lucide="file-text" style="width:16px;"></i>
+                        </a>
+                    </div>
+                </div>
+            </aside>
+            
+            <article class="study-content">
+
+                <div class="content-block">
+                    <h2>The Objective</h2>
+                    <p>
+                        This research was commissioned by <strong>Enodes</strong>, a company dedicated to making Dutch real estate more sustainable through strategic advice.
+                    </p>
+                    <p>
+                        Enodes received an assignment from the <strong>Municipality of Lelystad</strong> to investigate <strong>Noordersluis</strong>, a local business park. The challenge was critical: how to supply as much electricity as possible from PV (solar) sources to the park despite facing severe net congestion. 
+                    </p>
+                    <p>
+                        Enodes identified <strong>Vehicle-to-Grid (V2G)</strong> as a key solution to create a viable business case. My task was to create a communication tool that could explain this complex application to sustainability officials and entity owners.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>Research & Design Process</h2>
+                    
+                    <div class="highlight-box">
+                        <h3>1. Investigating the Ecosystem</h3>
+                        <p>
+                            I began by mapping how V2G actually works within the Noordersluis context. This involved sketching the energy flows and understanding the concept of "peak shaving." Crucially, research highlighted that <strong>EV owners</strong> are a primary stakeholder—their willingness to participate is the linchpin of the entire system.
+                        </p>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h3>2. Design Principles</h3>
+                        <p>
+                            Based on literature research, I established five core pillars for the animation: <strong>Clarity, Coherency, Conciseness, Engagement, and Unity</strong>. These principles guided every storyboard decision to ensure the complex message was digestible.
+                        </p>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h3>3. Creating the Story</h3>
+                        <p>
+                            The final animation, titled <em>"Can V2G solve net congestion?"</em>, provides an unbiased narrative. It defines the problem (net congestion), visualizes the solution (energy flow in the park), and honestly addresses both the advantages and the current challenges of implementation.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Evaluation & Impact</h2>
+                    <p>
+                        The product was validated through user evaluations with a diverse panel: sustainability officials, EV owners, V2G experts, and communication specialists.
+                    </p>
+                    <p>
+                        Enodes received the tool positively, noting it was "clear, coherent, and visually attractive." The validation scores confirmed this success, with sustainability officials finding it highly relevant.
+                    </p>
+                    
+                    <div style="text-align:center;">
+                        <span class="stat-badge">
+                            Average Rating: 8.6 / 10
+                        </span>
+                        <p style="margin-top:15px; font-size:0.9rem; color:var(--text-muted);">
+                            Rated by EV owners, PV facility owners, and V2G experts.
+                        </p>
+                    </div>
+                </div>
+
+            </article>
+
+        </div>
+    </main>
+
+    <footer class="simple-footer" style="text-align:center; padding: 60px 0; border-top: 1px solid var(--border-light); color: var(--text-muted);">
+        <p>&copy; 2026 Alessia Bertana. Designed with Energy ⚡</p>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

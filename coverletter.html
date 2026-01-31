@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cover Letter | Alessia Bertana</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* --- BRANDING VARIABLES --- */
+        :root { 
+            --accent: #D100A6; 
+            --text-main: #111; 
+            --text-light: #555; 
+            --bg-body: #525659;
+        }
+        
+        body { 
+            background-color: var(--bg-body); 
+            margin: 0; 
+            padding: 40px 0; 
+            font-family: 'Poppins', sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            min-height: 100vh;
+            color: var(--text-main);
+        }
+
+        /* --- A4 CONTAINER --- */
+        .page { 
+            background: white; 
+            width: 210mm; 
+            height: 297mm; /* Exact A4 */
+            /* Reduced top/bottom padding to give more space for text */
+            padding: 45px 60px; 
+            box-sizing: border-box;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* --- HEADER SECTION --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Vertically centered */
+            border-bottom: 2px solid #f0f0f0;
+            /* Tighter spacing here to pull the line up */
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* Identity (Left) */
+        .identity {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .profile-img {
+            width: 75px; /* Slightly smaller to save space */
+            height: 75px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: 50% 25%;
+            border: 3px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .name-box h1 {
+            font-size: 2.2rem; 
+            font-weight: 800;
+            line-height: 1;
+            margin: 0 0 4px 0;
+            letter-spacing: -1px;
+            color: var(--text-main);
+        }
+        .name-box h1 span { color: var(--accent); }
+        
+        .role-title {
+            font-size: 0.8rem; 
+            font-weight: 600;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Contact (Right) - COMPACT */
+        .contact-stack {
+            display: flex;
+            flex-direction: column;
+            /* TIGHT GAP: Allows header to be shorter */
+            gap: 4px; 
+            align-items: flex-end; /* Align right */
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+        .contact-item { display: flex; align-items: center; gap: 8px; }
+        .contact-icon { color: var(--accent); width: 13px; height: 13px; }
+        .contact-item a { color: var(--text-light); text-decoration: none; transition: 0.2s; }
+        .contact-item a:hover { color: var(--accent); }
+
+        /* --- LETTER CONTENT --- */
+        .meta-block {
+            margin-bottom: 25px;
+            font-size: 0.8rem;
+            color: var(--text-main);
+        }
+        .date { font-weight: 600; color: var(--accent); display: block; margin-bottom: 15px; }
+
+        /*Adjust the general text size here if needed!*/
+        .letter-body {
+            font-size: 0.8rem; 
+            line-height: 1.7;
+            color: #333;
+            flex-grow: 1;
+        }
+        
+        .letter-body p { margin-bottom: 18px; }
+        .letter-body strong { color: var(--text-main); font-weight: 600; }
+
+        /* EDITABLE HIGHLIGHTS - This makes it easy to see what to change */
+        .editable {
+            background-color: rgba(209, 0, 166, 0.1);
+            padding: 2px 5px;
+            border-radius: 3px;
+            color: #000;
+            cursor: text;
+            border-bottom: 1px dashed var(--accent);
+        }
+
+        /* SIGNATURE */
+        .signature {
+            margin-top: 40px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-main);
+        }
+        .sig-role {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #666;
+            margin-top: 2px;
+            display: block;
+        }
+
+        /* DOWNLOAD BUTTON */
+        .download-btn { position: fixed; bottom: 30px; right: 30px; background: var(--accent); color: white; padding: 15px 25px; border-radius: 50px; font-weight: 600; text-decoration: none; box-shadow: 0 5px 15px rgba(0,0,0,0.3); cursor: pointer; display: flex; align-items: center; gap: 10px; z-index: 999; }
+
+        @page { size: A4; margin: 0; }
+        @media print { 
+            body { background: white; padding: 0; } 
+            .page { width: 100%; height: 100%; box-shadow: none; margin: 0; padding: 45px 60px; }
+            .download-btn { display: none; }
+            .editable { background: transparent; padding: 0; border: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="download-btn" onclick="window.print()">
+        <i data-lucide="download"></i> Save as PDF
+    </div>
+
+    <div class="page">
+        
+        <div class="header">
+            <div class="identity">
+                <img src="images/About.png" alt="Alessia" class="profile-img">
+                <div class="name-box">
+                    <h1>Alessia<span>.</span> Bertana</h1>
+                    <div class="role-title">Product Designer | Creative Technologist</div>
+                </div>
+            </div>
+
+            <div class="contact-stack">
+                <div class="contact-item">
+                    <span>Netherlands</span>
+                    <i data-lucide="map-pin" class="contact-icon"></i>
+                </div>
+                <div class="contact-item">
+                    <a href="mailto:alesbertana@gmail.com">alesbertana@gmail.com</a>
+                    <i data-lucide="mail" class="contact-icon"></i>
+                </div>
+                <div class="contact-item">
+                    <span>+31 6 4099 5583</span>
+                    <i data-lucide="phone" class="contact-icon"></i>
+                </div>
+                <div class="contact-item">
+                    <a href="https://alessiabertana.nl" target="_blank">alessiabertana.nl</a>
+                    <i data-lucide="globe" class="contact-icon"></i>
+                </div>
+                <div class="contact-item">
+                    <a href="#">linkedin.com/in/alessia</a>
+                    <i data-lucide="linkedin" class="contact-icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="meta-block">
+            <span class="date" id="date-field">October 26, 2023</span>
+            To: <strong><span class="editable" contenteditable="true">[Hiring Manager Name]</span></strong><br>
+            <span class="editable" contenteditable="true">[Company Name]</span><br>
+            <span class="editable" contenteditable="true">[Company Address / City]</span>
+        </div>
+
+        <div class="letter-body" contenteditable="true">
+            <p><strong>Dear <span class="editable">[Hiring Team / Name]</span>,</strong></p>
+
+            <p>
+                I have been following <span class="editable">[Company Name]</span> for some time, and I am particularly inspired by <span class="editable">[mention a specific project, value, or mission of theirs that excites you]</span>. Seeing how you <span class="editable">[mention what they do well, e.g., "combine sustainability with seamless UX"]</span> deeply resonates with my own approach to design. I am writing to express my enthusiastic interest in the <strong><span class="editable">[Job Title]</span></strong> position.
+            </p>
+
+            <p>
+                My background is unique: I am a <strong>Product Designer who speaks fluent "Engineer."</strong> With a Double Master’s in HCI & Design (EIT Digital) and a Bachelor’s in Creative Technology, I bridge the gap between creative vision and technical reality. I don’t just design beautiful interfaces; I understand the code that powers them, ensuring that my solutions are not only user-centric but also feasible and scalable.
+            </p>
+
+            <p>
+                At <strong>Baker Hughes</strong>, I thrived in this hybrid space. I designed an internal Innovation Tool and worked side-by-side with developers to translate UI concepts into a functional product. Simultaneously, I built an automated Power BI dashboard from scratch (awarded 10/10) to help management visualize complex data. I enjoy the full "A to Z" process—from the messy first sketch to the final polished pixel.
+            </p>
+
+            <p>
+                Beyond my technical toolkit, I bring <strong>"contagious enthusiasm"</strong> to the workplace. Having lived in four countries (Netherlands, Spain, Italy, Ecuador), I have developed a deep sense of empathy—the most critical tool for any designer. Whether I am facilitating a workshop or coordinating team projects, I make it my mission to ensure every voice is heard and every user is understood.
+            </p>
+
+            <p>
+                I am eager to bring my mix of <span class="editable">[Skill 1, e.g., Prototyping]</span>, <span class="editable">[Skill 2, e.g., Strategy]</span>, and energy to the <span class="editable">[Company Name]</span> team. I would welcome the opportunity to discuss how I can help you build <span class="editable">[mention a goal of theirs]</span>.
+            </p>
+
+            <p>Thank you for your time and consideration.</p>
+
+            <div class="signature">
+                Alessia Bertana<br>
+                <span class="sig-role">Product Designer | Creative Technologist</span>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        lucide.createIcons();
+        
+        // Auto-set Date
+        const d = new Date();
+        const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+        document.getElementById("date-field").innerHTML = months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();
+    </script>
+</body>
+</html>

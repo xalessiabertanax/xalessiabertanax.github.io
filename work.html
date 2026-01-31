@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selected Work | Alessia Bertana</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="cursor"></div>
+
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo"><a href="index.html" style="text-decoration:none; color:inherit;">Alessia<span class="dot">.</span></a></div>
+            
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="work.html">Work</a></li>
+                    <li><a href="index.html#journey">Journey</a></li>
+                </ul>
+                
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                    <i data-lucide="moon" class="moon-icon"></i>
+                    <i data-lucide="sun" class="sun-icon"></i>
+                </button>
+
+                <button id="hamburger-btn" class="hamburger-btn" aria-label="Menu">
+                    <i data-lucide="menu"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1 class="page-title">Selected Work<span class="dot" style="color:#D100A6">.</span></h1>
+            <p class="page-subtitle">A collection of projects bridging design, data, and human needs.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="card-grid">
+            
+            <a href="work/baker.html" class="work-card">
+                <div class="card-image-wrap">
+                    <img src="images/BakerHughes.jpeg" alt="Baker Hughes Dashboard">
+                </div>
+                <span class="card-meta">Enterprise UX & Data Viz</span>
+                <h2 class="card-title">Baker Hughes</h2>
+                <p class="card-desc">Transforming scattered feedback into a centralized insight engine.</p>
+            </a>
+
+            <a href="work/vr.html" class="work-card">
+                <div class="card-image-wrap">
+                    <img src="images/VRNS.jpg" alt="VR Therapy">
+                </div>
+                <span class="card-meta">Virtual Reality & Unity</span>
+                <h2 class="card-title">Exposure Therapy VR</h2>
+                <p class="card-desc">A safe environment for train conductors to process trauma.</p>
+            </a>
+
+            <a href="work/glove.html" class="work-card">
+                <div class="card-image-wrap">
+                    <img src="images/glove.jpeg" alt="ASL Glove">
+                </div>
+                <span class="card-meta">Wearable Tech</span>
+                <h2 class="card-title">Haptic ASL Glove</h2>
+                <p class="card-desc">Learning sign language through muscle memory and vibration.</p>
+            </a>
+
+            <a href="work/bci.html" class="work-card">
+                <div class="card-image-wrap">
+                    <img src="images/BCI.jpeg" alt="BCI Game">
+                </div>
+                <span class="card-meta">Neuro-Tech & Python</span>
+                <h2 class="card-title">Neural Pac-Man</h2>
+                <p class="card-desc">A game that adapts difficulty based on your brainwaves.</p>
+            </a>
+
+            <a href="work/v2g.html" class="work-card">
+                <div class="card-image-wrap">
+                    <img src="images/v2g.jpg" alt="V2G Animation">
+                </div>
+                <span class="card-meta">Storytelling & Animation</span>
+                <h2 class="card-title">Vehicle-to-Grid</h2>
+                <p class="card-desc">Explaining complex energy concepts through animated storytelling.</p>
+            </a>
+
+            <a href="work/solar.html" class="work-card">
+                <div class="card-image-wrap">
+                    <img src="images/solarteam.JPG" alt="Solar Team Boat">
+                </div>
+                <span class="card-meta">Engineering & Sustainability (2016)</span>
+                <h2 class="card-title">Young Solar Team</h2>
+                <p class="card-desc">Building and racing a solar-powered boat from scratch.</p>
+            </a>
+
+        </div>
+    </main>
+
+    <section class="contact-section">
+        <div class="container">
+            <h2 class="section-header">Ready to collaborate?</h2>
+            <p class="contact-subtitle">Whether you need a UX designer who codes, a facilitator, or just a chat.</p>
+            <a href="mailto:alesbertana@gmail.com" class="btn-primary">Email Me</a>
+        </div>
+    </section>
+
+    <footer style="text-align:center; padding: 40px; color: var(--text-muted);">
+        <p>&copy; 2024 Alessia Bertana. Designed with Energy ⚡</p>
+    </footer>
+
+
+    <script src="script.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

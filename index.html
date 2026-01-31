@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alessia Bertana | Creative Technologist</title>
+    <title>Alessia Bertana | Product & UX Designer</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -198,18 +198,23 @@
 
     <nav class="navbar">
         <div class="nav-content">
-            <div class="logo">Alessia<span class="dot">.</span></div>
+            <div class="logo"><a href="index.html" style="text-decoration:none; color:inherit;">Alessia<span class="dot">.</span></a></div>
             
             <div class="nav-right">
                 <ul class="nav-links">
-                    <li><a href="#hero">Home</a></li>
+                    <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About</a></li>
-                    <li><a href="#work">Work</a></li>
-                    <li><a href="#journey">Journey</a></li>
+                    <li><a href="work.html">Work</a></li>
+                    <li><a href="index.html#journey">Journey</a></li>
                 </ul>
-                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+                
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
                     <i data-lucide="moon" class="moon-icon"></i>
                     <i data-lucide="sun" class="sun-icon"></i>
+                </button>
+
+                <button id="hamburger-btn" class="hamburger-btn" aria-label="Menu">
+                    <i data-lucide="menu"></i>
                 </button>
             </div>
         </div>
@@ -225,11 +230,12 @@
                 </h1>
                 
                 <h2 class="hero-subtitle">
-                    Product Designer | Creative Technologist | MSc HCI
+                    Product &amp; UX Designer • Creative Technologist • MSc HCI
                 </h2>
                 
                 <p class="hero-desc">
-                    I bridge the gap between design and code, turning user insights into beautiful functional interfaces.
+                    I design end‑to‑end product experiences: from framing the problem with users and stakeholders, 
+                    to high‑fidelity prototypes.
                 </p>
 
                 <div class="cta-wrapper">
@@ -248,135 +254,233 @@
         </div>
     </section>
 
-    <section class="about-section">
+<section class="about-section">
         <div class="container">
+            
             <div class="bio-block hidden-up">
-                <span class="section-label">THE BRIDGE</span> 
-                <h2 class="bio-title">The Creative Technologist.</h2>
-                <p class="bio-text">
-                    I’m Alessia, and I thrive at the <strong>dynamic intersection</strong> of Design and Engineering. 
-                    With a BSc in Creative Technology and a Double Master's in HCI from EIT Digital (28 Digital), 
-                    I always aim to understand both the technical <em>how</em> and the human <em>why</em>.
-                </p>
-                
-                <div class="ocean-container">
-                    <div class="ocean-wrapper" id="oceanBox">
-                        <span class="ocean-static-label">My Approach?</span>
-                        
-                        <div class="ocean-fill">
-                            <div class="wave wave-back"></div>
-                            <div class="wave wave-front"></div>
-                        </div>
-                        
-                        <div class="turtle-icon">
-                            <i data-lucide="turtle" style="width: 36px; height: 36px;"></i>
+                <div class="bio-grid">
+                    
+                    <div class="bio-text-group">
+                        <span class="section-label">THE BRIDGE</span> 
+                        <h2 class="bio-title">The Creative Technologist.</h2>
+                        <p class="bio-text">
+                            I’m Alessia, and I thrive at the <strong>dynamic intersection</strong> of Design and Engineering. 
+                            With a BSc in Creative Technology and a Double Master's in HCI, I aim to understand both the technical <em>how</em> and the human <em>why</em>.
+                        </p>
+                    </div>
+
+                    <div class="bio-btn-group">
+                        <a href="about.html" class="btn-primary">Read My Full Story</a>
+                    </div>
+
+                    <div class="bio-visual">
+                        <div class="ocean-container">
+                            
+                            <div class="ocean-wrapper" id="oceanBox">
+                                <span class="ocean-static-label">My Approach?</span>
+                                
+                                <div class="ocean-fill">
+                                    <div class="wave wave-back"></div>
+                                    <div class="wave wave-front"></div>
+                                </div>
+                                
+                                <div class="turtle-icon">
+                                    <i data-lucide="turtle" style="width: 50px; height: 50px;"></i>
+                                </div>
+                            </div>
+                            
+                            <p class="caption-text" id="oceanCaption">(Tap to find out)</p>
                         </div>
                     </div>
-                    <p class="caption-text" id="oceanCaption">(Hover to find out)</p>
-                </div>
 
-                <br>
-                <a href="about.html" class="btn-primary">Read My Full Story</a>
+                </div>
             </div>
             
             <div class="toolkit-block hidden-up">
-                <h3>Technical Toolkit</h3>
-                <div class="skill-cloud">
-                    <span>Figma</span>
-                    <span>HTML/CSS/JS</span>
-                    <span>Power BI</span>
-                    <span>Python</span>
-                    <span>Arduino & Sensors</span>
-                    <span>User Research</span>
-                    <span>Prototyping</span>
-                    <span>Storytelling</span>
+                <h3>Product &amp; UX Toolkit</h3>
+                <div class="toolkit-controls">
+                    <button class="toolkit-btn active" onclick="setToolkit('all')">All</button>
+                    <button class="toolkit-btn" onclick="setToolkit('design')">Design</button>
+                    <button class="toolkit-btn" onclick="setToolkit('tech')">Tech &amp; Bridge</button>
+                </div>
+                <div class="skill-cloud" id="skillCloud" data-state="all">
+                    <span data-type="design">UX Research &amp; Synthesis</span>
+                    <span data-type="design">Wireframing</span>
+                    <span data-type="design">Interaction Design</span>
+                    <span data-type="tech">Prototyping in Figma</span>
+                    <span data-type="tech">Design Systems</span>
+                    <span data-type="design">Design Thinking</span>
+                    <span data-type="design">Usability Testing</span>
+                    <span data-type="design">Front-end Design</span>
+                    <span data-type="tech">Design &lt;&gt; Dev Handover</span>
+                    <span data-type="tech">Data Visualization</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    
+    <section class="process-section">
+        <div class="container">
+            <h2 class="section-header align-left hidden-left">How I Design <span class="dot">.</span></h2>
+            <p class="section-subtitle hidden-left">
+                A flexible process I can adapt to each product team.
+            </p>
+            <div class="process-grid">
+                <div class="process-card hidden-up">
+                    <div class="icon-box"><i data-lucide="target"></i></div>
+                    <h3>1. Frame &amp; Align</h3>
+                    <p>I start by clarifying the problem with stakeholders, understanding user journeys and constraints so we solve the right thing.</p>
+                </div>
+                <div class="process-card hidden-up">
+                    <div class="icon-box"><i data-lucide="users"></i></div>
+                    <h3>2. Explore with Users</h3>
+                    <p>Research (interviews, surveys, desk research) surfaces motivations, hurdles and success metrics that inform the experience.</p>
+                </div>
+                <div class="process-card hidden-up">
+                    <div class="icon-box"><i data-lucide="pen-tool"></i></div>
+                    <h3>3. Prototype &amp; Iterate</h3>
+                    <p>I move from low-fidelity prototypes into high‑fidelity prototypes, validating early with users to reduce risk before building.</p>
+                </div>
+                <div class="process-card hidden-up">
+                    <div class="icon-box"><i data-lucide="rocket"></i></div>
+                    <h3>4. Ship &amp; Learn</h3>
+                    <p>Paired with engineers, I refine the product by using analytics and feedback to inform the next iteration.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="work" class="portfolio-section">
+<section id="work" class="portfolio-section">
         <div class="container">
-            <h2 class="section-header align-left hidden-left">Case Studies <span class="dot">.</span></h2>
-            <p class="section-subtitle hidden-left">Iterative projects from user research studies to real-world implementations.</p>
-            
+            <h2 class="section-header">Highlighted Work <span class="dot">.</span></h2>
+            <p class="section-subtitle">Iterative projects from user research studies to real-world implementations.</p>
+
             <div class="project-list">
-                
-                <div class="project-item featured hidden-up">
-                    <div class="project-text">
+    
+                <div class="project-card hidden-up">
+                    <a href="work/baker.html" class="card-visual">
+                        <img src="images/BakerHughes.jpeg" alt="Baker Hughes Dashboard Interface">
+                    </a>
+                    <div class="card-content">
                         <span class="project-year">2025</span>
-                        <h3>Baker Hughes <span class="badge">Enterprise</span></h3>
-                        <p class="project-desc">A year-long digital transformation journey. I created an automated Power BI dashboard, created various MVP's in figma for an application that should gather pain points from customer-facing personnel, and built an e-learning module on through storytelling.</p>
-                        <div class="tech-row">
-                            <span>Figma</span><span>Power Automate</span><span>Storyline 360</span>
-                        </div>
-                    </div>
-                    <div class="project-thumbnail">
-                        <img src="images/BakerHughes.jpeg" alt="Baker Hughes">
-                        <a href="https://purl.utwente.nl/essays/108870" target="_blank" class="thumb-overlay">View Master Thesis <i data-lucide="external-link" style="margin-left:5px; width:16px;"></i></a>
-                    </div>
-                </div>
-
-                <div class="project-item hidden-up">
-                    <div class="project-text">
-                        <span class="project-year">2024</span>
-                        <h3>Multisensory ASL Glove</h3>
+                        <h3 class="project-title">Baker Hughes Enterprise</h3>
                         <p class="project-desc">
-                            A haptic glove designed to teach American Sign Language. I engineered the hardware (flex sensors & actuators) and handled Serial communication between Arduino and Processing to test if multimodal feedback improves memory retention.
+                            A year-long digital transformation journey. I created an automated Power BI dashboard, designed MVPs for a new pain-point gathering application, and e-learning modules.
                         </p>
-                        <div class="tech-row">
-                            <span>Arduino</span><span>Processing</span><span>Physical Computing</span><span>UX Research</span>
+                        
+                        <div class="meta-container">
+                            <div class="meta-block">
+                                <span class="meta-label">Role</span>
+                                <span class="meta-value">Services Intern</span>
+                            </div>
+                            <div class="meta-tags">
+                                <span class="tag">Figma</span>
+                                <span class="tag">Power BI</span>
+                                <span class="tag">Power Automate</span>
+                                <span class="tag">Storyline 360</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="project-thumbnail">
-                        <img src="images/glove.jpeg" alt="ASL Glove Project">
-                        <a href="https://lnkd.in/evK4-MzM" target="_blank" class="thumb-overlay">View Project <i data-lucide="external-link" style="margin-left:5px; width:16px;"></i></a>
+
+                        <a href="work/baker.html" class="btn-case-study">
+                            Read Case Study <i data-lucide="arrow-right"></i>
+                        </a>
                     </div>
                 </div>
 
-                <div class="project-item hidden-up">
-                    <div class="project-text">
-                        <span class="project-year">2023</span>
-                        <h3>Brain Computer Interface</h3>
-                        <p class="project-desc">Adaptive PacMan game mechanics that respond to real-time EEG cognitive workload data. I handled the logic in processing to adjust game mechanics based on obtained brain data.</p>
-                        <div class="tech-row">
-                            <span>Python</span><span>Unicorn Headset</span><span>UX Research</span>
+                <div class="project-card hidden-up">
+                    <a href="work/glove.html" class="card-visual">
+                        <img src="images/glove.jpeg" alt="Haptic ASL Glove Prototype">
+                    </a>
+                    <div class="card-content">
+                        <span class="project-year">2024</span>
+                        <h3 class="project-title">Multisensory ASL Glove</h3>
+                        <p class="project-desc">
+                            A haptic glove designed to teach American Sign Language. I engineered a hardware prototype (flex sensors & actuators) and handled Serial communication between Arduino and Processing to test if multimodal feedback improves retention.
+                        </p>
+                        
+                        <div class="meta-container">
+                            <div class="meta-block">
+                                <span class="meta-label">University of Trento</span>
+                                <span class="meta-value">Multisensory Design</span>
+                            </div>
+                            <div class="meta-tags">
+                                <span class="tag">Arduino</span>
+                                <span class="tag">Sensors</span>
+                                <span class="tag">Physical Computing</span>
+                                <span class="tag">UX Research</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="project-thumbnail">
-                        <img src="images/BCI.png" alt="BCI">
-                        <a href="#" class="thumb-overlay">View Report</a>
+
+                        <a href="work/glove.html" class="btn-case-study">
+                            Read Case Study <i data-lucide="arrow-right"></i>
+                        </a>
                     </div>
                 </div>
 
-                <div class="project-item hidden-up">
-                    <div class="project-text">
+                <div class="project-card hidden-up">
+                    <a href="work/vr.html" class="card-visual">
+                        <img src="images/VRNS.jpg" alt="VR Environment for Therapy">
+                    </a>
+                    <div class="card-content">
                         <span class="project-year">2023</span>
-                        <h3>VR Exposure Therapy</h3>
-                        <p class="project-desc">A virtual reality environment designed to help train staff to get back on the train after the occurence of a traumatizing event. In a team of six, I handled all the Virtual Reality and created levels that users should complete.</p>
-                        <div class="tech-row">
-                            <span>Unity</span><span>C#</span>
+                        <h3 class="project-title">VR Exposure Therapy</h3>
+                        <p class="project-desc">
+                            A VR environment to help train conductors process trauma. I handled the Virtual Reality build, focusing on level design, pacing, and psychological safety.
+                        </p>
+                        
+                        <div class="meta-container">
+                            <div class="meta-block">
+                                <span class="meta-label">University of Twente</span>
+                                <span class="meta-value">Virtual Reality</span>
+                            </div>
+                            <div class="meta-tags">
+                                <span class="tag">Unity</span>
+                                <span class="tag">C#</span>
+                                <span class="tag">Level Design</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="project-thumbnail">
-                        <img src="images/VRNS.jpg" alt="VR">
-                        <a href="https://www.figma.com/proto/TSPMwuJXZ2sbC4XqWyk6SJ/Virtual-Reality?node-id=1-45&starting-point-node-id=1%3A2&t=sJBiMdrrijxHWExI-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&locale=en" target="_blank" class="thumb-overlay">View Figma <i data-lucide="external-link" style="margin-left:5px; width:16px;"></i></a>
+
+                        <a href="work/vr.html" class="btn-case-study">
+                            Read Case Study <i data-lucide="arrow-right"></i>
+                        </a>
                     </div>
                 </div>
 
-                <div class="project-item hidden-up">
-                    <div class="project-text">
+                <div class="project-card hidden-up">
+                    <a href="work/bci.html" class="card-visual">
+                        <img src="images/BCI.jpeg" alt="Brain Computer Interface Setup">
+                    </a>
+                    <div class="card-content">
                         <span class="project-year">2023</span>
-                        <h3>Vehicle-to-Grid</h3>
-                        <p class="project-desc">Animation and storytelling to explain complex energy transition concepts. I conducted interviews with the biggest actors in the V2G industry in the Netherlands, learned how to work with various Adobe Applications, and completed my Bachelor Thesis assignment for Enodes.</p>
-                        <div class="tech-row">
-                            <span>Animation</span><span>Storytelling</span><span>Adobe Illustrator</span><span>Adobe After Effects</span>
+                        <h3 class="project-title">Neural Pac-Man</h3>
+                        <p class="project-desc">
+                            A game controlled by brainwaves using an EEG headset. I handled the logic to adapt game mechanics in real-time based on cognitive load data.
+                        </p>
+                        
+                        <div class="meta-container">
+                            <div class="meta-block">
+                                <span class="meta-label">University of Twente</span>
+                                <span class="meta-value">BCI Logic</span>
+                            </div>
+                            <div class="meta-tags">
+                                <span class="tag">Python</span>
+                                <span class="tag">EEG</span>
+                                <span class="tag">UX Research</span>
+                            </div>
                         </div>
+
+                        <a href="work/bci.html" class="btn-case-study">
+                            Read Case Study <i data-lucide="arrow-right"></i>
+                        </a>
                     </div>
-                    <div class="project-thumbnail">
-                        <img src="images/v2g.jpg" alt="V2G">
-                        <a href="https://www.youtube.com/watch?v=IezSJGvc5SQ" target="_blank" class="thumb-overlay">View Video <i data-lucide="youtube" style="margin-left:5px; width:16px;"></i></a>
-                    </div>
+                </div>
+
+                <div class="view-all-container">
+                    <span class="view-all-label">Curious to explore more of my work?</span>
+                    <a href="work.html" class="btn-secondary">
+                        View Full Archive <i data-lucide="layers"></i>
+                    </a>
                 </div>
 
             </div>
@@ -387,8 +491,13 @@
         <div class="container">
             <h2 class="section-header align-left hidden-left">My Route <span class="dot">.</span></h2>
             <div class="zigzag-timeline">
-                <div class="timeline-line"></div>
                 
+                <div class="timeline-track">
+                    <div id="bikeRider" class="timeline-bike">
+                        <i data-lucide="bike"></i>
+                    </div>
+                </div>
+
                 <div class="milestone hidden-right">
                     <div class="milestone-content text-block">
                         <span class="year">2024 - 2025</span>
@@ -478,7 +587,7 @@
             <h2 class="section-header hidden-up">Let's Connect <span class="dot">.</span></h2>
             
             <p class="contact-subtitle hidden-up delay-100" style="max-width: 600px; margin: 0 auto 40px auto; line-height: 1.6;">
-                Whether you need a UX designer who codes, a facilitator for your workshop, or just want to chat about design, travel, and building the future - I'm here for it!
+                Whether you need a UX designer who codes, a facilitator for your workshop, or just want to chat about design, travel, and building the future, I'm here for it!
             </p>
             
             <a href="mailto:alesbertana@gmail.com" class="big-email-center hidden-up delay-200">Email Me</a>
@@ -525,7 +634,7 @@
         });
 
         ocean.addEventListener('mouseleave', () => {
-            caption.innerText = "(Hover to find out)";
+            caption.innerText = "(Tap to find out)";
             clearInterval(bubbleInterval);
             const bubbles = ocean.querySelectorAll('.bubble');
             bubbles.forEach(b => b.remove());

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neural Pac-Man | Alessia Bertana</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- PAGE SPECIFIC STYLES (Matches Baker Hughes Template) --- */
+        
+        .project-hero { 
+            padding-top: 120px; 
+            padding-bottom: 80px;
+        }
+        
+        /* Layout: Left Column (Card) / Right Column (Story) */
+        .study-grid { 
+            display: grid; 
+            grid-template-columns: 380px 1fr; /* Fixed sidebar width */
+            gap: 80px; 
+            align-items: start; 
+            margin-bottom: 100px; 
+        }
+        
+        /* --- THE STICKY "PROFILE CARD" --- */
+        .study-context { 
+            position: sticky; 
+            top: 120px; 
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 0; 
+            overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        /* Banner Image inside card */
+        .context-header-img {
+            width: 100%;
+            height: 200px; 
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-light);
+            display: block;
+        }
+
+        .context-inner { padding: 30px; }
+
+        .study-year { 
+            font-family: monospace; color: var(--accent-pink); 
+            font-size: 0.85rem; font-weight: 700; 
+            display: block; margin-bottom: 10px; 
+            letter-spacing: 1px;
+        }
+        
+        .study-title { 
+            font-size: 2rem; 
+            font-weight: 800; margin-bottom: 20px; 
+            line-height: 1.1; color: var(--text-main); 
+        }
+        
+        .study-intro { 
+            font-size: 0.95rem; line-height: 1.7; 
+            color: var(--text-muted); margin-bottom: 25px; 
+        }
+
+        /* Button Styling */
+        .btn-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+
+        .btn-text { 
+            color: var(--text-main); text-decoration: none; font-weight: 600; 
+            display: inline-flex; align-items: center; gap: 8px; 
+            border-bottom: 2px solid var(--accent-pink); padding-bottom: 4px; 
+            transition: all 0.3s ease; font-size: 0.95rem;
+            width: fit-content;
+        }
+        .btn-text:hover { gap: 12px; color: var(--accent-pink); }
+
+        /* Meta Data (Tags) */
+        .study-meta { 
+            display: flex; flex-direction: column; gap: 25px; 
+            padding: 25px 0 0 0; 
+            margin-top: 25px;    
+            border-top: 1px solid var(--border-light); 
+        }
+
+        .meta-group h4 { 
+            font-size: 0.7rem; text-transform: uppercase; 
+            letter-spacing: 1px; color: var(--accent-pink); 
+            margin-bottom: 10px; font-weight: 700;
+        }
+
+        .meta-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        
+        .tag { 
+            font-size: 0.75rem; padding: 5px 12px; 
+            background: var(--card-bg); 
+            border-radius: 15px; 
+            color: var(--text-main); 
+            border: 1px solid var(--border-light); 
+        }
+
+        /* --- RIGHT COLUMN CONTENT --- */
+        .study-content { padding-top: 0; }
+        
+        .content-block { margin-bottom: 70px; }
+        
+        .content-block h2 { 
+            font-size: 1.8rem; margin-bottom: 25px; 
+            color: var(--text-main); font-weight: 700;
+        }
+        
+        .content-block p { 
+            font-size: 1.05rem; line-height: 1.8; 
+            color: var(--text-muted); margin-bottom: 20px; 
+        }
+
+        .highlight-box {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow);
+            margin: 30px 0;
+            transition: transform 0.3s ease;
+        }
+        .highlight-box:hover { transform: translateY(-3px); }
+        .highlight-box h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--accent-pink); font-weight: 700; }
+
+        /* --- MOBILE RESPONSIVE --- */
+        @media (max-width: 900px) { 
+            .project-hero { 
+                padding-left: 20px; padding-right: 20px; padding-top: 100px;
+            }
+            .study-grid { 
+                grid-template-columns: 1fr; 
+                gap: 50px; 
+            } 
+            .study-context { 
+                position: relative; top: 0; width: 100%;
+            } 
+            .study-title { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo"><a href="../index.html" style="text-decoration:none; color:inherit;">Alessia<span class="dot">.</span></a></div>
+            
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../work.html" class="active" style="color:var(--accent-pink);">Work</a></li>
+                    <li><a href="../index.html#journey">Journey</a></li>
+                </ul>
+                <button id="theme-toggle" class="theme-btn"><i data-lucide="moon" class="moon-icon"></i><i data-lucide="sun" class="sun-icon"></i></button>
+                <button id="hamburger-btn" class="hamburger-btn"><i data-lucide="menu"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container project-hero">
+        
+        <a href="../work.html" style="text-decoration:none; color:var(--text-muted); font-size:0.9rem; margin-bottom:40px; display:inline-flex; align-items:center; gap:8px; transition: color 0.3s;">
+            <i data-lucide="arrow-left" style="width:18px;"></i> Back to Projects
+        </a>
+
+        <div class="study-grid">
+            
+            <aside class="study-context">
+                <img src="../images/BCI.jpeg" alt="BCI Setup" class="context-header-img">
+                
+                <div class="context-inner">
+                    <span class="study-year">2023 • BRAIN COMPUTER INTERFACE</span>
+                    <h1 class="study-title">Neural Pac-Man</h1>
+                    
+                    <p class="study-intro">
+                        A gaming experience controlled by your brainwaves. Using a Unicorn EEG headset, we measured cognitive load to adapt the game in real-time.
+                    </p>
+
+                    <div class="btn-stack">
+                        <a href="https://github.com/venk12/neural-pacman?tab=readme-ov-file" target="_blank" class="btn-text">
+                            View Code on GitHub <i data-lucide="github" style="width:16px;"></i>
+                        </a>
+                        <a href="https://www.canva.com/design/DAGIw9N0Gf4/ZKLt3bppebT45dp8n2N-mQ/view" target="_blank" class="btn-text">
+                            View Presentation <i data-lucide="presentation" style="width:16px;"></i>
+                        </a>
+                    </div>
+
+                    <div class="study-meta">
+                        <div class="meta-group">
+                            <h4>My Role</h4>
+                            <div class="meta-tags">
+                                <span class="tag">Data Logic</span>
+                                <span class="tag">Python Dev</span>
+                            </div>
+                        </div>
+                        <div class="meta-group">
+                            <h4>Toolkit</h4>
+                            <div class="meta-tags">
+                                <span class="tag">Python</span>
+                                <span class="tag">EEG (Unicorn)</span>
+                                <span class="tag">Game Design</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </aside>
+            
+            <article class="study-content">
+
+                <div class="content-block">
+                    <h2>The Challenge</h2>
+                    <p>
+                        Most video games have a static difficulty level. We wanted to create a "closed loop" system where the game knows how hard your brain is working and adjusts itself accordingly.
+                    </p>
+                    <p>
+                        The goal was to keep the player in a state of <strong>Flow</strong>. If they focused too hard (high cognitive load), the game would slow down to help them. If they relaxed or got bored, the game would speed up to challenge them.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>My Approach</h2>
+                    <p>
+                        I was responsible for the backend logic that translated raw brain signals into game mechanics.
+                    </p>
+                    
+                    <div class="highlight-box">
+                        <h3>1. Signal Acquisition</h3>
+                        <p>We used the Unicorn Hybrid Black headset to capture live EEG data. The challenge was filtering out noise (like muscle movement) to get a clean signal of "mental work."</p>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h3>2. The Python Bridge</h3>
+                        <p>I wrote a Python script that acted as the middleware. It received UDP data packets from the headset, calculated the Alpha/Beta wave ratios in real-time to determine a "Workload Score."</p>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h3>3. Adaptive Game Loop</h3>
+                        <p>Based on the workload score, my script sent commands to the game engine. <br><strong>High Load:</strong> "Bullet Time" (Ghosts slow down). <br><strong>Low Load:</strong> "Chaos Mode" (Ghosts speed up).</p>
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>The Outcome</h2>
+                    <p>
+                        We successfully built a working prototype where players could physically feel the game reacting to their focus levels. 
+                    </p>
+                    <p>
+                        It demonstrated that BCI (Brain-Computer Interfaces) can be used not just for medical purposes, but to create deeper, more responsive entertainment experiences.
+                    </p>
+                </div>
+
+            </article>
+        </div>
+    </main>
+
+    <footer class="simple-footer" style="text-align:center; padding: 60px 0; border-top: 1px solid var(--border-light); color: var(--text-muted);">
+        <p>&copy; 2026 Alessia Bertana. Designed with Energy ⚡</p>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

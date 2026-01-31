@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASL Glove | Alessia Bertana</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- BACKGROUND SPLIT (Hero differentiation) --- */
+        body {
+            background: linear-gradient(
+                to bottom, 
+                var(--bg-secondary) 0%, 
+                var(--bg-secondary) 650px, 
+                var(--bg-main) 650px, 
+                var(--bg-main) 100%
+            ) !important;
+        }
+
+        /* --- PAGE SPECIFIC STYLES --- */
+        .project-hero { 
+            padding-top: 120px; 
+            padding-bottom: 80px;
+        }
+        
+        .study-grid { 
+            display: grid; 
+            grid-template-columns: 380px 1fr; 
+            gap: 80px; 
+            align-items: start; 
+            margin-bottom: 100px; 
+        }
+        
+        /* --- STICKY SIDEBAR --- */
+        .study-context { 
+            position: sticky; 
+            top: 120px; 
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 0; 
+            overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        .context-header-img {
+            width: 100%;
+            height: 220px; 
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-light);
+            display: block;
+        }
+
+        .context-inner { padding: 30px; }
+
+        .study-year { 
+            font-family: monospace; color: var(--accent-pink); 
+            font-size: 0.85rem; font-weight: 700; 
+            display: block; margin-bottom: 10px; 
+            letter-spacing: 1px;
+        }
+        
+        .study-title { 
+            font-size: 2rem; 
+            font-weight: 800; margin-bottom: 20px; 
+            line-height: 1.1; color: var(--text-main); 
+        }
+        
+        .study-intro { 
+            font-size: 0.95rem; line-height: 1.7; 
+            color: var(--text-muted); margin-bottom: 30px; 
+        }
+
+        .study-meta { 
+            display: flex; flex-direction: column; gap: 25px; 
+            padding: 25px 0; 
+            border-top: 1px solid var(--border-light); 
+            border-bottom: 1px solid var(--border-light);
+            margin-bottom: 25px;
+        }
+
+        .meta-group h4 { 
+            font-size: 0.7rem; text-transform: uppercase; 
+            letter-spacing: 1px; color: var(--accent-pink); 
+            margin-bottom: 10px; font-weight: 700;
+        }
+
+        .meta-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        
+        .tag { 
+            font-size: 0.75rem; padding: 5px 12px; 
+            background: var(--bg-secondary); 
+            border-radius: 15px; 
+            color: var(--text-main); 
+            border: 1px solid var(--border-light); 
+        }
+
+        .btn-text { 
+            color: var(--text-main); text-decoration: none; font-weight: 600; 
+            display: inline-flex; align-items: center; gap: 8px; 
+            border-bottom: 2px solid var(--accent-pink); padding-bottom: 4px; 
+            transition: all 0.3s ease; font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        .btn-text:hover { gap: 12px; color: var(--accent-pink); }
+
+        /* --- CONTENT STYLING --- */
+        .study-content { padding-top: 0; }
+        
+        .content-block { margin-bottom: 60px; }
+        
+        .content-block h2 { 
+            font-size: 1.8rem; margin-bottom: 25px; 
+            color: var(--text-main); font-weight: 700;
+        }
+        
+        .content-block p { 
+            font-size: 1.05rem; line-height: 1.8; 
+            color: var(--text-muted); margin-bottom: 20px; 
+        }
+
+        .highlight-box {
+            background: var(--bg-secondary);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow);
+            margin: 30px 0;
+            transition: transform 0.3s ease;
+        }
+        .highlight-box h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--accent-pink); font-weight: 700; }
+        
+        .tech-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .tech-list li {
+            padding: 10px;
+            background: var(--bg-main);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+            padding: 0;
+        }
+        
+        .step-list li {
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 20px;
+            color: var(--text-muted);
+        }
+        
+        .step-list li::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 35px;
+            height: 35px;
+            background: var(--accent-pink);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 900px) { 
+            .project-hero { padding-top: 100px; }
+            .study-grid { grid-template-columns: 1fr; gap: 50px; } 
+            .tech-list { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo"><a href="../index.html" style="text-decoration:none; color:inherit;">Alessia<span class="dot">.</span></a></div>
+            
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../work.html" class="active" style="color:var(--accent-pink);">Work</a></li>
+                    <li><a href="../index.html#journey">Journey</a></li>
+                </ul>
+                <button id="theme-toggle" class="theme-btn"><i data-lucide="moon" class="moon-icon"></i><i data-lucide="sun" class="sun-icon"></i></button>
+                <button id="hamburger-btn" class="hamburger-btn"><i data-lucide="menu"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container project-hero">
+        <a href="../work.html" style="text-decoration:none; color:var(--text-muted); font-size:0.9rem; margin-bottom:40px; display:inline-flex; align-items:center; gap:8px; transition: color 0.3s;">
+            <i data-lucide="arrow-left" style="width:18px;"></i> Back to Projects
+        </a>
+
+        <div class="study-grid">
+            
+            <aside class="study-context">
+                <img src="../images/glove.jpeg" alt="ASL Glove Prototype" class="context-header-img">
+                
+                <div class="context-inner">
+                    <span class="study-year">2024 • UNIVERSITY OF TRENTO</span>
+                    <h1 class="study-title">Multisensory ASL Glove</h1>
+                    
+                    <p class="study-intro">
+                        An interactive memory game exploring how multisensory feedback impacts the retention of American Sign Language gestures.
+                    </p>
+
+                    <div class="study-meta">
+                        <div class="meta-group">
+                            <h4>Context</h4>
+                            <div class="meta-tags">
+                                <span class="tag">Multisensory Interactive Systems</span>
+                                <span class="tag">Academic Research</span>
+                            </div>
+                        </div>
+                        <div class="meta-group">
+                            <h4>Tech Stack</h4>
+                            <div class="meta-tags">
+                                <span class="tag">Arduino</span>
+                                <span class="tag">Processing</span>
+                                <span class="tag">Pure Data</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display:flex; flex-direction:column; align-items:flex-start;">
+                        <a href="https://lnkd.in/evK4-MzM" target="_blank" rel="noopener noreferrer" class="btn-text">
+                            View Source Code <i data-lucide="github" style="width:16px;"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/posts/alessiabertana_when-i-decided-to-get-my-masters-in-hci-activity-7329813282930753536--oRH" target="_blank" rel="noopener noreferrer" class="btn-text">
+                            Watch Demo Video <i data-lucide="video" style="width:16px;"></i>
+                        </a>
+                    </div>
+                </div>
+            </aside>
+            
+            <article class="study-content">
+
+                <div class="content-block">
+                    <h2>Project Overview</h2>
+                    <p>
+                        Developed for the <strong>Multisensory Interactive Systems</strong> course (Prof. Luca Turchet, 2024-2025), this project investigates whether haptic feedback and background music tempo influence the learning curve of the American Sign Language (ASL) alphabet.
+                    </p>
+                    <p>
+                        We designed a smart glove equipped with flex sensors that detects hand gestures in real-time. This hardware interacts with a custom-built memory game, providing users with vibration feedback when they correctly form a letter.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>Technical Implementation</h2>
+                    <p>The system relies on a seamless communication loop between hardware and software. The glove captures analog data, Arduino processes it, and Processing visualizes the game.</p>
+                    
+                    <div class="highlight-box">
+                        <h3>🔧 Hardware Components</h3>
+                        <ul class="tech-list" style="margin-top:15px;">
+                            <li><i data-lucide="cpu" style="width:16px;"></i> Arduino Micro-controller</li>
+                            <li><i data-lucide="activity" style="width:16px;"></i> 5x Flex Sensors</li>
+                            <li><i data-lucide="zap" style="width:16px;"></i> Vibration Motor</li>
+                            <li><i data-lucide="settings" style="width:16px;"></i> 10Ω Resistors & Breadboard</li>
+                        </ul>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h3>💻 Software Stack</h3>
+                        <ul class="tech-list" style="margin-top:15px;">
+                            <li><strong>Arduino IDE 2.3.3</strong> (Sensor Logic)</li>
+                            <li><strong>Processing 4.3</strong> (Game UI & Logic)</li>
+                            <li><strong>Pure Data 0.54.1</strong> (Sound Synthesis)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>User Experience & Gameplay</h2>
+                    <p>
+                        The user engages in a "Memory-Learn" game designed to teach ASL letters through repetition and feedback.
+                    </p>
+
+                    <div style="margin-bottom: 30px;">
+                        <h3 style="color:var(--accent-pink); font-size:1.1rem; margin-bottom:10px;">1. Calibration</h3>
+                        <p>
+                            To account for different hand sizes and finger flexibility, the game begins with a calibration phase. The user holds their hand open for 3 seconds, then makes a tight fist for 3 seconds. This sets the min/max values for the flex sensors.
+                        </p>
+                    </div>
+
+                    <div style="margin-bottom: 30px;">
+                        <h3 style="color:var(--accent-pink); font-size:1.1rem; margin-bottom:10px;">2. The Game Loop</h3>
+                        <p>
+                            The game consists of three levels. A letter is highlighted in purple on the screen, and the user must replicate the gesture. When the sensors detect the correct shape, the user must hold it for 3 seconds to "lock it in." The sequence is randomized to ensure true learning rather than pattern memorization.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 style="color:var(--accent-pink); font-size:1.1rem; margin-bottom:10px;">3. Evaluation</h3>
+                        <p>
+                            Upon completion, the system displays the time taken for each level. We then test short-term retention by asking the user to perform gestures without visual aid.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>System Setup</h2>
+                    <p>For those accessing the repository, the system requires the three component directories to run simultaneously:</p>
+                    <ol class="step-list">
+                        <li><strong>Upload Firmware:</strong> Flash the <code>ArduinoSignLanguageGame.ino</code> sketch to the connected microcontroller.</li>
+                        <li><strong>Start Audio:</strong> Open <code>MAIN.pd</code> in Pure Data to handle the audio engine.</li>
+                        <li><strong>Launch Game:</strong> Open <code>ProcessingSignLanguageGame.pde</code> and press Play to start the interface.</li>
+                    </ol>
+                </div>
+
+            </article>
+        </div>
+    </main>
+
+    <footer class="simple-footer" style="text-align:center; padding: 60px 0; border-top: 1px solid var(--border-light); color: var(--text-muted);">
+        <p>&copy; 2026 Alessia Bertana. Designed with Energy ⚡</p>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baker Hughes | Alessia Bertana</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- BACKGROUND SPLIT (Hero differentiation) --- */
+        body {
+            background: linear-gradient(
+                to bottom, 
+                var(--bg-secondary) 0%, 
+                var(--bg-secondary) 650px, 
+                var(--bg-main) 650px, 
+                var(--bg-main) 100%
+            ) !important;
+        }
+
+        /* --- PAGE SPECIFIC STYLES --- */
+        .project-hero { 
+            padding-top: 120px; 
+            padding-bottom: 80px;
+        }
+        
+        .study-grid { 
+            display: grid; 
+            grid-template-columns: 380px 1fr; 
+            gap: 80px; 
+            align-items: start; 
+            margin-bottom: 100px; 
+        }
+        
+        /* --- STICKY SIDEBAR --- */
+        .study-context { 
+            position: sticky; 
+            top: 120px; 
+            background-color: var(--bg-main); /* Changed to main to pop against secondary body */
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 0; 
+            overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        .context-header-img {
+            width: 100%;
+            height: 200px; 
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-light);
+            display: block;
+        }
+
+        .context-inner { padding: 30px; }
+
+        .study-year { 
+            font-family: monospace; color: var(--accent-pink); 
+            font-size: 0.85rem; font-weight: 700; 
+            display: block; margin-bottom: 10px; 
+            letter-spacing: 1px;
+        }
+        
+        .study-title { 
+            font-size: 2rem; 
+            font-weight: 800; margin-bottom: 20px; 
+            line-height: 1.1; color: var(--text-main); 
+        }
+        
+        .study-intro { 
+            font-size: 0.95rem; line-height: 1.7; 
+            color: var(--text-muted); margin-bottom: 30px; 
+        }
+
+        .study-meta { 
+            display: flex; flex-direction: column; gap: 25px; 
+            padding: 25px 0; 
+            border-top: 1px solid var(--border-light); 
+            border-bottom: 1px solid var(--border-light);
+            margin-bottom: 25px;
+        }
+
+        .meta-group h4 { 
+            font-size: 0.7rem; text-transform: uppercase; 
+            letter-spacing: 1px; color: var(--accent-pink); 
+            margin-bottom: 10px; font-weight: 700;
+        }
+
+        .meta-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        
+        .tag { 
+            font-size: 0.75rem; padding: 5px 12px; 
+            background: var(--bg-secondary); 
+            border-radius: 15px; 
+            color: var(--text-main); 
+            border: 1px solid var(--border-light); 
+        }
+
+        .btn-text { 
+            color: var(--text-main); text-decoration: none; font-weight: 600; 
+            display: inline-flex; align-items: center; gap: 8px; 
+            border-bottom: 2px solid var(--accent-pink); padding-bottom: 4px; 
+            transition: all 0.3s ease; font-size: 0.9rem;
+        }
+        .btn-text:hover { gap: 12px; color: var(--accent-pink); }
+
+        /* --- CONTENT STYLING --- */
+        .study-content { padding-top: 0; }
+        
+        .content-block { margin-bottom: 60px; }
+        
+        .content-block h2 { 
+            font-size: 1.8rem; margin-bottom: 25px; 
+            color: var(--text-main); font-weight: 700;
+        }
+        
+        .section-divider {
+            height: 1px;
+            background: var(--border-light);
+            margin: 60px 0;
+            width: 100%;
+        }
+
+        .content-block p { 
+            font-size: 1.05rem; line-height: 1.8; 
+            color: var(--text-muted); margin-bottom: 20px; 
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-box {
+            background: var(--bg-secondary);
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent-pink);
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .highlight-box {
+            background: var(--bg-secondary);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow);
+            margin: 30px 0;
+            transition: transform 0.3s ease;
+        }
+        .highlight-box:hover { transform: translateY(-3px); }
+        .highlight-box h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--accent-pink); font-weight: 700; }
+
+        @media (max-width: 900px) { 
+            .project-hero { padding-top: 100px; }
+            .study-grid { grid-template-columns: 1fr; gap: 50px; } 
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo"><a href="../index.html" style="text-decoration:none; color:inherit;">Alessia<span class="dot">.</span></a></div>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../work.html" class="active" style="color:var(--accent-pink);">Work</a></li>
+                    <li><a href="../index.html#journey">Journey</a></li>
+                </ul>
+                <button id="theme-toggle" class="theme-btn"><i data-lucide="moon" class="moon-icon"></i><i data-lucide="sun" class="sun-icon"></i></button>
+                <button id="hamburger-btn" class="hamburger-btn"><i data-lucide="menu"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container project-hero">
+        <a href="../work.html" style="text-decoration:none; color:var(--text-muted); font-size:0.9rem; margin-bottom:40px; display:inline-flex; align-items:center; gap:8px; transition: color 0.3s;">
+            <i data-lucide="arrow-left" style="width:18px;"></i> Back to Projects
+        </a>
+
+        <div class="study-grid">
+            
+            <aside class="study-context">
+                <img src="../images/BakerHughes.jpeg" alt="Baker Hughes Dashboard" class="context-header-img">
+                
+                <div class="context-inner">
+                    <span class="study-year">2025 • UX & DATA SCIENCE</span>
+                    <h1 class="study-title">Baker Hughes Digital Services</h1>
+                    
+                    <p class="study-intro">
+                        A dual-focus internship: Reimagining how training quality is measured via data visualization, and lowering the barrier for internal innovation through product design.
+                    </p>
+
+                    <div class="study-meta">
+                        <div class="meta-group">
+                            <h4>My Role</h4>
+                            <div class="meta-tags">
+                                <span class="tag">Product Designer</span>
+                                <span class="tag">UX Researcher</span>
+                                <span class="tag">Analyst</span>
+                            </div>
+                        </div>
+                        <div class="meta-group">
+                            <h4>Toolkit</h4>
+                            <div class="meta-tags">
+                                <span class="tag">Figma</span>
+                                <span class="tag">Power BI</span>
+                                <span class="tag">Power Apps</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="https://purl.utwente.nl/essays/108870" target="_blank" rel="noopener noreferrer" class="btn-text">
+                        Read Full Thesis <i data-lucide="external-link" style="width:16px;"></i>
+                    </a>
+                </div>
+            </aside>
+            
+            <article class="study-content">
+
+                <div class="content-block">
+                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-pink); font-weight: 700;">Project 1: The Master Thesis</span>
+                    <h2 style="margin-top: 10px;">Automating Training Analytics</h2>
+                    <p>
+                        The "Digital Customer Service" team at Baker Hughes relied heavily on manual Excel sheets and a standalone Net Promoter Score (NPS) to evaluate training quality. This process was prone to human error and provided limited insight into <em>why</em> a training session succeeded or failed.
+                    </p>
+                    <p>
+                        My goal was to automate this workflow and provide deeper analytical insights. Using a <strong>Design Science Research</strong> approach, I integrated eight complementary metrics (based on Kirkpatrick’s framework) into a unified dashboard.
+                    </p>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <span class="stat-number">92%</span>
+                            <span class="stat-label">Task Completion</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">87.8</span>
+                            <span class="stat-label">System Usability (SUS)</span>
+                        </div>
+                    </div>
+                    <p>
+                        The final tool, validated through task-based usability testing, successfully reduced data processing time and allowed stakeholders to make evidence-based improvements to the curriculum.
+                    </p>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <div class="content-block">
+                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-pink); font-weight: 700;">Project 2: Internal Innovation</span>
+                    <h2 style="margin-top: 10px;">The "Insight" Tool</h2>
+                    <p>
+                        Beyond the thesis, I helped with a tool to help gather customer pain points. There was an existing platform for employees to submit ideas, but engagement was critically low. I was tasked to understand why and to create something new.
+                    </p>
+                    
+                    <div class="highlight-box">
+                        <h3>1. Discovery & Research</h3>
+                        <p>
+                            I framed the problem with my manager and then launched a user research phase. Through interviews and surveys, I discovered that the barrier wasn't technical, it was psychological. 
+                            <br><br>
+                            Employees were afraid of <strong>negative feedback</strong> and the pressure of public voting mechanisms on the old platform. They needed a "safe space" to share ideas or pain points without fear of critisism.
+                        </p>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h3>2. Synthesis & Ideation</h3>
+                        <p>
+                            I analyzed the survey results, extracting key takeaways and mapping them to potential features. The solution became clear: we needed a tool that prioritized <strong>speed and anonymity</strong> over gamification.
+                        </p>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h3>3. MVP & Collaboration</h3>
+                        <p>
+                            I designed the MVP (Minimum Viable Product) in Figma, focusing on a streamlined flow where users could log a pain point in under 30 seconds. I then collaborated closely with my manager, providing the design assets while he implemented the logic in <strong>Power Apps</strong>.
+                        </p>
+                    </div>
+                    
+                    <p>
+                        The result was a lightweight MVP strategically designed to lower barriers to entry. I delivered this foundation to the team, setting the stage for implementation and future validation. 
+                    </p>
+                </div>
+
+                <div class="content-block" style="background: var(--bg-secondary); padding: 20px; border-radius: 12px; font-size: 0.9rem;">
+                    <strong>Also Contributed:</strong> Additionally, I designed and developed a confidential <strong>E-Learning Course</strong> to support internal training initiatives, further diversifying the educational modalities offered by the department.
+                </div>
+
+            </article>
+        </div>
+    </main>
+
+    <footer class="simple-footer" style="text-align:center; padding: 60px 0; border-top: 1px solid var(--border-light); color: var(--text-muted);">
+        <p>&copy; 2026 Alessia Bertana. Designed with Energy ⚡</p>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

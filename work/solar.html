@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Young Solar Team | Alessia Bertana</title>
+    <link rel="stylesheet" href="../styles.css"> 
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- PAGE SPECIFIC STYLES (Baker Hughes Design Applied) --- */
+        
+        .project-hero { 
+            padding-top: 120px; 
+            padding-bottom: 80px;
+        }
+        
+        /* Layout: Left Column (Card) / Right Column (Story) */
+        .study-grid { 
+            display: grid; 
+            grid-template-columns: 380px 1fr; 
+            gap: 80px; 
+            align-items: start; 
+            margin-bottom: 100px; 
+        }
+        
+        /* --- THE STICKY "PROFILE CARD" --- */
+        .study-context { 
+            position: sticky; 
+            top: 120px; 
+            
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            
+            padding: 0; 
+            overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        /* The "Banner" Image inside the card */
+        .context-header-img {
+            width: 100%;
+            height: 220px; 
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-light);
+            display: block;
+        }
+
+        /* Wrapper for the text inside the card */
+        .context-inner {
+            padding: 30px;
+        }
+
+        .study-year { 
+            font-family: monospace; color: var(--accent-pink); 
+            font-size: 0.85rem; font-weight: 700; 
+            display: block; margin-bottom: 10px; 
+            letter-spacing: 1px;
+        }
+        
+        .study-title { 
+            font-size: 2rem; 
+            font-weight: 800; margin-bottom: 20px; 
+            line-height: 1.1; color: var(--text-main); 
+        }
+        
+        .study-intro { 
+            font-size: 0.95rem; line-height: 1.7; 
+            color: var(--text-muted); margin-bottom: 30px; 
+        }
+
+        /* Meta Data (Tags) */
+        .study-meta { 
+            display: flex; flex-direction: column; gap: 25px; 
+            padding: 25px 0; 
+            border-top: 1px solid var(--border-light); 
+            border-bottom: 1px solid var(--border-light);
+            margin-bottom: 25px;
+        }
+
+        .meta-group h4 { 
+            font-size: 0.7rem; text-transform: uppercase; 
+            letter-spacing: 1px; color: var(--accent-pink); 
+            margin-bottom: 10px; font-weight: 700;
+        }
+
+        .meta-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        
+        .tag { 
+            font-size: 0.75rem; padding: 5px 12px; 
+            background: var(--card-bg); 
+            border-radius: 15px; 
+            color: var(--text-main); 
+            border: 1px solid var(--border-light); 
+        }
+
+        .btn-text { 
+            color: var(--text-main); text-decoration: none; font-weight: 600; 
+            display: inline-flex; align-items: center; gap: 8px; 
+            border-bottom: 2px solid var(--accent-pink); padding-bottom: 4px; 
+            transition: all 0.3s ease; font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        .btn-text:hover { gap: 12px; color: var(--accent-pink); }
+
+        /* --- RIGHT COLUMN CONTENT --- */
+        .study-content { padding-top: 0; }
+        
+        .content-block { margin-bottom: 70px; }
+        
+        .content-block h2 { 
+            font-size: 1.8rem; margin-bottom: 25px; 
+            color: var(--text-main); font-weight: 700;
+        }
+        
+        .content-block p { 
+            font-size: 1.05rem; line-height: 1.8; 
+            color: var(--text-muted); margin-bottom: 20px; 
+        }
+
+        /* --- MOBILE RESPONSIVE --- */
+        @media (max-width: 900px) { 
+            .project-hero { 
+                padding-left: 20px; padding-right: 20px; padding-top: 100px;
+            }
+            .study-grid { 
+                grid-template-columns: 1fr; 
+                gap: 50px; 
+            } 
+            
+            .study-context { 
+                position: relative; top: 0; 
+                width: 100%;
+            } 
+            
+            .study-title { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor"></div>
+
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo"><a href="../index.html" style="text-decoration:none; color:inherit;">Alessia<span class="dot">.</span></a></div>
+            
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../work.html" class="active" style="color:var(--accent-pink);">Work</a></li>
+                    <li><a href="../index.html#journey">Journey</a></li>
+                </ul>
+                <button id="theme-toggle" class="theme-btn"><i data-lucide="moon" class="moon-icon"></i><i data-lucide="sun" class="sun-icon"></i></button>
+                <button id="hamburger-btn" class="hamburger-btn"><i data-lucide="menu"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container project-hero">
+        
+        <a href="../work.html" style="text-decoration:none; color:var(--text-muted); font-size:0.9rem; margin-bottom:40px; display:inline-flex; align-items:center; gap:8px; transition: color 0.3s;">
+            <i data-lucide="arrow-left" style="width:18px;"></i> Back to Projects
+        </a>
+
+        <div class="study-grid">
+            
+            <aside class="study-context">
+                <img src="../images/solarteam.JPG" alt="Young Solar Team Group Photo" class="context-header-img">
+                
+                <div class="context-inner">
+                    <span class="study-year">2016 • SUSTAINABLE ENGINEERING</span>
+                    <h1 class="study-title">Young Solar Team</h1>
+                    
+                    <p class="study-intro">
+                        My first step into the world of engineering: building a solar-powered boat from scratch to compete against schools across the Netherlands.
+                    </p>
+
+                    <div class="study-meta">
+                        <div class="meta-group">
+                            <h4>My Role</h4>
+                            <div class="meta-tags">
+                                <span class="tag">Team Member</span>
+                                <span class="tag">Construction</span>
+                            </div>
+                        </div>
+                        <div class="meta-group">
+                            <h4>Focus</h4>
+                            <div class="meta-tags">
+                                <span class="tag">Sustainability</span>
+                                <span class="tag">Solar Engineering</span>
+                                <span class="tag">Teamwork</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display:flex; flex-direction:column; align-items:flex-start;">
+                        <a href="https://youngsolarchallenge.nl/" target="_blank" rel="noopener noreferrer" class="btn-text">
+                            Young Solar Challenge <i data-lucide="external-link" style="width:16px;"></i>
+                        </a>
+                        <a href="https://www.omroepflevoland.nl/nieuws/133342/lelystad-leerlingen-sgl-bouwen-zonneboot" target="_blank" rel="noopener noreferrer" class="btn-text">
+                            Read News Article <i data-lucide="newspaper" style="width:16px;"></i>
+                        </a>
+                    </div>
+                </div>
+            </aside>
+            
+            <article class="study-content">
+
+                <div class="content-block">
+                    <h2>The Initiative</h2>
+                    <p>
+                        Before starting my formal university studies, I joined a student team in Lelystad with a bold goal: to design and build a functional boat powered entirely by solar energy.
+                    </p>
+                    <p>
+                        This wasn't just a theoretical exercise; it was a hands-on crash course in mechanics, renewable energy, and collaborative problem-solving. We had to translate blueprints into reality, troubleshoot electrical systems, and ensure the vessel was hydrodynamic enough to race.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>The Experience</h2>
+                    <p>
+                        Competing in the <strong>Young Solar Challenge</strong> was my first exposure to the pressure and excitement of engineering competitions. It taught me that technical skills are only half the equation—communication and adaptability within a multidisciplinary team are just as critical to success.
+                    </p>
+                    <p>
+                        This project sparked my interest in how technology can be used to solve environmental challenges, a theme that has influenced my later work in Human-Computer Interaction and sustainable design.
+                    </p>
+                </div>
+
+            </article>
+
+        </div>
+
+    </main>
+
+    <footer class="simple-footer" style="text-align:center; padding: 60px 0; border-top: 1px solid var(--border-light); color: var(--text-muted);">
+        <p>&copy; 2026 Alessia Bertana. Designed with Energy ⚡</p>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

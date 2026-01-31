@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ExpatMatch - The Relocation Intelligence Platform</title>
+    <meta name="description" content="Find the best cities to move abroad based on your budget, nationality, work situation and lifestyle. Compare cost of living, visa friction, job market and expat community in one relocation dashboard.">
     
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FF6B6B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'></path><circle cx='12' cy='10' r='3' fill='%23FF6B6B' stroke='none'></circle></svg>">
 
@@ -237,13 +238,23 @@
             </svg>
             <div class="brand-logo">ExpatMatch</div>
         </div>
-        <p style="color:#636e72; margin-bottom: 25px;">Intelligent relocation based on your budget, nationality & work situation.</p>
+        <h1 style="color:#636e72; margin-bottom: 25px; font-size:1.2em; font-weight:500;">
+            Intelligent relocation based on your budget, nationality &amp; work situation.
+        </h1>
         <div class="input-grid">
             <div class="form-group full-width"><label>I hold a passport from...</label><select id="w-passport"><option value="eu">🇪🇺 EU / EEA / Switzerland</option><option value="usa">🇺🇸 United States</option><option value="uk">🇬🇧 United Kingdom</option><option value="other">🌍 Other (Global)</option></select></div>
             <div class="form-group"><label>Moving with...</label><select id="w-status"><option value="1">👤 Solo</option><option value="1.6">👥 Partner</option><option value="2.3">👨‍👩‍👧 Family</option></select></div>
             <div class="form-group"><label>Work Situation</label><select id="w-work"><option value="remote">💻 Remote</option><option value="local">💼 Local Job</option><option value="business">🚀 Entrepreneur</option></select></div>
             <div class="form-group full-width"><label>Total Monthly Budget (€)</label><input type="number" id="w-budget" placeholder="e.g. 2500" min="500" step="50" required></div>
-            <div class="form-group full-width"><label>Preferred Vibe</label><select id="w-vibe"><option value="sun">Sun & Life</option><option value="tech">Career Hub</option><option value="culture">Culture</option></select></div>
+            <div class="form-group full-width"><label>Preferred Vibe</label><select id="w-vibe"><option value="sun">Sun &amp; Life</option><option value="tech">Career Hub</option><option value="culture">Culture</option></select></div>
+            <div class="form-group full-width">
+                <label>Move Timing</label>
+                <select id="w-timing">
+                    <option value="exploring">Exploring ideas (6+ months)</option>
+                    <option value="soon">Moving soon (1–6 months)</option>
+                    <option value="arrived">Just arrived (&lt; 1 month)</option>
+                </select>
+            </div>
         </div>
         <button class="cta-btn" onclick="calculateAndStart()">Generate Matches</button>
     </div>
@@ -267,12 +278,25 @@
         </div>
         <div class="profile-summary">
             <div class="profile-icon">👤</div>
-            <div class="profile-text"><span id="p-passport">EU</span> • <span id="p-status">Solo</span><br>Budget: <span id="p-budget">€2000</span></div>
+            <div class="profile-text">
+                <span id="p-passport">EU</span> • <span id="p-status">Solo</span><br>
+                Budget: <span id="p-budget">€2000</span><br>
+                <span id="p-timing">Exploring ideas</span>
+            </div>
             <div class="profile-edit" onclick="editProfile()">Edit</div>
         </div>
-        <div style="font-size:0.75em; text-transform:uppercase; color:#b2bec3; font-weight:700; margin-bottom:10px;">Top Matches</div>
+        <div style="font-size:0.75em; text-transform:uppercase; color:#b2bec3; font-weight:700; margin-bottom:4px;">Top Matches</div>
+        <div id="results-summary" style="font-size:0.75em; color:#636e72; margin-bottom:10px;">
+            Tell us about your move to see matches.
+        </div>
         <div id="results-list" style="overflow-y:auto; flex-grow:1; padding-right:5px;"></div>
         
+        <div style="margin-top:10px; font-size:0.75em;">
+            <span style="cursor:pointer; color:#FF6B6B; text-decoration:underline;" onclick="openRecentMovers()">
+                🤝 Recent movers & soon-to-be movers
+            </span>
+        </div>
+
         <div class="premium-teaser" onclick="startTrueMatch()">
             <div style="font-size:1.2em;">✨ Find My <b>True</b> Match</div>
             <div style="font-size:0.8em; color:#ddd; margin-top:5px;">Get a custom plan for schools, pets & tax.</div>
@@ -285,8 +309,9 @@
     <div class="modal-card">
         <div class="modal-header-img">
             <span class="close-btn-abs" onclick="closeCity()">×</span>
-            <h1 id="d-city" style="margin:0; font-size:2.8em;">City</h1>
+            <h2 id="d-city" style="margin:0; font-size:2.8em;">City</h2>
             <span id="d-country" style="font-size:1.2em; opacity:0.9;">Country</span>
+            <span id="d-header-tags" style="margin-top:8px; font-size:0.8em; opacity:0.9;"></span>
         </div>
 
         <div class="modal-tabs">
@@ -461,6 +486,37 @@
     </div>
 </div>
 
+<div id="recent-movers-modal">
+    <div class="tm-container">
+        <h2 style="margin-top:0; margin-bottom:10px;">Recent Movers &amp; Soon-to-be Movers</h2>
+        <p style="color:#666; font-size:0.9em; margin-bottom:20px;">
+            See how other expats are planning their move. Share your own plans to join the beta community.
+        </p>
+
+        <div style="text-align:left; margin-bottom:20px;">
+            <div style="background:#f8f9fa; border-radius:12px; padding:12px 14px; border:1px solid #eee; margin-bottom:8px; font-size:0.85em;">
+                <strong>Anna • moving to Lisbon in 2 months</strong><br>
+                Remote product designer from Germany, budget €2,400, looking for sun &amp; coworking spaces.
+            </div>
+            <div style="background:#f8f9fa; border-radius:12px; padding:12px 14px; border:1px solid #eee; margin-bottom:8px; font-size:0.85em;">
+                <strong>Raj • just arrived in Berlin</strong><br>
+                Software engineer from India, family of 3, navigating schools and first rental contract.
+            </div>
+            <div style="background:#f8f9fa; border-radius:12px; padding:12px 14px; border:1px solid #eee; margin-bottom:8px; font-size:0.85em;">
+                <strong>Sofia • exploring Valencia &amp; Prague</strong><br>
+                Freelance marketer from Brazil, testing both cities for 3 months each.
+            </div>
+        </div>
+
+        <button class="cta-btn" style="margin-top:0;" onclick="openRecentMoversWaitlist()">
+            I’m moving / just arrived – join the beta community
+        </button>
+        <div style="margin-top:12px; cursor:pointer; color:#999; font-size:0.8em; text-decoration:underline;" onclick="closeRecentMovers()">
+            Close
+        </div>
+    </div>
+</div>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 <script>
@@ -475,18 +531,24 @@
             work_culture: "Relaxed but modernizing. Long lunch breaks common.",
             benefit: "Beckham Law (24% Flat Tax)",
             guide_id: "valencia_pdf",
-            jobs: 140
+            jobs: 140,
+            visa_hint: "Most non-EU expats use a non-lucrative or digital nomad visa.",
+            job_focus: "tech, product, remote work",
+            community_score: 4
         },
         { 
             name: "Lisbon", country: "Portugal", region: "eu", coords: [38.72, -9.13], base_cost: 2000, vibe: "sun", 
-            desc: "The Nomad capital of Europe. Hills, trams, and endless ocean views.",
+            desc: "The nomad capital of Europe. Hills, trams, and endless ocean views.",
             community: "Massive. English spoken everywhere.",
             safety: "Very High", aqi: "Moderate", internet: "Fast",
             hazards: "Slippery cobblestones. Pickpockets on trams.",
             work_culture: "Startups are modern, traditional firms hierarchical.",
-            benefit: "NHR Tax Regime (Legacy/Tech Visa)",
+            benefit: "Tech-friendly visas and tax incentives (changing rules).",
             guide_id: "lisbon_pdf",
-            jobs: 210
+            jobs: 210,
+            visa_hint: "Popular with digital nomad and D7-style visas for remote workers.",
+            job_focus: "startups, tech, customer support",
+            community_score: 5
         },
         { 
             name: "Berlin", country: "Germany", region: "eu", coords: [52.52, 13.40], base_cost: 2300, vibe: "tech", 
@@ -494,10 +556,13 @@
             community: "Diverse niche groups. Harder to make local friends.",
             safety: "Moderate", aqi: "Good", internet: "Average",
             hazards: "Housing crisis (hard to find flat). Dark winters.",
-            work_culture: "Direct, efficient, English-friendly in Tech.",
-            benefit: "EU Blue Card (Fast PR)",
+            work_culture: "Direct, efficient, English-friendly in tech.",
+            benefit: "EU Blue Card (fast track to residency).",
             guide_id: "berlin_pdf",
-            jobs: 850
+            jobs: 850,
+            visa_hint: "Non-EU tech workers often use the EU Blue Card or skilled worker visas.",
+            job_focus: "software, product, design, creative",
+            community_score: 4
         },
         { 
             name: "Bali", country: "Indonesia", region: "asia", coords: [-8.40, 115.18], base_cost: 1400, vibe: "sun", 
@@ -506,20 +571,26 @@
             safety: "Moderate", aqi: "Fair", internet: "Improving",
             hazards: "Traffic accidents (scooters). Dengue fever.",
             work_culture: "Remote dominant. Local pace is slow.",
-            benefit: "Second Home Visa (Tax benefits)",
+            benefit: "Second Home Visa and digital nomad-friendly policies.",
             guide_id: "bali_pdf",
-            jobs: 40
+            jobs: 40,
+            visa_hint: "Most foreigners use social visit visas or longer-term second home visas.",
+            job_focus: "remote work, online business, creators",
+            community_score: 3
         },
         { 
             name: "Amsterdam", country: "Netherlands", region: "eu", coords: [52.36, 4.90], base_cost: 3200, vibe: "culture", 
             desc: "Canals, bikes, high salaries.",
-            community: "Very international. English is main biz language.",
+            community: "Very international. English is main business language.",
             safety: "High", aqi: "Good", internet: "Ultra Fast",
             hazards: "Housing shortage. Grey weather.",
             work_culture: "Flat hierarchy, direct communication.",
-            benefit: "30% Ruling (Tax Free Salary)",
+            benefit: "30% ruling (significant tax break on salary).",
             guide_id: "amsterdam_pdf",
-            jobs: 600
+            jobs: 600,
+            visa_hint: "Highly skilled migrant visas common for non-EU professionals.",
+            job_focus: "tech, finance, logistics",
+            community_score: 4
         },
         { 
             name: "Austin", country: "USA", region: "na", coords: [30.26, -97.74], base_cost: 3500, vibe: "tech", 
@@ -528,9 +599,12 @@
             safety: "Moderate", aqi: "Moderate", internet: "Fast",
             hazards: "Extreme summer heat. High property tax.",
             work_culture: "Hustle culture but casual dress code.",
-            benefit: "No State Income Tax",
+            benefit: "No state income tax on salary.",
             guide_id: "austin_pdf",
-            jobs: 400
+            jobs: 400,
+            visa_hint: "Non-US nationals usually need employer-sponsored work visas.",
+            job_focus: "software, hardware, startups",
+            community_score: 3
         },
         { 
             name: "Tokyo", country: "Japan", region: "asia", coords: [35.67, 139.65], base_cost: 2600, vibe: "culture", 
@@ -539,9 +613,54 @@
             safety: "Very High", aqi: "Good", internet: "Fast",
             hazards: "Earthquakes. Typhoons.",
             work_culture: "Intense. Long hours expected.",
-            benefit: "Highly Skilled Professional Visa",
+            benefit: "Highly skilled professional visa paths for in-demand roles.",
             guide_id: "tokyo_pdf",
-            jobs: 120
+            jobs: 120,
+            visa_hint: "Language skills help; many expats use highly skilled professional or company-sponsored visas.",
+            job_focus: "engineering, finance, English teaching",
+            community_score: 3
+        },
+        { 
+            name: "Mexico City", country: "Mexico", region: "latam", coords: [19.43, -99.13], base_cost: 1500, vibe: "culture", 
+            desc: "Energetic mega-city with rich food, culture and neighborhoods.",
+            community: "Rapidly growing remote worker and creative scene.",
+            safety: "Variable by neighborhood", aqi: "Moderate", internet: "Fast",
+            hazards: "Air pollution, traffic, seismic activity.",
+            work_culture: "Mix of corporate and entrepreneurial. Spanish very helpful.",
+            benefit: "Temporary resident visas can work for remote earners.",
+            guide_id: "mexicocity_pdf",
+            jobs: 180,
+            visa_hint: "Remote earners often use temporary resident visas with income proof.",
+            job_focus: "remote work, media, startups",
+            community_score: 4
+        },
+        { 
+            name: "Prague", country: "Czechia", region: "eu", coords: [50.08, 14.43], base_cost: 1700, vibe: "culture", 
+            desc: "Fairytale architecture, affordable by EU standards, strong expat base.",
+            community: "Large international community and student population.",
+            safety: "High", aqi: "Moderate", internet: "Fast",
+            hazards: "Tourist crowds in the center.",
+            work_culture: "Structured but relaxed, good work–life balance.",
+            benefit: "Attractive base for EU roaming and Schengen access.",
+            guide_id: "prague_pdf",
+            jobs: 160,
+            visa_hint: "Non-EU expats may use employee cards or freelancer visas.",
+            job_focus: "IT, finance, shared service centers",
+            community_score: 4
+        },
+        { 
+            name: "Dubai", country: "United Arab Emirates", region: "me", coords: [25.20, 55.27], base_cost: 3400, vibe: "tech", 
+            desc: "Tax-free salaries, futuristic skyline, very international.",
+            community: "Huge expat population from all over the world.",
+            safety: "Very High", aqi: "Moderate", internet: "Fast",
+            hazards: "Extreme heat most of the year.",
+            work_culture: "Corporate and fast-paced, long hours in some sectors.",
+            benefit: "Tax-free income for many expat workers.",
+            guide_id: "dubai_pdf",
+            jobs: 500,
+            visa_hint: "Company-sponsored employment visas and new remote work visas exist.",
+            job_focus: "finance, tech, hospitality, logistics",
+            community_score: 5
         }
     ];
 
@@ -564,15 +683,18 @@
         }
         user.budget = rawBudget;
         user.vibe = document.getElementById('w-vibe').value;
+        user.timing = document.getElementById('w-timing').value;
         // Keep job title generic in MVP; can be made user-configurable later
         user.jobTitle = "Professional";
 
         // 2. Update Sidebar Profile
         let statusText = document.getElementById('w-status').options[document.getElementById('w-status').selectedIndex].text.split(' ')[1];
         if(statusText === 'Just') statusText = "Solo";
+        const timingText = document.getElementById('w-timing').options[document.getElementById('w-timing').selectedIndex].text;
         document.getElementById('p-passport').innerText = user.passport.toUpperCase();
         document.getElementById('p-status').innerText = statusText;
         document.getElementById('p-budget').innerText = "€" + user.budget;
+        document.getElementById('p-timing').innerText = timingText;
 
         // 3. Visual Transition
         document.getElementById('landing-screen').style.opacity = '0';
@@ -618,6 +740,7 @@
     function filterResults() {
         const list = document.getElementById('results-list');
         list.innerHTML = "";
+        const summaryEl = document.getElementById('results-summary');
         markers.forEach(m => map.removeLayer(m));
         markers = [];
 
@@ -648,13 +771,60 @@
             })
             .filter(item => item.householdCost <= (user.budget + 800)); // flexible upper bound
 
+        if (filtered.length === 0) {
+            const suggestedBudget = user.budget + 300;
+            summaryEl.innerText = "No strong matches yet for this budget.";
+            list.innerHTML = `
+                <div style="font-size:0.8em; color:#636e72; background:#f8f9fa; border-radius:12px; padding:12px; border:1px solid #eee;">
+                    We couldn't find cities that comfortably fit your current budget and household.
+                    Try increasing your budget to around €${suggestedBudget} or switching to a different vibe to unlock more options.
+                </div>
+            `;
+            return;
+        }
+
         // Sort by score, then by leftover budget
         filtered.sort((a, b) => {
             if (b.score !== a.score) return b.score - a.score;
             return b.leftover - a.leftover;
         });
 
-        filtered.forEach(({ city, householdCost, leftover, score }) => {
+        // Only show the top N matches to keep it focused
+        const maxShown = 5;
+        const visible = filtered.slice(0, maxShown);
+
+        // Build a short human-readable summary based on the user profile
+        const passportLabelMap = {
+            eu: "EU / EEA passport",
+            usa: "US passport",
+            uk: "UK passport",
+            other: "global passport"
+        };
+        const workLabelMap = {
+            remote: "remote worker",
+            local: "local job seeker",
+            business: "entrepreneur"
+        };
+        const vibeLabelMap = {
+            sun: "Sun & Life",
+            tech: "Career Hub",
+            culture: "Culture"
+        };
+        const passportLabel = passportLabelMap[user.passport] || (user.passport || "").toUpperCase();
+        const workLabel = workLabelMap[user.work] || "professional";
+        const vibeLabel = vibeLabelMap[user.vibe] || "your vibe";
+        const householdLabel = document.getElementById('w-status').options[document.getElementById('w-status').selectedIndex].text;
+        const timingMap = {
+            exploring: "exploring ideas",
+            soon: "moving soon",
+            arrived: "just arrived"
+        };
+        const timingPhrase = timingMap[user.timing] || "exploring ideas";
+
+        const countText = visible.length === 1 ? "1 city" : `${visible.length} cities`;
+        summaryEl.innerText = `For a ${householdLabel.toLowerCase()} ${workLabel} with ${passportLabel}, budget ~€${user.budget} and a “${vibeLabel}” vibe ${timingPhrase}, these are your top ${countText}.`;
+
+        visible.forEach(({ city, householdCost, leftover, score }, index) => {
             // Build simple tags for the card
             const tags = [];
             const easyVisa = (user.passport === 'eu' && city.region === 'eu') ||
@@ -670,12 +840,14 @@
                     : `Over by €${Math.abs(leftover)}`;
 
             const tagHtml = tags.slice(0, 2).map(t => `<span class="data-tag">${t}</span>`).join(' ');
+            const rankLabel = index === 0 ? "#1 match" : `#${index + 1}`;
 
             list.innerHTML += `
                 <div class="match-card" onclick="openCity('${city.name}')">
                     <div>
                         <div style="font-weight:700; color:#2d3436;">${city.name}</div>
                         <div style="font-size:0.8em; color:#888;">${city.country}</div>
+                        <div style="margin-top:4px; font-size:0.7em; text-transform:uppercase; letter-spacing:0.05em; color:#b2bec3;">${rankLabel}</div>
                         <div style="margin-top:6px; font-size:0.75em; color:#636e72;">${leftoverLabel}</div>
                         <div class="tag-row" style="margin-top:6px;">${tagHtml}</div>
                     </div>
@@ -720,16 +892,19 @@
         const vBox = document.getElementById('visa-box');
         const vTitle = document.getElementById('visa-title');
         const vDesc = document.getElementById('visa-desc');
+        let visaShortLabel = "Visa required";
         
         // Visa Logic
         if (user.passport === 'eu' && city.region === 'eu') {
             vBox.className = "visa-box visa-green";
             vTitle.innerText = "Freedom of Movement";
             vDesc.innerText = "You can live & work here freely (EU Citizen).";
+            visaShortLabel = "Easy visa (EU citizen)";
         } else if (user.passport === 'usa' && city.name === 'Austin') {
              vBox.className = "visa-box visa-green";
              vTitle.innerText = "Citizen / Resident";
              vDesc.innerText = "No restrictions.";
+             visaShortLabel = "Home market";
         } else {
             vBox.className = "visa-box visa-orange";
             vTitle.innerText = "Visa Required";
@@ -752,6 +927,25 @@
         document.getElementById('val-rent').innerText = "€" + rent;
         document.getElementById('val-food').innerText = "€" + food;
         document.getElementById('val-total').innerText = "€" + total;
+
+        // Header insight tags: vibe, budget fit, visa
+        const leftover = user.budget - total;
+        let budgetFit;
+        if (leftover >= 400) {
+            budgetFit = "Comfortable for your budget";
+        } else if (leftover >= 0) {
+            budgetFit = "Tight but possible";
+        } else {
+            // Slightly different language depending on timing
+            if (user.timing === "arrived") {
+                budgetFit = "Above your first-month budget";
+            } else {
+                budgetFit = "Above your stated budget";
+            }
+        }
+        const vibeLabelMap = { sun: "Sun & Life", tech: "Career Hub", culture: "Culture" };
+        const vibeLabel = vibeLabelMap[city.vibe] || "City lifestyle";
+        document.getElementById('d-header-tags').innerText = `${vibeLabel} • ${budgetFit} • ${visaShortLabel}`;
 
         document.getElementById('city-modal').style.display = 'flex';
         openTab('tab-vibe', document.querySelector('.tab-btn')); 
@@ -834,6 +1028,21 @@
         // Placeholder checkout URL for the €4.95 True Match report
         const checkoutUrl = "https://example.com/checkout/true-match";
         window.open(checkoutUrl, "_blank");
+    }
+
+    // --- 8. RECENT MOVERS LOUNGE ---
+    function openRecentMovers() {
+        document.getElementById('recent-movers-modal').style.display = 'flex';
+    }
+
+    function closeRecentMovers() {
+        document.getElementById('recent-movers-modal').style.display = 'none';
+    }
+
+    function openRecentMoversWaitlist() {
+        // External waitlist form for the beta community (replace with your own link)
+        const url = "https://example.com/expatmatch-community-waitlist";
+        window.open(url, "_blank");
     }
 
     // --- 7. ANALYTICS PLAN (to be wired later) ---
