@@ -458,19 +458,19 @@ body {
 
 /* --- TOOLKIT STYLES --- */
 .toolkit-block {
-    margin-top: 60px; margin-bottom: 60px; 
+    margin-top: 60px; 
+    margin-bottom: 60px; 
     text-align: left !important;
 }
-.toolkit-controls, .skill-cloud { justify-content: flex-start !important; }
+.toolkit-controls, .skill-cloud { 
+    justify-content: flex-start !important; 
+}
 
 .toolkit-block h3 { margin-bottom: 20px; font-size: 1.2rem; }
 .skill-cloud { display: flex; flex-wrap: wrap; gap: 12px; }
 .skill-cloud span {
-    padding: 6px 14px; border: 1px solid var(--border-light);  
-    font-size: 0.8rem;
-    border-radius: 30px; font-size: 1rem; font-weight: 500;
-    color: var(--text-muted); background: var(--card-bg);
-    transition: all 0.3s ease;
+    padding: 8px 16px !important;  
+    font-size: 0.9rem !important;
 }
 .skill-cloud span:hover {
     border-color: var(--accent-pink); color: var(--text-main);
