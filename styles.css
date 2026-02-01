@@ -250,9 +250,7 @@ body {
     transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
-/* --- UPDATED ABOUT SECTION (The Bridge) --- */
 
-/* Remove the old max-width limit so we can use the full width for columns */
 .about-section .bio-block {
     max-width: 100% !important; /* Overrides the previous 700px limit */
     margin-bottom: 80px;
@@ -282,7 +280,7 @@ body {
     position: relative;
 }
 
-/* Optional: Add a subtle decoration behind the turtle to frame it */
+/* Add a subtle decoration behind the turtle to frame it */
 .bio-visual::before {
     content: '';
     position: absolute;
@@ -320,7 +318,7 @@ body {
 }
 
 /* =========================================
-   5. ABOUT SUMMARY ("The Explorer's Interface")
+   5. ABOUT SUMMARY 
 ========================================= */
 
 .about-section { 
@@ -459,10 +457,17 @@ body {
 .ocean-fill { bottom: -160%; height: 160%; }
 
 /* --- TOOLKIT STYLES --- */
+.toolkit-block {
+    margin-top: 60px; margin-bottom: 60px; 
+    text-align: left !important;
+}
+.toolkit-controls, .skill-cloud { justify-content: flex-start !important; }
+
 .toolkit-block h3 { margin-bottom: 20px; font-size: 1.2rem; }
 .skill-cloud { display: flex; flex-wrap: wrap; gap: 12px; }
 .skill-cloud span {
-    padding: 12px 24px; border: 1px solid var(--border-light); 
+    padding: 6px 14px; border: 1px solid var(--border-light);  
+    font-size: 0.8rem;
     border-radius: 30px; font-size: 1rem; font-weight: 500;
     color: var(--text-muted); background: var(--card-bg);
     transition: all 0.3s ease;
