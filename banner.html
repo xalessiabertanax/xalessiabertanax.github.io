@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Banner | Alessia Bertana</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --accent: #D100A6; 
+            /* Premium beige tone for professional depth */
+            --bg-base: #E8E6E1; 
+            --text-main: #1A1A1A;
+            --text-muted: #5A5A5A;
+            --glass: rgba(255, 255, 255, 0.2);
+        }
+
+        body {
+            background-color: #333;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #banner-export {
+            width: 1584px;
+            height: 396px;
+            background-color: var(--bg-base);
+            display: flex;
+            position: relative;
+            overflow: hidden;
+            /* Subtle paper texture to feel tactile and high-end */
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+        }
+
+        /* Creative Minimalist Elements */
+        .geometric-accent {
+            position: absolute;
+            border: 1px solid rgba(209, 0, 166, 0.15);
+            border-radius: 50%;
+        }
+        .circle-1 { width: 600px; height: 600px; top: -300px; right: -100px; }
+        .circle-2 { width: 300px; height: 300px; bottom: -150px; left: 350px; }
+        
+        /* Subtle UX Grid background */
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /* Alignment: Strategic offset for profile picture on the left */
+            padding-left: 480px; 
+            position: relative;
+            z-index: 5;
+        }
+
+        /* The Name Component */
+        .brand-block {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 8px;
+        }
+
+        .name {
+            font-size: 82px;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -3px;
+            line-height: 1;
+        }
+
+        /* The iconic dot in your signature pink */
+        .dot {
+            color: var(--accent);
+            font-size: 90px;
+            margin-left: -1px; /* Deze regel moet je veranderen */
+            line-height: 0;
+        }
+
+        .surname {
+            font-size: 82px;
+            font-weight: 400;
+            color: var(--text-main);
+            letter-spacing: -3px;
+            margin-left: 10px;
+        }
+
+        /* Role & Headline on one sophisticated line */
+        .title-line {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .title-line::after {
+            content: '';
+            height: 2px;
+            width: 80px;
+            background: var(--accent);
+            opacity: 0.6;
+        }
+
+        /* Process description: Clear and readable */
+        .copy-block {
+            max-width: 800px;
+            border-left: 3px solid var(--accent);
+            padding-left: 25px;
+        }
+
+        .description {
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .description strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        /* UI Panel for control */
+        .ui-panel { margin-top: 30px; }
+        .btn {
+            background: var(--accent); color: white; padding: 18px 55px; border-radius: 50px;
+            font-weight: 700; border: none; cursor: pointer; font-size: 18px; transition: 0.3s;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+    <div id="banner-export">
+        <div class="grid-overlay"></div>
+        <div class="geometric-accent circle-1"></div>
+        <div class="geometric-accent circle-2"></div>
+
+        <div class="content">
+            <div class="brand-block">
+                <span class="name">Alessia </span>
+                <span class="dot">.</span>
+                <span class="surname">Bertana</span>
+            </div>
+            
+            <div class="title-line">
+                Product & UX Design • Creative Technologist • MSc HCI
+            </div>
+            
+            <div class="copy-block">
+                <p class="description">
+                    Bridging the gap between <strong>creative vision</strong> and <strong>technical reality</strong>. <br>
+                    Turning human insights into high-fidelity digital experiences.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui-panel">
+        <button class="btn" onclick="downloadBanner()">Export Professional UX Banner</button>
+    </div>
+
+    <script>
+        function downloadBanner() {
+            const banner = document.getElementById('banner-export');
+            html2canvas(banner, {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: null
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'Alessia_Bertana_UX_Banner_Beige.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+    </script>
+</body>
+</html>
