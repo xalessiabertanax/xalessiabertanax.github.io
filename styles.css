@@ -240,9 +240,13 @@ body {
 .toolkit-block h3 { margin-bottom: 20px; font-size: 1.2rem; }
 .skill-cloud { display: flex; flex-wrap: wrap; gap: 12px; }
 .skill-cloud span {
-    padding: 12px 24px; border: 1px solid var(--border-light); 
-    border-radius: 30px; font-size: 1rem; font-weight: 500;
-    color: var(--text-muted); background: var(--card-bg);
+    padding: 12px 24px; 
+    border: 1px solid var(--border-light); 
+    border-radius: 30px; 
+    font-size: 1rem; 
+    font-weight: 500;
+    color: var(--text-muted); 
+    background: var(--card-bg);
     transition: all 0.3s ease;
 }
 .skill-cloud span:hover {
@@ -455,27 +459,6 @@ body {
 }
 
 .ocean-fill { bottom: -160%; height: 160%; }
-
-/* --- TOOLKIT STYLES --- */
-.toolkit-block {
-    margin-top: 60px; 
-    margin-bottom: 60px; 
-    text-align: left !important;
-}
-.toolkit-controls, .skill-cloud { 
-    justify-content: flex-start !important; 
-}
-
-.toolkit-block h3 { margin-bottom: 20px; font-size: 1.2rem; }
-.skill-cloud { display: flex; flex-wrap: wrap; gap: 12px; }
-.skill-cloud span {
-    padding: 10px 12px !important;  
-    font-size: 0.85rem !important;
-}
-.skill-cloud span:hover {
-    border-color: var(--accent-pink); color: var(--text-main);
-    transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
 
 /* RESPONSIVE TABLET/MOBILE (Intermediate & Phones) */
 @media (max-width: 900px) {
@@ -1217,9 +1200,13 @@ body {
 
 /* Skill Cloud Transitions & Styling */
 .skill-cloud span {
-    padding: 12px 24px; border: 1px solid var(--border-light); 
-    border-radius: 30px; font-size: 1rem; font-weight: 500;
-    color: var(--text-muted); background: var(--card-bg);
+    padding: 12px 24px; 
+    border: 1px solid var(--border-light); 
+    border-radius: 30px; 
+    font-size: 1rem; 
+    font-weight: 500;
+    color: var(--text-muted); 
+    background: var(--card-bg);
     
     /* ADDED: Subtle shadow to distinguish from background */
     box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
@@ -1511,6 +1498,19 @@ body {
         text-align: left !important;
     }
     .toolkit-controls, .skill-cloud { justify-content: flex-start !important; }
+
+    .skill-cloud span {
+        /* Smaller padding and font for mobile */
+        padding: 6px 14px !important; 
+        font-size: 0.8rem !important;
+        
+        /* Keep these to maintain the look */
+        border: 1px solid var(--border-light); 
+        border-radius: 30px; 
+        font-weight: 500;
+        color: var(--text-muted); 
+        background: var(--card-bg);
+    }
 
     /* --- 5. SELECTED WORK --- */
     .project-list { gap: 60px; }
