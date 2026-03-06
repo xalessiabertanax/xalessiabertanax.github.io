@@ -1,220 +1,424 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>Cape Sales Carousel Template</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>Programma Meten en Verbeteren - LinkedIn Carousel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         :root {
-            --bg-blue: #1c2133;
-            --cape-orange: #ef6925;
-            --text-white: #ffffff;
-            --muted-blue: #2a314a;
+            --cape-dark: #151b30; 
+            --cape-orange: #F06424; 
+            --text-white: #FFFFFF;
+            --text-grey: #cbd5e1;
+            --step-bg: rgba(255,255,255,0.04);
         }
 
         body {
             background: #0f121d;
+            padding: 40px;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 40px;
-            font-family: 'Inter', sans-serif;
         }
 
-        /* 4:5 Vertical Aspect Ratio */
-        #carousel-slide {
-            width: 1080px;
-            height: 1350px;
-            background-color: var(--bg-blue);
-            position: relative;
-            overflow: hidden;
+        .pdf-btn-container {
+            margin-bottom: 40px;
+        }
+
+        .btn-download-pdf {
+            background: #28a745;
+            color: white;
+            font-size: 18px;
+            padding: 15px 30px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            transition: background 0.3s;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+        }
+
+        .btn-download-pdf:hover { background: #218838; }
+
+        .overview-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px; 
+        }
+
+        .slide-card {
             display: flex;
             flex-direction: column;
-            padding: 100px;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .preview-wrapper {
+            width: 216px; 
+            height: 270px; 
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid #333;
+        }
+
+        .slide {
+            width: 1080px;
+            height: 1350px;
+            background-color: #151b30;
+            position: relative;
+            padding: 90px 80px;
             box-sizing: border-box;
-            transform: scale(0.5); /* Scale down for previewing on screen */
-            transform-origin: top center;
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.2); 
+            transform-origin: top left;
+            border-bottom: 20px solid var(--cape-orange);
+            overflow: hidden;
         }
 
-        /* Inspiration-style background pattern */
-        .pattern-overlay {
+        .full-page-logo {
             position: absolute;
-            bottom: -100px;
-            right: -50px;
-            width: 800px;
-            height: 800px;
-            border: 40px solid var(--muted-blue);
-            border-radius: 50%;
-            opacity: 0.3;
+            top: 49%;
+            left: 80%;
+            height: 115%; 
+            width: auto;
+            transform: translate(-50%, -50%);
+            opacity: 0.035; 
+            z-index: 0;
+            pointer-events: none;
         }
 
-        /* Branch/Category Badge */
-        .branch-badge {
-            background: var(--muted-blue);
-            color: var(--text-white);
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 24px;
-            width: fit-content;
-            margin-bottom: 40px;
-            border-left: 5px solid var(--cape-orange);
+        .background-layer.photo-cover {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=2075&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
         }
 
-        /* Main Headline */
+        .background-layer.photo-cover::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(21, 27, 48, 0.98) 0%, rgba(21, 27, 48, 0.7) 40%, rgba(21, 27, 48, 0.98) 100%);
+        }
+
+        .logo img { height: 45px; margin-bottom: 50px; position: relative; z-index: 5; }
+
         h1 {
+            font-size: 70px;
             color: var(--text-white);
-            font-size: 100px;
-            font-weight: 900;
+            font-weight: 800;
             line-height: 1.1;
-            margin: 0;
-            z-index: 2;
+            margin: 0 0 35px 0;
+            z-index: 3;
+            position: relative;
+            text-transform: uppercase;
         }
 
         h1 span { color: var(--cape-orange); }
 
-        /* Salesperson Area */
-        .sales-profile {
-            margin-top: auto;
+        .content-text {
+            font-size: 32px;
+            color: var(--text-grey);
+            line-height: 1.6;
+            margin-bottom: 40px;
+            z-index: 3;
+            position: relative;
+        }
+
+        .steps-container {
             display: flex;
-            align-items: center;
-            gap: 30px;
-            z-index: 2;
-        }
-
-        .profile-photo {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: var(--muted-blue);
-            border: 4px solid var(--cape-orange);
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .profile-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .profile-info {
-            color: var(--text-white);
-        }
-
-        .profile-info .name { font-size: 32px; font-weight: 700; }
-        .profile-info .title { font-size: 24px; color: #8892b0; }
-
-        /* Swipe Call to Action */
-        .swipe-cta {
-            position: absolute;
-            bottom: 100px;
-            right: 100px;
-            text-align: right;
-            color: var(--text-white);
-        }
-
-        .swipe-arrow {
-            font-size: 40px;
-            color: var(--cape-orange);
-            display: block;
-            margin-bottom: 10px;
-            animation: bounceRight 1.5s infinite;
-        }
-
-        @keyframes bounceRight {
-            0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(15px); }
-        }
-
-        /* UI Controls */
-        .ui-panel {
-            margin-top: -650px; /* Adjusting for the scaled preview */
-            background: #fff;
-            padding: 20px;
-            border-radius: 12px;
-            display: flex;
+            flex-direction: column;
             gap: 20px;
+            z-index: 3;
+            position: relative;
         }
 
-        input[type="file"] { display: none; }
-        .btn {
+        .step-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 30px;
+            background: var(--step-bg);
+            padding: 35px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .step-row.highlight {
+            border: 1px solid rgba(240, 100, 36, 0.3);
+            background: rgba(240, 100, 36, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .num-box {
             background: var(--cape-orange);
             color: white;
-            padding: 15px 30px;
+            min-width: 60px;
+            height: 60px;
             border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 800;
+        }
+
+        .step-body b {
+            display: block;
+            font-size: 30px;
+            color: white;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .step-body p {
+            margin: 0;
+            font-size: 24px;
+            color: var(--text-grey);
+            line-height: 1.4;
+        }
+
+        .footer-bar {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 3;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 40px;
+        }
+
+        .footer-text { font-size: 24px; color: rgba(255,255,255,0.4); font-weight: 500; }
+
+        .swipe-btn {
+            background: var(--cape-orange);
+            color: white;
+            font-size: 28px;
+            font-weight: 700;
+            padding: 20px 50px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: 40px;
+            z-index: 3;
+            position: relative;
         }
     </style>
 </head>
 <body>
 
-    <div id="carousel-slide">
-        <div class="pattern-overlay"></div>
-        
-        <div class="branch-badge" contenteditable="true">BRANCH: FOOD</div>
-
-        <h1 contenteditable="true">HOW TO <span>CLOSE</span><br>ANY RETAIL DEAL.</h1>
-
-        <div class="sales-profile">
-            <div class="profile-photo" id="photo-container">
-                <span style="color: grey; font-size: 12px; text-align: center;">Click "Upload Photo"</span>
-            </div>
-            <div class="profile-info">
-                <div class="name" contenteditable="true">Full Name Here</div>
-                <div class="title" contenteditable="true">Senior Sales Executive</div>
-            </div>
-        </div>
-
-        <div class="swipe-cta">
-            <span class="swipe-arrow">→</span>
-            <div style="font-weight: 700; font-size: 20px;">KEEP SCROLLING</div>
-        </div>
+    <div class="pdf-btn-container">
+        <button class="btn-download-pdf" onclick="generatePDF()">Download als PDF Carousel (Optimalisatie)</button>
     </div>
 
-    <div class="ui-panel">
-        <label class="btn">
-            Upload Sales Photo
-            <input type="file" id="imageInput" accept="image/*">
-        </label>
-        <button class="btn" style="background: #1c2133;" onclick="saveSlide()">Download High-Res Slide</button>
+    <div class="overview-grid">
+        <div class="slide-card">
+            <div class="preview-wrapper">
+                <div id="slide-1" class="slide">
+                    <div class="background-layer photo-cover"></div>
+                    <div class="logo"><img src="images/cape.png"></div>
+                    <h1>Vrachtwagenheffing<br><span>& Optimalisatie</span></h1>
+                    <div class="content-text">
+                        De heffing verhoogt per 2026 de kostprijs, maar de opbrengst vloeit terug naar de sector. Gebruik dit beschikbare budget om via het programma 'Meten en Verbeteren' je operatie te optimaliseren.
+                    </div>
+                    <div class="swipe-btn">HET TRAJECT IN 5 STAPPEN &rarr;</div>
+                    <div class="footer-bar">
+                        <div class="footer-text">CAPE.NL</div>
+                        <div class="footer-text">1/5</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-card">
+            <div class="preview-wrapper">
+                <div id="slide-2" class="slide">
+                    <img src="images/capelogo.png" class="full-page-logo">
+                    <div class="logo"><img src="images/cape.png"></div>
+                    <h1>Programma:<br><span>Meten & Verbeteren</span></h1>
+                    <div class="content-text">
+                        Experts helpen je in 5 stappen naar vollere wagens, slimmere routes en hogere marges. Dat begint bij inzicht.
+                    </div>
+                    <div class="steps-container">
+                        <div class="step-row">
+                            <div class="num-box">✓</div>
+                            <div class="step-body">
+                                <b>Kosteloze Expertise</b>
+                                <p>Krijg toegang tot erkende logistiek adviseurs en gespecialiseerde calculatietools.</p>
+                            </div>
+                        </div>
+                        <div class="step-row">
+                            <div class="num-box">✓</div>
+                            <div class="step-body">
+                                <b>Direct Inzicht</b>
+                                <p>Ontdek waar marge weglekt in planning of belading en verbeter je concurrentiepositie.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-bar">
+                        <div class="footer-text">CAPE.NL</div>
+                        <div class="footer-text">2/5</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-card">
+            <div class="preview-wrapper">
+                <div id="slide-3" class="slide">
+                    <img src="images/capelogo.png" class="full-page-logo">
+                    <div class="logo"><img src="images/cape.png"></div>
+                    <h1>De Basis:<br><span>Grip op je data</span></h1>
+                    <div class="step-row highlight">
+                        <div class="num-box">0</div>
+                        <div class="step-body">
+                            <b>Doe eerst de test</b>
+                            <p>Bepaal waar je bedrijf staat en met welke stap je start. Daarna begeleidt een adviseur je bij het onderzoek en verbeteren.</p>
+                        </div>
+                    </div>
+                    <div class="steps-container">
+                        <div class="step-row">
+                            <div class="num-box">1</div>
+                            <div class="step-body">
+                                <b>CO₂ rapporteren</b>
+                                <p>Je stelt een CO₂-jaarrapport op volgens de nieuwste standaarden. Dit inzicht vormt de basis voor gerichte verbeteringen.</p>
+                            </div>
+                        </div>
+                        <div class="step-row">
+                            <div class="num-box">2</div>
+                            <div class="step-body">
+                                <b>Goede data per order</b>
+                                <p>Koppel ritten en verbruik direct aan specifieke orders om direct te zien waar je marge verdampt.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-bar">
+                        <div class="footer-text">CAPE.NL</div>
+                        <div class="footer-text">3/5</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-card">
+            <div class="preview-wrapper">
+                <div id="slide-4" class="slide">
+                    <img src="images/capelogo.png" class="full-page-logo">
+                    <div class="logo"><img src="images/cape.png"></div>
+                    <h1>Verdieping:<br><span>Optimalisatie</span></h1>
+                    <div class="steps-container">
+                        <div class="step-row">
+                            <div class="num-box">3</div>
+                            <div class="step-body">
+                                <b>Continu zelf verbeteren</b>
+                                <p>Analyseer de oorzaken van inefficiëntie, voer verbeteringen door en meet het effect.</p>
+                            </div>
+                        </div>
+                        <div class="step-row">
+                            <div class="num-box">4</div>
+                            <div class="step-body">
+                                <b>Samen verbeteren</b>
+                                <p>Maak plannen met ketenpartners voor een slimmere inrichting van de gezamenlijke logistiek.</p>
+                            </div>
+                        </div>
+                        <div class="step-row">
+                            <div class="num-box">5</div>
+                            <div class="step-body">
+                                <b>Nóg meer data, nóg meer grip</b>
+                                <p>Deep-dive in beladingsgraad via de LPI, waardoor je diepgaand inzicht krijgt in belading en lege kilometers.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-bar">
+                        <div class="footer-text">CAPE.NL</div>
+                        <div class="footer-text">4/5</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-card">
+            <div class="preview-wrapper">
+                <div id="slide-5" class="slide">
+                    <img src="images/capelogo.png" class="full-page-logo">
+                    <div class="logo"><img src="images/cape.png"></div>
+                    <h1>Pak je<br><span>Rendement terug</span></h1>
+                    <div class="content-text">
+                        De wetgeving staat vast. Gebruik de beschikbare middelen om je marge te beschermen en je operatie te versterken.
+                    </div>
+                    <div style="background: var(--cape-orange); padding: 50px; border-radius: 12px; margin-top: 40px; z-index: 3; position: relative;">
+                        <div style="font-size: 36px; font-weight: 800; color: white; text-transform: uppercase;">Bekijk de mogelijkheden</div>
+                        <div style="font-size: 26px; color: rgba(255,255,255,0.9); margin-top: 10px;">Link naar de blog in de post hierboven 👆</div>
+                    </div>
+                    <div class="footer-bar">
+                        <div class="footer-text">CAPE.NL</div>
+                        <div class="footer-text">5/5</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Handle Image Upload
-        document.getElementById('imageInput').addEventListener('change', function(e) {
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const img = new Image();
-                img.src = event.target.result;
-                const container = document.getElementById('photo-container');
-                container.innerHTML = '';
-                container.appendChild(img);
-            }
-            reader.readAsDataURL(e.target.files[0]);
-        });
-
-        // Save high-quality PNG
-        function saveSlide() {
-            const slide = document.getElementById('carousel-slide');
-            // Remove scale temporarily for full-res capture
-            slide.style.transform = 'scale(1)';
-            
-            html2canvas(slide, {
-                scale: 1, // High resolution
-                backgroundColor: '#1c2133'
-            }).then(canvas => {
-                const link = document.createElement('a');
-                link.download = 'sales-carousel-slide.png';
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-                slide.style.transform = 'scale(0.5)'; // Scale back
+        async function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({
+                orientation: "portrait",
+                unit: "px",
+                format: [1080, 1350],
+                compress: true // Schakelt compressie in voor een kleiner bestand
             });
+
+            const slideIds = ['slide-1', 'slide-2', 'slide-3', 'slide-4', 'slide-5'];
+            const btn = document.querySelector('.btn-download-pdf');
+            btn.innerText = "Bezig met verkleinen...";
+            btn.disabled = true;
+
+            for (let i = 0; i < slideIds.length; i++) {
+                const originalSlide = document.getElementById(slideIds[i]);
+                const clonedSlide = originalSlide.cloneNode(true);
+                
+                clonedSlide.style.transform = "scale(1)";
+                clonedSlide.style.position = "fixed";
+                clonedSlide.style.top = "0";
+                clonedSlide.style.left = "0";
+                clonedSlide.style.width = "1080px";
+                clonedSlide.style.height = "1350px";
+                clonedSlide.style.zIndex = "-9999";
+                
+                document.body.appendChild(clonedSlide);
+
+                const canvas = await html2canvas(clonedSlide, {
+                    scale: 1.5, // Verlaagd van 2 naar 1.5 voor minder MB's maar behoud van scherpte
+                    width: 1080,
+                    height: 1350,
+                    useCORS: true,
+                    logging: false,
+                    imageTimeout: 0
+                });
+
+                // Gebruik JPEG in plaats van PNG voor de achtergrondfoto op slide 1 om MB's te besparen
+                const format = (i === 0) ? 'JPEG' : 'PNG';
+                const quality = (i === 0) ? 0.8 : 1.0;
+                const imgData = canvas.toDataURL(`image/${format}`, quality);
+                
+                if (i > 0) {
+                    pdf.addPage([1080, 1350], "portrait");
+                }
+                
+                pdf.addImage(imgData, format, 0, 0, 1080, 1350, undefined, 'FAST');
+                document.body.removeChild(clonedSlide);
+            }
+
+            pdf.save("CAPE_Meten_En_Verbeteren_Optimized.pdf");
+            btn.innerText = "Download als PDF Carousel";
+            btn.disabled = false;
         }
     </script>
 </body>

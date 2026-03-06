@@ -189,4 +189,44 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
-});
+
+    // --- SCROLL DOT NAV (progress line + active section) ---
+    const scrollDotNav = document.getElementById('scroll-dot-nav');
+    const scrollDotFill = document.getElementById('scroll-dot-fill');
+    const scrollDotLinks = document.querySelectorAll('.scroll-dot-link');
+
+    function updateScrollDotNav() {
+        if (!scrollDotNav || window.innerWidth <= 1024) return;
+
+        const hero = document.getElementById('hero');
+        const contact = document.getElementById('contact');
+        if (!hero || !contact) return;
+
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (docHeight <= 0) return;
+
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const progress = Math.min(scrollTop / docHeight, 1);
+        if (scrollDotFill) scrollDotFill.style.height = (progress * 100) + '%';
+
+        const sections = ['hero', 'work', 'journey', 'contact'];
+        let current = 'hero';
+        for (const id of sections) {
+            const el = document.getElementById(id);
+            if (el) {
+                const rect = el.getBoundingClientRect();
+                const mid = window.innerHeight * 0.4;
+                if (rect.top <= mid && rect.bottom > mid) current = id;
+            }
+        }
+        scrollDotLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('data-section') === current);
+        });
+    }
+
+    if (scrollDotNav) {
+        window.addEventListener('scroll', updateScrollDotNav);
+        window.addEventListener('resize', updateScrollDotNav);
+        updateScrollDotNav();
+    }
+}); 

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>CAPE Klantcase Visual - Bart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --cape-dark: #151b30; 
+            --cape-orange: #F06424; 
+            --text-white: #FFFFFF;
+            --text-grey: #cbd5e1;
+        }
+
+        body {
+            background: #0f121d;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* 1200x627 is de ideale ratio voor een LinkedIn Single Image post */
+        .visual-container {
+            width: 1200px;
+            height: 627px;
+            background-color: #151b30;
+            position: relative;
+            padding: 60px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            overflow: hidden;
+            border-left: 15px solid var(--cape-orange);
+        }
+
+        .background-layer.pattern {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: repeating-linear-gradient(45deg, #151b30 0px, #151b30 40px, #1a2138 40px, #1a2138 80px);
+            z-index: 0;
+        }
+
+        .logo img { height: 40px; margin-bottom: 40px; position: relative; z-index: 5; }
+
+        h1 {
+            font-size: 52px;
+            color: var(--text-white);
+            font-weight: 800;
+            line-height: 1.1;
+            margin: 0 0 20px 0;
+            z-index: 3;
+            text-transform: uppercase;
+        }
+
+        h1 span { color: var(--cape-orange); }
+
+        .sub-header {
+            font-size: 24px;
+            color: var(--text-grey);
+            margin-bottom: 40px;
+            z-index: 3;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            z-index: 3;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.05);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .card b {
+            display: block;
+            color: var(--cape-orange);
+            font-size: 20px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .card p {
+            margin: 0;
+            color: white;
+            font-size: 18px;
+            line-height: 1.4;
+        }
+
+        .footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 3;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            color: rgba(255,255,255,0.4);
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .btn-download {
+            margin-top: 20px;
+            background: var(--cape-orange);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="klantcase-visual" class="visual-container">
+        <div class="background-layer pattern"></div>
+        <div class="logo"><img src="https://www.cape.nl/wp-content/themes/capegroep/assets/img/logo-cape-groep.svg"></div>
+        
+        <h1>Klantcase: <span>Centraal Management Portaal</span></h1>
+        <div class="sub-header">Digitale Infrastructuur voor 800+ transporteurs</div>
+
+        <div class="grid">
+            <div class="card">
+                <b>Realtime Monitoring</b>
+                <p>Direct inzicht in voortgang en CO₂-reductie voor het Ministerie van IenW.</p>
+            </div>
+            <div class="card">
+                <b>Consultancy Management</b>
+                <p>Gecoördineerde inzet van tientallen adviesbureaus in één platform.</p>
+            </div>
+            <div class="card">
+                <b>Veilige Data</b>
+                <p>Toegangsbeheer op maat voor transporteurs, adviseurs en overheid.</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div>CASE: PROGRAMMA METEN EN VERBETEREN</div>
+            <div>WWW.CAPE.NL</div>
+        </div>
+    </div>
+
+    <button class="btn-download" onclick="saveVisual()">Download Visual (PNG)</button>
+
+    <script>
+        function saveVisual() {
+            const element = document.getElementById('klantcase-visual');
+            html2canvas(element, {
+                scale: 2,
+                useCORS: true
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'Bart-Klantcase-Visual.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+    </script>
+</body>
+</html>

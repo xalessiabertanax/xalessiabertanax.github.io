@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
     <title>Alessia Bertana | Product & UX Designer</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -196,6 +197,17 @@
 
     <div class="cursor"></div>
 
+    <!-- Scroll progress & section nav (dot) – desktop only -->
+    <nav class="scroll-dot-nav" id="scroll-dot-nav" aria-label="Page sections">
+        <div class="scroll-dot-track" aria-hidden="true">
+            <div class="scroll-dot-fill" id="scroll-dot-fill"></div>
+        </div>
+        <a href="#hero" class="scroll-dot-link" data-section="hero"><span>Home</span></a>
+        <a href="#work" class="scroll-dot-link" data-section="work"><span>Work</span></a>
+        <a href="#journey" class="scroll-dot-link" data-section="journey"><span>Journey</span></a>
+        <a href="#contact" class="scroll-dot-link" data-section="contact"><span>Contact</span></a>
+    </nav>
+
     <nav class="navbar">
         <div class="nav-content">
             <div class="logo"><a href="index.html" style="text-decoration:none; color:inherit;">Alessia<span class="dot">.</span></a></div>
@@ -357,28 +369,33 @@
             <p class="section-subtitle">Iterative projects from user research studies to real-world implementations.</p>
 
             <div class="project-list">
-    
-                <div class="project-card hidden-up">
+
+                <p class="work-subsection-label hidden-up">Featured</p>
+                <div class="project-card featured-project-card hidden-up">
                     <a href="work/baker.html" class="card-visual">
                         <img src="images/BakerHughes.jpeg" alt="Baker Hughes Dashboard Interface">
                     </a>
                     <div class="card-content">
                         <span class="project-year">2025</span>
-                        <h3 class="project-title">Baker Hughes Enterprise</h3>
+                        <h3 class="project-title">Baker Hughes • Training Analytics</h3>
                         <p class="project-desc">
-                            A year-long digital transformation journey. I created an automated Power BI dashboard, designed MVPs for a new pain-point gathering application, and e-learning modules.
+                            Internal tools for a global energy company: I designed a training analytics dashboard and a lightweight idea submission MVP to help teams understand and act on service pain points.
                         </p>
                         
                         <div class="meta-container">
                             <div class="meta-block">
                                 <span class="meta-label">Role</span>
-                                <span class="meta-value">Services Intern</span>
+                                <span class="meta-value">Product &amp; UX Design Intern</span>
+                            </div>
+                            <div class="meta-block">
+                                <span class="meta-label">Focus</span>
+                                <span class="meta-value">Internal tools • B2B • Training UX</span>
                             </div>
                             <div class="meta-tags">
                                 <span class="tag">Figma</span>
                                 <span class="tag">Power BI</span>
-                                <span class="tag">Power Automate</span>
-                                <span class="tag">Storyline 360</span>
+                                <span class="tag">Power Apps</span>
+                                <span class="tag">User Research</span>
                             </div>
                         </div>
 
@@ -388,6 +405,7 @@
                     </div>
                 </div>
 
+                <p class="work-subsection-label hidden-up">Product &amp; UX work</p>
                 <div class="project-card hidden-up">
                     <a href="work/glove.html" class="card-visual">
                         <img src="images/glove.jpeg" alt="Haptic ASL Glove Prototype">
@@ -396,19 +414,23 @@
                         <span class="project-year">2024</span>
                         <h3 class="project-title">Multisensory ASL Glove</h3>
                         <p class="project-desc">
-                            A haptic glove designed to teach American Sign Language. I engineered a hardware prototype (flex sensors & actuators) and handled Serial communication between Arduino and Processing to test if multimodal feedback improves retention.
+                            A gamified haptic glove and interface exploring whether multimodal feedback can improve short‑term retention of ASL letters.
                         </p>
                         
                         <div class="meta-container">
                             <div class="meta-block">
-                                <span class="meta-label">University of Trento</span>
-                                <span class="meta-value">Multisensory Design</span>
+                                <span class="meta-label">Role</span>
+                                <span class="meta-value">Interaction Designer • Creative Technologist</span>
+                            </div>
+                            <div class="meta-block">
+                                <span class="meta-label">Focus</span>
+                                <span class="meta-value">Wearables • Learning • Haptics</span>
                             </div>
                             <div class="meta-tags">
                                 <span class="tag">Arduino</span>
-                                <span class="tag">Sensors</span>
-                                <span class="tag">Physical Computing</span>
-                                <span class="tag">UX Research</span>
+                                <span class="tag">Processing</span>
+                                <span class="tag">User Studies</span>
+                                <span class="tag">Multisensory UX</span>
                             </div>
                         </div>
 
@@ -426,18 +448,22 @@
                         <span class="project-year">2023</span>
                         <h3 class="project-title">VR Exposure Therapy</h3>
                         <p class="project-desc">
-                            A VR environment to help train conductors process trauma. I handled the Virtual Reality build, focusing on level design, pacing, and psychological safety.
+                            A VR environment co-designed with domain experts to gradually expose train conductors to difficult situations in a safe, controlled way.
                         </p>
                         
                         <div class="meta-container">
                             <div class="meta-block">
-                                <span class="meta-label">University of Twente</span>
-                                <span class="meta-value">Virtual Reality</span>
+                                <span class="meta-label">Role</span>
+                                <span class="meta-value">VR / UX Designer</span>
+                            </div>
+                            <div class="meta-block">
+                                <span class="meta-label">Focus</span>
+                                <span class="meta-value">VR • Training • Behavior Change</span>
                             </div>
                             <div class="meta-tags">
                                 <span class="tag">Unity</span>
                                 <span class="tag">C#</span>
-                                <span class="tag">Level Design</span>
+                                <span class="tag">Scenario Design</span>
                             </div>
                         </div>
 
@@ -447,6 +473,7 @@
                     </div>
                 </div>
 
+                <p class="work-subsection-label hidden-up">Explorations</p>
                 <div class="project-card hidden-up">
                     <a href="work/bci.html" class="card-visual">
                         <img src="images/BCI.jpeg" alt="Brain Computer Interface Setup">
@@ -455,18 +482,22 @@
                         <span class="project-year">2023</span>
                         <h3 class="project-title">Neural Pac-Man</h3>
                         <p class="project-desc">
-                            A game controlled by brainwaves using an EEG headset. I handled the logic to adapt game mechanics in real-time based on cognitive load data.
+                            A Brain‑Computer Interface prototype where game difficulty adapts to the player’s cognitive workload in real time.
                         </p>
                         
                         <div class="meta-container">
                             <div class="meta-block">
-                                <span class="meta-label">University of Twente</span>
-                                <span class="meta-value">BCI Logic</span>
+                                <span class="meta-label">Role</span>
+                                <span class="meta-value">Experience Designer • Data Logic</span>
+                            </div>
+                            <div class="meta-block">
+                                <span class="meta-label">Focus</span>
+                                <span class="meta-value">BCI • Stress Awareness • Adaptive Gameplay</span>
                             </div>
                             <div class="meta-tags">
                                 <span class="tag">Python</span>
-                                <span class="tag">EEG</span>
-                                <span class="tag">UX Research</span>
+                                <span class="tag">EEG (Unicorn)</span>
+                                <span class="tag">Game Design</span>
                             </div>
                         </div>
 
@@ -586,11 +617,11 @@
         <div class="container">
             <h2 class="section-header hidden-up">Let's Connect <span class="dot">.</span></h2>
             
-            <p class="contact-subtitle hidden-up delay-100" style="max-width: 600px; margin: 0 auto 40px auto; line-height: 1.6;">
-                Whether you need a UX designer who codes, a facilitator for your workshop, or just want to chat about design, travel, and building the future, I'm here for it!
+            <p class="contact-subtitle hidden-up delay-100" style="max-width: 560px; margin: 0 auto 32px auto;">
+                Whether you need a UX designer who codes, a facilitator for your workshop, or just want to chat about design, travel, and building the future, I'm here for it.
             </p>
-            
-            <a href="mailto:alesbertana@gmail.com" class="big-email-center hidden-up delay-200">Email Me</a>
+
+            <a href="mailto:alesbertana@gmail.com" class="big-email-center hidden-up delay-150">Email Me</a>
 
             <div class="social-links hidden-up delay-200" style="margin-top: 40px;">
                 <a href="https://linkedin.com/in/alessiabertana" target="_blank" class="social-icon"><i data-lucide="linkedin"></i></a>
