@@ -1,232 +1,147 @@
-/* --- INTELLIGENT CYCLIST ANIMATION --- */
-let lastScrollTop = 0;
-let isScrollingTimer; // Timer to detect when scrolling stops
-
-function moveBike() {
-    const section = document.querySelector('.journey-section');
-    const bike = document.getElementById('bikeRider');
-    
-    // Only run on desktop
-    if(!section || !bike || window.innerWidth < 900) return;
-
-    const rect = section.getBoundingClientRect();
-    const viewportHeight = window.innerHeight;
-
-    // --- 1. CALCULATE POSITION ---
-    // Start moving when the section hits the middle of the viewport
-    let startPoint = viewportHeight * 0.5; 
-    let distance = startPoint - rect.top;
-    let totalHeight = rect.height;
-    
-    let percentage = distance / totalHeight;
-    percentage = Math.max(0, Math.min(1, percentage));
-    
-    // Move the bike
-    bike.style.top = (percentage * 100) + '%';
-
-    // --- 2. HANDLE ROTATION (Direction) ---
-    const currentScrollTop = window.scrollY || document.documentElement.scrollTop;
-    
-    // If we moved significantly...
-    if (Math.abs(currentScrollTop - lastScrollTop) > 2) {
-        if (currentScrollTop > lastScrollTop) {
-            // Scrolling DOWN -> Rotate to point down (90deg)
-            bike.style.transform = `translate(-50%, -50%) rotate(90deg)`;
-        } else {
-            // Scrolling UP -> Rotate to point up (-90deg)
-            bike.style.transform = `translate(-50%, -50%) rotate(-90deg)`;
-        }
-    }
-    
-    lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
-
-    // --- 3. RESET WHEN STOPPED ---
-    // Clear the timer every time we scroll
-    window.clearTimeout(isScrollingTimer);
-
-    // Set a new timer. If no scroll happens for 150ms, we assume stopped.
-    isScrollingTimer = setTimeout(() => {
-        // Reset to Horizontal (0deg)
-        bike.style.transform = `translate(-50%, -50%) rotate(0deg)`;
-    }, 150);
-}
-
-// Add listeners
-window.addEventListener('scroll', moveBike);
-window.addEventListener('resize', moveBike);
-
-/* --- 1. GLOBAL FUNCTIONS (Must be outside DOMContentLoaded) --- */
-function setToolkit(mode) {
-    // 1. Update the container state to trigger CSS changes
-    const cloud = document.getElementById('skillCloud');
-    if (cloud) {
-        cloud.setAttribute('data-state', mode);
-    }
-
-    // 2. Update button active styling
-    const buttons = document.querySelectorAll('.toolkit-btn');
-    buttons.forEach(btn => {
-        btn.classList.remove('active');
-        // Logic: specific mode OR 'all' catches everything
-        if(btn.innerText.toLowerCase().includes(mode) || (mode === 'all' && btn.innerText === 'All')) {
-            btn.classList.add('active');
-        }
+// ── Scroll Reveal ──
+function initScrollReveal() {
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const delay = entry.target.dataset.delay || 0;
+        setTimeout(() => entry.target.classList.add('visible'), delay * 1000);
+        observer.unobserve(entry.target);
+      }
     });
+  }, { threshold: 0.1, rootMargin: '-60px' });
+  reveals.forEach(el => observer.observe(el));
 }
 
-/* --- 2. PAGE LOAD LOGIC --- */
-document.addEventListener("DOMContentLoaded", () => {
+// ── Navbar scroll effect ──
+function initNavbar() {
+  const navbar = document.querySelector('.navbar');
+  if (!navbar) return;
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
 
-    // --- INITIALIZE ICONS ---
-    if (typeof lucide !== 'undefined') {
-        lucide.createIcons();
+  // Mobile toggle
+  const toggle = document.querySelector('.mobile-toggle');
+  const menu = document.querySelector('.mobile-menu');
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => {
+      menu.classList.toggle('open');
+      toggle.textContent = menu.classList.contains('open') ? '✕' : '☰';
+    });
+    menu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        menu.classList.remove('open');
+        toggle.textContent = '☰';
+      });
+    });
+  }
+}
+
+// ── Empathy Body (Desktop) ──
+function initEmpathyDesktop() {
+  const container = document.querySelector('.empathy-container');
+  if (!container) return;
+
+  const regions = [
+    { id: 'head', labelId: 'label-head' },
+    { id: 'eyes', labelId: 'label-eyes' },
+    { id: 'heart', labelId: 'label-heart' },
+    { id: 'hands', labelId: 'label-hands' },
+    { id: 'feet', labelId: 'label-feet' },
+  ];
+  const bodyParts = {
+    head: container.querySelectorAll('.body-head'),
+    eyes: container.querySelectorAll('.body-eyes'),
+    heart: container.querySelectorAll('.body-heart'),
+    hands: container.querySelectorAll('.body-hands'),
+    feet: container.querySelectorAll('.body-feet'),
+  };
+
+  let showAll = false;
+
+  // Hover handlers
+  regions.forEach(region => {
+    const hotzone = container.querySelector(`[data-region="${region.id}"]`);
+    const label = document.getElementById(region.labelId);
+    if (!hotzone || !label) return;
+
+    hotzone.addEventListener('mouseenter', () => {
+      if (showAll) return;
+      label.classList.add('visible');
+      if (bodyParts[region.id]) bodyParts[region.id].forEach(p => p.classList.add('active'));
+    });
+    hotzone.addEventListener('mouseleave', () => {
+      if (showAll) return;
+      label.classList.remove('visible');
+      if (bodyParts[region.id]) bodyParts[region.id].forEach(p => p.classList.remove('active'));
+    });
+  });
+
+  // Click to show all
+  container.addEventListener('click', () => {
+    showAll = !showAll;
+    regions.forEach(region => {
+      const label = document.getElementById(region.labelId);
+      if (label) label.classList.toggle('visible', showAll);
+      if (bodyParts[region.id]) bodyParts[region.id].forEach(p => p.classList.toggle('active', showAll));
+    });
+  });
+}
+
+// ── Empathy Body (Mobile) ──
+function initEmpathyMobile() {
+  const container = document.querySelector('.empathy-mobile');
+  if (!container) return;
+
+  const regionIds = ['head', 'eyes', 'heart', 'hands', 'feet'];
+  const cards = document.querySelectorAll('.empathy-mobile-region');
+  const bodyParts = {
+    head: container.querySelectorAll('.body-head'),
+    eyes: container.querySelectorAll('.body-eyes'),
+    heart: container.querySelectorAll('.body-heart'),
+    hands: container.querySelectorAll('.body-hands'),
+    feet: container.querySelectorAll('.body-feet'),
+  };
+  let currentIndex = -1;
+
+  container.querySelector('svg').addEventListener('click', () => {
+    // Clear all highlights
+    regionIds.forEach(id => {
+      if (bodyParts[id]) bodyParts[id].forEach(p => p.classList.remove('active'));
+    });
+
+    currentIndex++;
+    if (currentIndex >= regionIds.length) currentIndex = -1;
+
+    cards.forEach(c => c.style.display = 'none');
+
+    if (currentIndex >= 0) {
+      const activeCard = document.getElementById(`mobile-card-${regionIds[currentIndex]}`);
+      if (activeCard) activeCard.style.display = 'block';
+      if (bodyParts[regionIds[currentIndex]]) {
+        bodyParts[regionIds[currentIndex]].forEach(p => p.classList.add('active'));
+      }
+    } else {
+      document.getElementById('mobile-card-hint').style.display = 'block';
     }
+  });
+}
 
-    // --- THEME TOGGLE ---
-    const themeBtn = document.getElementById('theme-toggle');
-    const html = document.documentElement;
+// ── Ocean Dive (About Summary) ──
+function initOceanDive() {
+  const dive = document.querySelector('.ocean-dive');
+  if (!dive) return;
+  // Touch support for mobile
+  dive.addEventListener('touchstart', () => dive.classList.add('active'));
+  dive.addEventListener('touchend', () => dive.classList.remove('active'));
+}
 
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    html.setAttribute('data-theme', savedTheme);
-
-    if (themeBtn) {
-        themeBtn.addEventListener('click', () => {
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        });
-    }
-
-    // --- CUSTOM CURSOR ---
-    const cursor = document.querySelector('.cursor');
-    if (cursor && window.matchMedia("(pointer: fine)").matches) {
-        const hoverTargets = document.querySelectorAll('a, button, .image-frame, .hero-visual, .project-item, .project-card, .work-card, .btn-case-study, .toolkit-btn');
-
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-
-        hoverTargets.forEach(target => {
-            target.addEventListener('mouseenter', () => cursor.classList.add('cursor-grow'));
-            target.addEventListener('mouseleave', () => cursor.classList.remove('cursor-grow'));
-        });
-    }
-
-    // --- MAGNETIC IMAGE ---
-    const magneticWrap = document.querySelector('.magnetic-wrap');
-    const imageBlobs = document.querySelector('.image-blobs');
-
-    if (magneticWrap && imageBlobs) {
-        magneticWrap.addEventListener('mousemove', (e) => {
-            const rect = magneticWrap.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            imageBlobs.style.transform = `translate(${x/20}px, ${y/20}px) rotate(0deg)`;
-        });
-
-        magneticWrap.addEventListener('mouseleave', () => {
-            imageBlobs.style.transform = `translate(0px, 0px) rotate(-2deg)`;
-        });
-    }
-
-    // --- SCROLL ANIMATION FIX ---
-    const observerOptions = {
-        threshold: 0, /* Trigger immediately when any part is visible */
-        rootMargin: "0px 0px -50px 0px" 
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('show');
-                observer.unobserve(entry.target); 
-            }
-        });
-    }, observerOptions);
-
-    const hiddenElements = document.querySelectorAll('.hidden-left, .hidden-right, .hidden-up');
-    hiddenElements.forEach((el) => observer.observe(el));
-
-    // --- HAMBURGER MENU ---
-    const hamburgerBtn = document.getElementById('hamburger-btn');
-    const navLinks = document.querySelector('.nav-links');
-
-    if (hamburgerBtn && navLinks) {
-        hamburgerBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            
-            const icon = hamburgerBtn.querySelector('i');
-            if (navLinks.classList.contains('active')) {
-                icon.setAttribute('data-lucide', 'x');
-            } else {
-                icon.setAttribute('data-lucide', 'menu');
-            }
-            lucide.createIcons(); 
-        });
-
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                const icon = hamburgerBtn.querySelector('i');
-                if(icon) {
-                    icon.setAttribute('data-lucide', 'menu');
-                    lucide.createIcons();
-                }
-            });
-        });
-    }
-
-    // --- NAVBAR SHADOW ---
-    const navbar = document.querySelector('.navbar');
-    if (navbar) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.style.boxShadow = "0 5px 20px rgba(0,0,0,0.05)";
-            } else {
-                navbar.style.boxShadow = "none";
-            }
-        });
-    }
-
-    // --- SCROLL DOT NAV (progress line + active section) ---
-    const scrollDotNav = document.getElementById('scroll-dot-nav');
-    const scrollDotFill = document.getElementById('scroll-dot-fill');
-    const scrollDotLinks = document.querySelectorAll('.scroll-dot-link');
-
-    function updateScrollDotNav() {
-        if (!scrollDotNav || window.innerWidth <= 1024) return;
-
-        const hero = document.getElementById('hero');
-        const contact = document.getElementById('contact');
-        if (!hero || !contact) return;
-
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        if (docHeight <= 0) return;
-
-        const scrollTop = window.scrollY || document.documentElement.scrollTop;
-        const progress = Math.min(scrollTop / docHeight, 1);
-        if (scrollDotFill) scrollDotFill.style.height = (progress * 100) + '%';
-
-        const sections = ['hero', 'work', 'journey', 'contact'];
-        let current = 'hero';
-        for (const id of sections) {
-            const el = document.getElementById(id);
-            if (el) {
-                const rect = el.getBoundingClientRect();
-                const mid = window.innerHeight * 0.4;
-                if (rect.top <= mid && rect.bottom > mid) current = id;
-            }
-        }
-        scrollDotLinks.forEach(link => {
-            link.classList.toggle('active', link.getAttribute('data-section') === current);
-        });
-    }
-
-    if (scrollDotNav) {
-        window.addEventListener('scroll', updateScrollDotNav);
-        window.addEventListener('resize', updateScrollDotNav);
-        updateScrollDotNav();
-    }
-}); 
+// ── Init ──
+document.addEventListener('DOMContentLoaded', () => {
+  initScrollReveal();
+  initNavbar();
+  initEmpathyDesktop();
+  initEmpathyMobile();
+  initOceanDive();
+});

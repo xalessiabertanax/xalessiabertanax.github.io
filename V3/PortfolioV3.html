@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interactive desk portfolio — Alessia Bertana, Product & UX Designer.">
+  <title>Alessia — Interactive Desk</title>
+  <!-- Desk props & ambience: stock stills / 3D from Lummi (https://www.lummi.ai/) — swap URLs anytime or replace with your own PNG cutouts. -->
+  <link rel="stylesheet" href="styleV3.css">
+</head>
+<body>
+  <a class="skip-link" href="#desk-scene">Skip to desk</a>
+
+  <header class="site-top">
+    <p class="site-top__name">Alessia Bertana</p>
+    <p class="site-top__role">Product &amp; UX Designer</p>
+    <button type="button" class="site-top__hint" id="open-help" aria-controls="help-sheet" aria-expanded="false">How to explore</button>
+  </header>
+
+  <main class="desk-app">
+    <p class="desk-app__intro" id="desk-scene-label">Every object on the desk opens a part of the story. Use keyboard Tab to move between items; Enter or Space activates.</p>
+
+    <div
+      class="desk-stage"
+      id="desk-scene"
+      role="application"
+      aria-labelledby="desk-scene-label"
+      data-desk-stage
+    >
+      <div class="desk-stage__inner">
+        <div class="desk-backdrop" aria-hidden="true">
+          <img
+            class="desk-backdrop__photo"
+            src="https://assets.lummi.ai/assets/Qmd1UmTcLt98q6DTUoALPLWV2Lcd8EVcLsFAZSR7GJwMRQ?auto=format&amp;w=1400"
+            width="1400"
+            height="934"
+            alt=""
+            decoding="async"
+          >
+          <div class="desk-backdrop__wash"></div>
+          <div class="desk-backdrop__grain"></div>
+        </div>
+        <div class="desk-table" aria-hidden="true"></div>
+
+        <button
+          type="button"
+          class="desk-hotspot desk-hotspot--hangingPlant desk-item desk-hotspot--photo"
+          data-panel="plantHang"
+          aria-label="Hanging plant — breathe and pace"
+        >
+          <img
+            class="desk-hotspot__img desk-hotspot__img--lift"
+            src="https://assets.lummi.ai/assets/QmWTwWvBg5NhyhmkVj5nUMQaJDHJm3MCXFxwbwBdW2z17o?auto=format&amp;w=420"
+            width="200"
+            height="240"
+            alt=""
+            decoding="async"
+          >
+          <span class="desk-hotspot__tag">Plant</span>
+        </button>
+
+        <button
+          type="button"
+          class="desk-hotspot desk-hotspot--map desk-item desk-hotspot--photo"
+          data-panel="map"
+          aria-label="World map — background and journey"
+        >
+          <img
+            class="desk-hotspot__img"
+            src="https://assets.lummi.ai/assets/QmRQqsYrXWFFxTdhKz6pbmzLe9eVbgLhTggDeT9VAtFPtg?auto=format&amp;w=560"
+            width="280"
+            height="200"
+            alt=""
+            decoding="async"
+          >
+          <span class="desk-hotspot__tag">Map</span>
+        </button>
+
+        <button
+          type="button"
+          class="desk-hotspot desk-hotspot--painting desk-item desk-hotspot--photo"
+          data-panel="painting"
+          aria-label="Canvas painting — creative work"
+        >
+          <img
+            class="desk-hotspot__img desk-hotspot__img--frame"
+            src="images/About_creative.png"
+            width="200"
+            height="260"
+            alt=""
+            decoding="async"
+          >
+          <span class="desk-hotspot__tag">Art</span>
+        </button>
+
+        <button
+          type="button"
+          class="desk-hotspot desk-hotspot--lamp desk-item desk-hotspot--photo"
+          data-action="theme"
+          aria-label="Desk lamp — toggle lighting mood"
+        >
+          <img
+            class="desk-hotspot__img desk-hotspot__img--lift"
+            src="https://assets.lummi.ai/assets/QmS8W2En6yKVN1EE4aoHmZVnN15DMivXtfJukPDsg6tNFt?auto=format&amp;w=480"
+            width="220"
+            height="280"
+            alt=""
+            decoding="async"
+          >
+          <span class="desk-hotspot__tag">Lamp</span>
+        </button>
+
+        <button
+          type="button"
+          class="desk-hotspot desk-hotspot--books desk-item desk-hotspot--photo"
+          data-panel="books"
+          aria-label="Books — education and process"
+        >
+          <img
+            class="desk-hotspot__img"
+            src="https://assets.lummi.ai/assets/QmSmJfyJbffwENLCxGTKcVtKNoAp1s1Ttqov1JbmP9R3fD?auto=format&amp;w=520"
+            width="240"
+            height="220"
+            alt=""
+            decoding="async"
+          >
+          <span class="desk-hotspot__tag">Books</span>
+        </button>
+
+        <button
+          type="button"
+          class="desk-hotspot desk-hotspot--notebook desk-item desk-hotspot--photo"
+          data-panel="notebook"
+          aria-label="Notebook — contact"
+        >
+          <img
+            class="desk-hotspot__img"
+            src="https://assets.lummi.ai/assets/QmNgKCsn5aRbRUhS1DPTMHF8oBZAD8NU5u9XspcyvZBvHn?auto=format&amp;w=480"
+            width="220"
+            height="200"
+            alt=""
+            decoding="async"
+          >
+          <span class="desk-hotspot__tag">Notes</span>
+        </button>
+
+        <button
+          type="button"
+          class="desk-hotspot desk-hotspot--laptop desk-item desk-hotspot--photo desk-hotspot--blend"
+          data-panel="laptop"
+          aria-label="Laptop — portfolio and work"
+        >
+          <img
+            class="desk-hotspot__img"
+            src="https://assets.lummi.ai/assets/QmThJUKpAA5QBTAwR8rZPaDrpfcYD5JCEt7HrXuB1C1tqF?auto=format&amp;w=560"
+            width="320"
+            height="240"
+            alt=""
+            decoding="async"
+          >
+          <span class="desk-hotspot__tag">Work</span>
+        </button>
+
+        <button
+          type="button"
+          class="desk-hotspot desk-hotspot--camera desk-item desk-hotspot--photo"
+          data-panel="camera"
+          aria-label="Camera — visual design and photography"
+        >
+          <img
+            class="desk-hotspot__img"
+            src="https://assets.lummi.ai/assets/Qma28VtFHwUQBa2rbGKkmtyjZQQHU75rQPGrBS1uj8c7ic?auto=format&amp;w=520"
+            width="260"
+            height="220"
+            alt=""
+            decoding="async"
+          >
+          <span class="desk-hotspot__tag">Camera</span>
+        </button>
+
+        <button
+          type="button"
+          class="desk-hotspot desk-hotspot--plantDesk desk-item desk-hotspot--photo"
+          data-panel="plantDesk"
+          aria-label="Desk plant — a little calm"
+        >
+          <img
+            class="desk-hotspot__img desk-hotspot__img--lift"
+            src="https://assets.lummi.ai/assets/QmNZgwreFWUW8dqTiKu71c4oTdoE2DocWzZTxYDEJXmsoh?auto=format&amp;w=420"
+            width="200"
+            height="240"
+            alt=""
+            decoding="async"
+          >
+          <span class="desk-hotspot__tag">Desk</span>
+        </button>
+
+        <button
+          type="button"
+          class="desk-hotspot desk-hotspot--plantRight desk-item desk-hotspot--photo"
+          data-panel="plantRight"
+          aria-label="Potted plant — growth and iteration"
+        >
+          <img
+            class="desk-hotspot__img desk-hotspot__img--lift"
+            src="https://assets.lummi.ai/assets/QmNoC6drZFM6R4mbZajVfSxfYhChYkZqYEJsbMrrQuWpck?auto=format&amp;w=440"
+            width="210"
+            height="250"
+            alt=""
+            decoding="async"
+          >
+          <span class="desk-hotspot__tag">Green</span>
+        </button>
+
+        <button
+          type="button"
+          class="desk-hotspot desk-hotspot--frame desk-item desk-hotspot--photo"
+          data-panel="about"
+          aria-label="Framed photo — hello"
+        >
+          <img
+            class="desk-hotspot__img desk-hotspot__img--frame"
+            src="images/profielfoto.jpeg"
+            width="120"
+            height="120"
+            alt=""
+            decoding="async"
+          >
+          <span class="desk-hotspot__tag">You</span>
+        </button>
+
+        <button
+          type="button"
+          class="desk-hotspot desk-hotspot--drawers desk-item desk-hotspot--photo"
+          data-panel="drawers"
+          aria-label="Storage — social links and extras"
+        >
+          <img
+            class="desk-hotspot__img"
+            src="https://assets.lummi.ai/assets/QmVKLY85pR8Q428DRqNY9i6w3yVeNLqZy2s9qL67nYojH7?auto=format&amp;w=500"
+            width="220"
+            height="240"
+            alt=""
+            decoding="async"
+          >
+          <span class="desk-hotspot__tag">Storage</span>
+        </button>
+      </div>
+    </div>
+
+    <nav class="desk-rail" aria-label="Desk objects (mobile friendly shortcut)">
+      <button type="button" class="rail-btn" data-jump="map">Map</button>
+      <button type="button" class="rail-btn" data-jump="laptop">Work</button>
+      <button type="button" class="rail-btn" data-jump="books">Study</button>
+      <button type="button" class="rail-btn" data-jump="notebook">Contact</button>
+      <button type="button" class="rail-btn" data-jump="lamp">Light</button>
+    </nav>
+  </main>
+
+  <div class="desk-panel" id="desk-panel" hidden>
+    <div class="desk-panel__backdrop" data-close-panel tabindex="-1"></div>
+    <section
+      class="desk-panel__sheet"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="desk-panel-title"
+      tabindex="-1"
+    >
+      <header class="desk-panel__head">
+        <h2 class="desk-panel__title" id="desk-panel-title">Details</h2>
+        <button type="button" class="desk-panel__close" data-close-panel aria-label="Close panel">Close</button>
+      </header>
+      <div class="desk-panel__body" id="desk-panel-body"></div>
+    </section>
+  </div>
+
+  <div class="help-sheet" id="help-sheet" hidden>
+    <div class="help-sheet__backdrop" data-close-help tabindex="-1"></div>
+    <section class="help-sheet__card" role="dialog" aria-modal="true" aria-labelledby="help-title">
+      <h2 id="help-title" class="help-sheet__title">Explore the desk</h2>
+      <ul class="help-sheet__list">
+        <li>Tap or click objects on the desk — each opens a focused panel.</li>
+        <li>The lamp toggles a calmer <strong>dim mode</strong> (warm low light).</li>
+        <li>On small screens, use the shortcut buttons or drag the desk sideways.</li>
+        <li>Scene photos are from <a href="https://www.lummi.ai/" rel="noopener noreferrer" target="_blank">Lummi</a>; art &amp; portrait are yours. Replace any <code>src</code> with your own PNG cutouts when you like.</li>
+      </ul>
+      <button type="button" class="help-sheet__close" data-close-help>Got it</button>
+    </section>
+  </div>
+
+  <template id="tpl-map">
+    <p class="panel-lead">Background shaped across borders — research, craft, and a bit of wandering curiosity.</p>
+    <ul class="panel-list">
+      <li>BSc Creative Technology, University of Twente</li>
+      <li>Double MSc HCI &amp; Design, Twente / Trento</li>
+    </ul>
+    <p>I&rsquo;m currently going down the rabbit hole of AI tools.</p>
+    <a class="panel-link" href="about.html">Read the full story</a>
+  </template>
+
+  <template id="tpl-laptop">
+    <p class="panel-lead">Product &amp; UX design work — from research and service patterns to polished interfaces.</p>
+    <p>To me, every good product is a tailored story: told through careful research, clear data, and thoughtful interaction. I aim to understand both the technical how and the human why. I use product psychology to balance what people actually need with what a business needs to achieve.</p>
+    <div class="panel-actions">
+      <a class="panel-btn" href="work.html">Open work</a>
+      <a class="panel-btn panel-btn--ghost" href="index.html">Classic site</a>
+    </div>
+  </template>
+
+  <template id="tpl-painting">
+    <p class="panel-lead">Creative technology isn&rsquo;t only shipped pixels — it&rsquo;s color, texture, and humane strangeness.</p>
+    <figure class="panel-figure">
+      <img src="images/About_creative.png" alt="Creative portrait illustration by Alessia" width="360" height="480" decoding="async">
+      <figcaption>Art direction &amp; personal expression — also how I think about motion and emotion in UI.</figcaption>
+    </figure>
+  </template>
+
+  <template id="tpl-camera">
+    <p class="panel-lead">Visual design with a camera-brain: composition, contrast, and narrative framing.</p>
+    <p>Use this space for photography, visual studies, or a dedicated gallery when you&rsquo;re ready.</p>
+    <a class="panel-link" href="work.html">See projects with strong visuals</a>
+  </template>
+
+  <template id="tpl-books">
+    <p class="panel-lead">Education, tooling, and the stacks that keep me honest.</p>
+    <ul class="panel-list">
+      <li>Human-computer interaction &amp; rigorous user research</li>
+      <li>Prototyping from code-adjacent experiments to high-fidelity flows</li>
+    </ul>
+    <a class="panel-btn" href="Alessia_Bertana_CV.pdf" download>Download CV</a>
+  </template>
+
+  <template id="tpl-notebook">
+    <p class="panel-lead">Let&rsquo;s talk about a product bet worth making.</p>
+    <p>Email is the fastest path:</p>
+    <a class="panel-contact" href="mailto:alesbertana@gmail.com">alesbertana@gmail.com</a>
+  </template>
+
+  <template id="tpl-plantHang">
+    <p class="panel-lead">String-of-pearls energy — small leaves, long patience.</p>
+    <p>I keep long projects alive by protecting attention: fewer tabs, clearer rituals, braver edits.</p>
+  </template>
+
+  <template id="tpl-plantDesk">
+    <p class="panel-lead">Small rituals — sketch, step away, return with clearer eyes.</p>
+    <p>A gentle reminder that good UX is also pacing: fewer sharp edges, more humane tempo.</p>
+  </template>
+
+  <template id="tpl-plantRight">
+    <p class="panel-lead">Growth loops — ship, measure, listen, refine.</p>
+    <p>Plants and products both need light, structure, and honest care.</p>
+  </template>
+
+  <template id="tpl-about">
+    <p class="panel-lead">Hi — I&rsquo;m Alessia. I care about clarity, courage, and care in product teams.</p>
+    <p>Dutch directness meets Italian visual warmth: honest feedback, generous craft.</p>
+    <a class="panel-link" href="about.html">More about me</a>
+  </template>
+
+  <template id="tpl-drawers">
+    <p class="panel-lead">The informal drawer — links, socials, side quests.</p>
+    <ul class="panel-social">
+      <li><a href="https://www.linkedin.com/in/alessia-bertana/" rel="noopener noreferrer" target="_blank">LinkedIn</a></li>
+      <li><a href="https://www.instagram.com/xalessiabertana/" rel="noopener noreferrer" target="_blank">Instagram</a></li>
+    </ul>
+  </template>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="scriptV3.js"></script>
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alessia | Product & UX Designer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&display=swap');
+
+        :root {
+            --bg-stone: #E8E8E6; /* Clean architectural grey */
+            --deep-dive: #0B2B36;
+            --text-dark: #111;
+            --text-light: #fff;
+            --accent: #E5A93D;
+            --pink-accent: #FF4D85;
+            --tropical-green: #2A4B3C;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-stone);
+            overflow-x: hidden;
+            scrollbar-width: none; 
+        }
+        body::-webkit-scrollbar { display: none; }
+
+        /* SCROLL PROXY - Extended for the new projects section */
+        #scroll-proxy {
+            height: 500vh; 
+            width: 100%;
+        }
+
+        /* FIXED SCENES */
+        .scene {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0; 
+            visibility: hidden;
+            overflow: hidden;
+        }
+
+        /* --- SCENE 1: THE HERO (Clean & Organic) --- */
+        #hero-scene {
+            background-color: var(--bg-stone);
+            flex-direction: column;
+            opacity: 1; 
+            visibility: visible;
+            z-index: 10;
+        }
+
+        /* Leaf Shadow Overlay */
+        .leaf-shadow {
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background-image: url('https://images.unsplash.com/photo-1590055531615-f16d36ffe8ce?auto=format&fit=crop&w=800&q=80'); /* Palm shadow texture */
+            background-size: cover;
+            opacity: 0.15;
+            mix-blend-mode: multiply;
+            z-index: 5;
+            pointer-events: none;
+            filter: blur(8px);
+        }
+
+        .hero-text {
+            text-align: center;
+            margin-bottom: 50px;
+            z-index: 2;
+        }
+
+        .hero-text h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: #555;
+            margin-top: 15px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* The Display Stand, Laptop & Coffee */
+        .display-group {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .laptop {
+            width: 240px;
+            height: 140px;
+            background: #e0e0e0;
+            border-radius: 8px 8px 0 0;
+            border: 4px solid #fff;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 2;
+            background: linear-gradient(135deg, #f5f5f5, #d4d4d4);
+        }
+
+        .laptop::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            width: 280px;
+            height: 10px;
+            background: #cfcfcf;
+            border-radius: 0 0 10px 10px;
+            left: -24px;
+        }
+
+        /* Minimalist Coffee Cup */
+        .coffee-cup {
+            position: absolute;
+            bottom: 190px;
+            right: -60px;
+            width: 40px;
+            height: 50px;
+            background: #fff;
+            border-radius: 4px 4px 20px 20px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+            z-index: 3;
+        }
+        .coffee-cup::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            right: -10px;
+            width: 15px;
+            height: 25px;
+            border: 4px solid #fff;
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .pedestal {
+            width: 180px;
+            height: 200px;
+            background: #ffffff;
+            box-shadow: -20px 20px 40px rgba(0,0,0,0.05), inset -10px -10px 20px rgba(0,0,0,0.02);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- SCENE 2: THE ARTSY DESK --- */
+        #desk-scene {
+            background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&w=1920&q=80') center/cover;
+            z-index: 9;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+
+        .desk-content {
+            background: #fff;
+            padding: 3rem;
+            border-radius: 2px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 500px;
+        }
+
+        .desk-content h2 { font-size: 2.5rem; color: var(--text-dark); }
+        .desk-content h3 { font-size: 1rem; color: var(--pink-accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 2rem; }
+
+        .pillar { margin-bottom: 1.5rem; padding-left: 1.5rem; border-left: 3px solid var(--accent); }
+        .pillar strong { display: block; font-size: 1.2rem; }
+        .pillar span { font-size: 0.9rem; color: #666; }
+
+        /* --- SCENE 3: DEEP DIVE --- */
+        #dive-scene {
+            background: var(--deep-dive);
+            z-index: 8;
+            color: var(--text-light);
+        }
+        .dive-text { font-size: 3rem; font-weight: 300; letter-spacing: 10px; opacity: 0.5; }
+
+        /* --- SCENE 4: PROJECTS GALLERY --- */
+        #arch-scene {
+            background-color: var(--bg-stone);
+            z-index: 7;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding-top: 10vh;
+        }
+        
+        .arch-title {
+            font-size: 3rem;
+            color: var(--text-dark);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .project-wrapper {
+            display: flex;
+            gap: 40px;
+            width: 100vw;
+            padding: 0 10vw;
+            justify-content: center;
+        }
+
+        .project-card {
+            width: 30vw;
+            height: 60vh;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: 2rem;
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Overlay for text readability */
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            z-index: 1;
+        }
+
+        .project-info { z-index: 2; }
+        .project-info h3 { font-size: 2rem; margin-bottom: 5px; }
+        .project-info p { font-size: 1rem; color: #ccc; }
+
+        /* Using moodboard-style placeholder images */
+        .p-1 { background-image: url('https://images.unsplash.com/photo-1629198688000-71f23e745b6e?auto=format&fit=crop&w=800&q=80'); } /* Serum/Nature */
+        .p-2 { background-image: url('https://images.unsplash.com/photo-1557672172-298e090bd0f1?auto=format&fit=crop&w=800&q=80'); } /* Vibrant abstract/tropical */
+        .p-3 { background-image: url('https://images.unsplash.com/photo-1584916201218-f4242ceb4809?auto=format&fit=crop&w=800&q=80'); } /* Colorful bag */
+
+        /* --- SCENE 5: FOOTER --- */
+        #footer-scene {
+            background: var(--tropical-green);
+            z-index: 6;
+            color: white;
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        #footer-scene h2 { font-size: 4rem; margin-bottom: 20px; }
+        #footer-scene a {
+            padding: 15px 30px;
+            background: var(--accent);
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 30px;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+        #footer-scene a:hover { transform: scale(1.05); }
+
+    </style>
+</head>
+<body>
+
+    <div id="scroll-proxy"></div>
+
+    <section id="hero-scene" class="scene">
+        <div class="leaf-shadow" id="leaf"></div>
+        <div class="hero-text">
+            <h1 id="hero-h1">Creative Solutions<br>for Complex Problems.</h1>
+            <p id="hero-p"><strong>ALESSIA:</strong> Product & UX Designer tackling any challenge with an organized creative flow.</p>
+        </div>
+        <div class="display-group" id="hero-object">
+            <div class="laptop"></div>
+            <div class="coffee-cup"></div>
+            <div class="pedestal"></div>
+        </div>
+    </section>
+
+    <section id="desk-scene" class="scene">
+        <div class="desk-content" id="desk-text">
+            <h2>My Creative Space</h2>
+            <h3>Who I am & What I bring</h3>
+            <div class="pillar">
+                <strong>Experience Design</strong>
+                <span>Translating complexity into intuitive human flows.</span>
+            </div>
+            <div class="pillar">
+                <strong>Creative Direction</strong>
+                <span>Ensuring the brand's skin delights at every touchpoint.</span>
+            </div>
+            <div class="pillar">
+                <strong>The Technical Bridge</strong>
+                <span>An engineering mind that ensures designs are ready to ship.</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="dive-scene" class="scene">
+        <div class="dive-text">DEEP DIVE RESEARCH</div>
+    </section>
+
+    <section id="arch-scene" class="scene">
+        <h2 class="arch-title" id="arch-title">Selected Work</h2>
+        <div class="project-wrapper">
+            <a href="#" class="project-card p-1">
+                <div class="project-info">
+                    <h3>Organic Beauty</h3>
+                    <p>UX & Branding</p>
+                </div>
+            </a>
+            <a href="#" class="project-card p-2">
+                <div class="project-info">
+                    <h3>Tropical Dashboard</h3>
+                    <p>UI Design</p>
+                </div>
+            </a>
+            <a href="#" class="project-card p-3">
+                <div class="project-info">
+                    <h3>Norlandia Case</h3>
+                    <p>Service Design</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section id="footer-scene" class="scene">
+        <h2>Let's build something<br>beautiful together.</h2>
+        <a href="mailto:hello@example.com">Get in Touch</a>
+    </section>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // --- INTRO ANIMATION (No Scroll Required) ---
+        const introTl = gsap.timeline();
+        introTl.fromTo(".pedestal", { y: 100, opacity: 0 }, { duration: 1, y: 0, opacity: 1, ease: "power3.out" })
+               .fromTo(".laptop", { y: -100, opacity: 0 }, { duration: 1, y: 0, opacity: 1, ease: "bounce.out" }, "-=0.5")
+               .fromTo(".coffee-cup", { x: 50, opacity: 0, rotation: 45 }, { duration: 0.8, x: 0, opacity: 1, rotation: 0, ease: "back.out(1.5)" }, "-=0.6")
+               .fromTo("#hero-h1", { y: 30, opacity: 0 }, { duration: 0.8, y: 0, opacity: 1, ease: "power2.out" }, "-=0.2")
+               .fromTo("#hero-p", { y: 20, opacity: 0 }, { duration: 0.8, y: 0, opacity: 1, ease: "power2.out" }, "-=0.6")
+               // Subtle leaf shadow animation
+               .to("#leaf", { x: -20, y: 20, duration: 4, repeat: -1, yoyo: true, ease: "sine.inOut" }, 0);
+
+        // --- SCROLL ANIMATION TIMELINE ---
+        const scrollTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#scroll-proxy",
+                start: "top top",
+                end: "bottom bottom",
+                scrub: 1 
+            }
+        });
+
+        // 1. Zoom into the laptop screen (Hero -> Desk)
+        scrollTl.to("#hero-object", { scale: 5, y: 500, opacity: 0, duration: 1 })
+                .to(".hero-text", { y: -200, opacity: 0, duration: 1 }, "<")
+                .to("#leaf", { opacity: 0, duration: 0.5 }, "<")
+                // Reveal Desk Scene
+                .set("#desk-scene", { visibility: "visible" })
+                .fromTo("#desk-scene", { scale: 1.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 1 }, "-=0.5")
+                .fromTo("#desk-text", { x: -100, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5 }, "<")
+                .to({}, { duration: 0.5 })
+
+        // 2. Desk -> Deep Dive Transition
+                .to("#desk-scene", { opacity: 0, scale: 0.8, duration: 1 })
+                .set("#dive-scene", { visibility: "visible" })
+                .fromTo("#dive-scene", { opacity: 0 }, { opacity: 1, duration: 1 }, "<")
+                .fromTo(".dive-text", { scale: 0.8, letterSpacing: "10px" }, { scale: 1.2, letterSpacing: "30px", opacity: 0, duration: 1.5 })
+
+        // 3. Deep Dive -> Projects Gallery Reveal
+                .set("#arch-scene", { visibility: "visible" })
+                .fromTo("#arch-scene", { opacity: 0, y: 100 }, { opacity: 1, y: 0, duration: 1 }, "-=0.5")
+                .fromTo("#arch-title", { y: -50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, "-=0.2")
+                .fromTo(".project-card", { y: 100, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.2, duration: 0.8 })
+                .to({}, { duration: 0.5 }) // Pause to let user look at projects
+
+        // 4. Projects -> Footer Reveal
+                .to("#arch-scene", { y: -200, opacity: 0, duration: 1 })
+                .set("#footer-scene", { visibility: "visible" })
+                .fromTo("#footer-scene", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 1 }, "-=0.5");
+    </script>
+</body>
+</html>

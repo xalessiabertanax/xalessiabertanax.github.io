@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Haptic ASL Glove — Alessia Bertana</title>
+  <link rel="icon" href="favicon.ico" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="navbar"><div class="container"><a href="index.html" class="logo">Alessia<span class="text-primary">.</span></a><div class="nav-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="work.html">Work</a><a href="Alessia_Bertana_CV.pdf" download class="nav-btn nav-btn-outline">⬇ CV</a><a href="mailto:alesbertana@gmail.com" class="nav-btn nav-btn-solid">Let's Talk</a></div><button class="mobile-toggle" aria-label="Toggle menu">☰</button></div><div class="mobile-menu"><a href="index.html">Home</a><a href="about.html">About</a><a href="work.html">Work</a><a href="Alessia_Bertana_CV.pdf" download>⬇ Download CV</a><a href="mailto:alesbertana@gmail.com" class="btn-primary" style="text-align:center;">Let's Talk</a></div></nav>
+
+  <main style="padding-top:6rem;">
+    <section style="padding:2rem 0 1rem;"><div class="container"><a href="work.html" class="case-back reveal">← Back to Work</a></div></section>
+    <section class="case-hero"><div class="container">
+      <p class="section-label reveal" data-delay="0.1">Case Study</p>
+      <h1 class="reveal" data-delay="0.15" style="font-size:clamp(1.5rem,3vw,2.25rem);font-weight:700;margin-bottom:1rem;">Haptic ASL Glove</h1>
+      <p class="text-muted reveal" data-delay="0.2" style="font-size:1.125rem;max-width:40rem;margin-bottom:2rem;">Learning American Sign Language through muscle memory, haptic feedback, and adaptive music</p>
+      <div class="case-meta reveal" data-delay="0.25"><div><span class="label">Role:</span> <span class="value">Hardware & Software Engineer</span></div><div><span class="label">Year:</span> <span class="value">2024</span></div><div><span class="label">Duration:</span> <span class="value">3 months</span></div></div>
+      <div class="case-tools reveal" data-delay="0.3"><span class="case-tool">Arduino</span><span class="case-tool">Processing</span><span class="case-tool">Pure Data</span><span class="case-tool">Flex Sensors</span><span class="case-tool">Physical Computing</span></div>
+      <div class="case-hero-image reveal" data-delay="0.1" style="margin-top:2rem;"><img src="https://www.alessiabertana.nl/images/glove.jpeg" alt="Haptic Glove" /></div>
+    </div></section>
+
+    <section class="case-section"><div class="container"><div class="inner">
+      <p class="num reveal">01</p><h2 class="reveal">The Challenge</h2>
+      <p class="desc reveal" data-delay="0.1">Learning sign language traditionally requires visual imitation and repetition. We explored whether haptic feedback and background music tempo could influence the learning curve of the ASL alphabet.</p>
+      <div class="pain-points reveal" data-delay="0.2"><h3>Key Pain Points</h3>
+        <div class="pain-point"><span class="pain-num">1</span><span>Traditional ASL learning relies solely on visual feedback</span></div>
+        <div class="pain-point"><span class="pain-num">2</span><span>No existing tools combine gesture detection with haptic reinforcement</span></div>
+        <div class="pain-point"><span class="pain-num">3</span><span>Different hand sizes require calibration for accurate detection</span></div>
+        <div class="pain-point"><span class="pain-num">4</span><span>Need to test whether multimodal feedback improves retention</span></div>
+      </div>
+    </div></div></section>
+
+    <section class="case-section bg-secondary"><div class="container"><div class="inner">
+      <p class="num reveal">02</p><h2 class="reveal">The Process</h2>
+      <div class="process-step reveal" data-delay="0.1"><span class="process-num">01</span><div><h3>Hardware Prototyping</h3><p>Designed a smart glove with 5 flex sensors and a vibration motor on an Arduino microcontroller, with serial communication to Processing.</p></div></div>
+      <div class="process-step reveal" data-delay="0.2"><span class="process-num">02</span><div><h3>Calibration System</h3><p>Built a calibration phase: user holds hand open for 3 seconds, then makes a fist for 3 seconds, setting min/max values per individual.</p></div></div>
+      <div class="process-step reveal" data-delay="0.3"><span class="process-num">03</span><div><h3>Game Design</h3><p>Created a 'Memory-Learn' game in Processing with 3 levels. Letters are randomized to ensure true learning, not pattern memorization.</p></div></div>
+      <div class="process-step reveal" data-delay="0.4"><span class="process-num">04</span><div><h3>Evaluation</h3><p>Tested short-term retention by asking users to perform gestures without visual aid after completing levels. Measured time per level.</p></div></div>
+    </div></div></section>
+
+    <section class="case-section"><div class="container"><div class="inner">
+      <p class="num reveal">03</p><h2 class="reveal">The Solution</h2>
+      <p class="desc reveal" data-delay="0.1">A complete hardware-software system: a smart glove that detects hand gestures in real-time, paired with a memory game that provides haptic and audio feedback.</p>
+      <div class="reveal" data-delay="0.2">
+        <div class="feature-item"><span class="feature-check">✓</span><span>Real-time gesture detection via 5 flex sensors</span></div>
+        <div class="feature-item"><span class="feature-check">✓</span><span>Haptic vibration feedback on correct gestures</span></div>
+        <div class="feature-item"><span class="feature-check">✓</span><span>Adaptive background music via Pure Data synthesis</span></div>
+        <div class="feature-item"><span class="feature-check">✓</span><span>Per-user calibration for different hand sizes</span></div>
+        <div class="feature-item"><span class="feature-check">✓</span><span>3-level progressive learning game with retention testing</span></div>
+      </div>
+    </div></div></section>
+
+    <section class="case-section bg-secondary"><div class="container"><div class="inner">
+      <p class="num reveal">04</p><h2 class="reveal">The Impact</h2>
+      <p class="desc reveal" data-delay="0.1">The prototype demonstrated that multimodal feedback (vibration + music) can enhance gesture learning compared to visual-only approaches.</p>
+      <div class="metrics-grid reveal" data-delay="0.2">
+        <div class="metric-card"><p class="metric-value">5</p><p class="metric-label">Flex Sensors</p></div>
+        <div class="metric-card"><p class="metric-value">3</p><p class="metric-label">Game Levels</p></div>
+        <div class="metric-card"><p class="metric-value">3</p><p class="metric-label">Software Stack</p></div>
+        <div class="metric-card"><p class="metric-value">MSc</p><p class="metric-label">Course</p></div>
+      </div>
+      <div class="learnings-box reveal" data-delay="0.3"><h3>Key Learnings</h3>
+        <div class="learning-item"><span class="learning-arrow">→</span><span>Physical computing bridges the gap between digital and tangible interaction</span></div>
+        <div class="learning-item"><span class="learning-arrow">→</span><span>Calibration is essential for wearable accuracy across users</span></div>
+        <div class="learning-item"><span class="learning-arrow">→</span><span>Multimodal feedback creates stronger memory associations</span></div>
+        <div class="learning-item"><span class="learning-arrow">→</span><span>Hardware constraints force creative software solutions</span></div>
+      </div>
+    </div></div></section>
+
+    <section class="contact"><div class="container"><div class="contact-inner">
+      <p class="section-label reveal">Get in Touch</p><h2 class="section-title reveal" data-delay="0.1">Let's Connect<span class="text-primary">.</span></h2>
+      <p class="text-muted reveal" data-delay="0.2">Whether you need a UX designer who codes, a facilitator for your workshop, or just want to chat about design, travel, and building the future — I'm here for it!</p>
+      <div class="contact-buttons reveal" data-delay="0.3"><a href="mailto:alesbertana@gmail.com" class="btn-primary btn-icon">✉ Email Me</a><a href="https://www.linkedin.com/in/alessia-bertana/" target="_blank" rel="noopener noreferrer" class="nav-btn nav-btn-outline btn-icon">in LinkedIn ↗</a></div>
+    </div></div></section>
+  </main>
+
+  <footer class="footer"><div class="container"><div class="footer-inner"><div class="footer-brand"><a href="index.html" style="font-size:1.125rem;font-weight:700;">Alessia<span class="text-primary">.</span></a><p>Product Designer & Creative Technologist</p></div><div class="footer-socials"><a href="https://www.linkedin.com/in/alessia-bertana/" target="_blank" rel="noopener noreferrer" class="footer-social" aria-label="LinkedIn">in</a><a href="mailto:alesbertana@gmail.com" class="footer-social" aria-label="Email">✉</a></div></div><div class="footer-copyright">© 2025 Alessia Bertana</div></div></footer>
+  <script src="script.js"></script>
+</body>
+</html>
