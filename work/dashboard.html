@@ -187,9 +187,41 @@
             letter-spacing: 1px; 
         }
 
+        /* --- MOBILE OPTIMIZATION --- */
         @media (max-width: 900px) { 
-            .study-grid { grid-template-columns: 1fr; gap: 60px; } 
+            .study-grid { grid-template-columns: 1fr; gap: 40px; } 
             .study-context { position: relative; top: 0; width: 100%; }
+        }
+
+        @media (max-width: 768px) {
+            /* 1. Dubbele kolommen netjes onder elkaar */
+            .stats-grid { grid-template-columns: 1fr; gap: 20px; }
+            
+            /* 2. Zorg dat de breedte nooit uit het scherm knalt */
+            .content-block, .highlight-box, .stats-grid, .section-divider { 
+                max-width: 100% !important; 
+                width: 100%; 
+                box-sizing: border-box; 
+            }
+            
+            /* 3. Haal de gigantische witruimtes weg op mobiel */
+            .project-hero { padding-top: 100px; padding-bottom: 40px; }
+            .content-block { margin-bottom: 50px !important; }
+            .section-divider { margin: 40px 0; }
+            .highlight-box { margin: 30px 0; padding: 25px; }
+            .stat-box { padding: 25px; }
+            
+            /* 4. Fix de padding op Summary en Final Reflection */
+            .content-block[style*="padding: 50px"] { 
+                padding: 25px !important; 
+            }
+
+            /* Fix de uitlijning van de flexbox (The Impact box) */
+            div[style*="display: flex; gap: 20px"] {
+                flex-direction: column;
+                gap: 12px !important;
+                padding: 20px !important;
+            }
         }
     </style>
 </head>

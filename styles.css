@@ -36,7 +36,7 @@
 
 html { 
     scroll-behavior: smooth; 
-    overflow-x: hidden;
+    overflow-x: clip; /* Aangepast van hidden naar clip */
     width: 100%;
 }
 
@@ -44,7 +44,7 @@ body {
     background-color: var(--bg-main); 
     color: var(--text-main); 
     font-family: 'Poppins', sans-serif; 
-    overflow-x: hidden; 
+    overflow-x: clip; /* Aangepast van hidden naar clip */
     width: 100%;
     position: relative;
     transition: background-color 0.4s ease, color 0.4s ease;
@@ -639,6 +639,10 @@ body {
     .page-hero { padding-top: 100px !important; }
     .page-title { font-size: 2.2rem !important; }
 
+    /* Fix voor sectie-titels en CTA op mobiel */
+    .section-header { font-size: 2.0rem !important; }
+    .btn-primary { font-size: 0.85rem !important; padding: 12px 24px !important; }
+
     /* Hero Mobile */
     .hero-section { padding-top: 130px; } /* Zorgt voor genoeg ruimte onder de vaste navbar */
     .hero-layout { flex-direction: column; text-align: center; gap: 20px; }
@@ -668,7 +672,18 @@ body {
         justify-content: center; align-items: center;
         transform: translateY(-100%); transition: 0.4s ease;
     }
+    /* Maakt de links in het fullscreen mobiele menu lekker groot */
+    .nav-links a { 
+        font-size: 1.5rem !important; 
+        font-weight: 600; 
+    }
     .nav-links.active { transform: translateY(0); }
+
+    /* Footer tekst iets kleiner op mobiel */
+    footer p, 
+    .simple-footer p { 
+        font-size: 0.8rem !important; 
+    }
 }
 
 /* Navbar behavior voor Desktop */
