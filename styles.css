@@ -233,11 +233,21 @@ body {
     /* Gecentreerd en niet meer buiten het scherm geduwd */
     .ui-insights { top: -26px !important; left: 0 !important; right: 0 !important; margin: 0 auto !important; width: max-content !important; }
     
-    /* Iets verder naar rechts geduwd, van de afbeelding af */
-    .ui-workflow { right: -100px !important; top: 35% !important; } 
+    /* Workflow (lang woord) naar links-onder verplaatst */
+    .ui-workflow { 
+        left: -30px !important; 
+        bottom: 15px !important; 
+        right: auto !important; 
+        top: auto !important; 
+    } 
     
-    /* Iets verder naar links geduwd, van de afbeelding af */
-    .ui-ux { left: -60px !important; bottom: 15px !important; }
+    /* UX (kort woord) naar rechts-midden verplaatst */
+    .ui-ux { 
+        right: -60px !important; 
+        top: 35% !important; 
+        left: auto !important; 
+        bottom: auto !important; 
+    }
 }
 
 /* =========================================
