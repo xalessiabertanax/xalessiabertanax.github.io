@@ -34,13 +34,19 @@
 ========================================= */
 * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
 
-html { scroll-behavior: smooth; }
+html { 
+    scroll-behavior: smooth; 
+    overflow-x: hidden;
+    width: 100%;
+}
 
 body { 
     background-color: var(--bg-main); 
     color: var(--text-main); 
     font-family: 'Poppins', sans-serif; 
     overflow-x: hidden; 
+    width: 100%;
+    position: relative;
     transition: background-color 0.4s ease, color 0.4s ease;
 }
 
@@ -224,14 +230,14 @@ body {
         font-size: 0.55rem; 
     }
 
-    /* We duwen de zij-labels flink naar buiten, weg van de afbeelding */
-    .ui-insights { top: -26px !important; left: -7% !important;}
+    /* Gecentreerd en niet meer buiten het scherm geduwd */
+    .ui-insights { top: -26px !important; left: 0 !important; right: 0 !important; margin: 0 auto !important; width: max-content !important; }
     
-    /* Naar de rechter buitenrand geduwd */
-    .ui-workflow { right: -110px !important; top: 35% !important; } 
+    /* Iets verder naar rechts geduwd, van de afbeelding af */
+    .ui-workflow { right: -100px !important; top: 35% !important; } 
     
-    /* Naar de linker buitenrand geduwd */
-    .ui-ux { left: -50px !important; bottom: 15px !important; }
+    /* Iets verder naar links geduwd, van de afbeelding af */
+    .ui-ux { left: -60px !important; bottom: 15px !important; }
 }
 
 /* =========================================
@@ -624,8 +630,9 @@ body {
     .page-title { font-size: 2.2rem !important; }
 
     /* Hero Mobile */
+    .hero-section { padding-top: 130px; } /* Zorgt voor genoeg ruimte onder de vaste navbar */
     .hero-layout { flex-direction: column; text-align: center; gap: 20px; }
-    .hero-visual { order: -1; height: 250px; }
+    .hero-visual { order: -1; height: 250px; margin-bottom: 30px; } /* margin-bottom toegevoegd zodat de tekst er niet te strak op zit */
     .image-blobs { width: 220px; height: 270px; }
     .cta-wrapper { justify-content: center; }
 
