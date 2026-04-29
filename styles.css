@@ -644,11 +644,12 @@ body {
     .btn-primary { font-size: 0.85rem !important; padding: 12px 24px !important; }
 
     /* Hero Mobile */
-    .hero-section { padding-top: 130px; } /* Zorgt voor genoeg ruimte onder de vaste navbar */
+    .hero-section { padding-top: 130px; padding-bottom: 60px; } /* Padding-bottom toegevoegd voor ademruimte onder knoppen */
     .hero-layout { flex-direction: column; text-align: center; gap: 20px; }
-    .hero-visual { order: -1; height: 250px; margin-bottom: 30px; } /* margin-bottom toegevoegd zodat de tekst er niet te strak op zit */
+    .hero-visual { order: -1; height: 250px; margin-bottom: 30px; }
     .image-blobs { width: 220px; height: 270px; }
-    .cta-wrapper { justify-content: center; }
+    .circle-decoration { width: 260px; height: 260px; } /* Cirkel in verhouding met de kleinere afbeelding */
+    .cta-wrapper { justify-content: center; margin-bottom: 5px; } /* Klein beetje extra witruimte puur onder de knoppen */
 
     /* Project List Mobile */
     .project-list { gap: 60px; }
