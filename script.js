@@ -1,59 +1,11 @@
-/* --- INTELLIGENT CYCLIST ANIMATION --- */
-let lastScrollTop = 0;
-let isScrollingTimer; // Timer to detect when scrolling stops
-
-function moveBike() {
-    const section = document.querySelector('.journey-section');
-    const bike = document.getElementById('bikeRider');
-    
-    // Only run on desktop
-    if(!section || !bike || window.innerWidth < 900) return;
-
-    const rect = section.getBoundingClientRect();
-    const viewportHeight = window.innerHeight;
-
-    // --- 1. CALCULATE POSITION ---
-    // Start moving when the section hits the middle of the viewport
-    let startPoint = viewportHeight * 0.5; 
-    let distance = startPoint - rect.top;
-    let totalHeight = rect.height;
-    
-    let percentage = distance / totalHeight;
-    percentage = Math.max(0, Math.min(1, percentage));
-    
-    // Move the bike
-    bike.style.top = (percentage * 100) + '%';
-
-    // --- 2. HANDLE ROTATION (Direction) ---
-    const currentScrollTop = window.scrollY || document.documentElement.scrollTop;
-    
-    // If we moved significantly...
-    if (Math.abs(currentScrollTop - lastScrollTop) > 2) {
-        if (currentScrollTop > lastScrollTop) {
-            // Scrolling DOWN -> Rotate to point down (90deg)
-            bike.style.transform = `translate(-50%, -50%) rotate(90deg)`;
-        } else {
-            // Scrolling UP -> Rotate to point up (-90deg)
-            bike.style.transform = `translate(-50%, -50%) rotate(-90deg)`;
-        }
-    }
-    
-    lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
-
-    // --- 3. RESET WHEN STOPPED ---
-    // Clear the timer every time we scroll
-    window.clearTimeout(isScrollingTimer);
-
-    // Set a new timer. If no scroll happens for 150ms, we assume stopped.
-    isScrollingTimer = setTimeout(() => {
-        // Reset to Horizontal (0deg)
-        bike.style.transform = `translate(-50%, -50%) rotate(0deg)`;
-    }, 150);
+// Voorkomt dat de browser de scrollpositie onthoudt bij herladen
+if (history.scrollRestoration) {
+    history.scrollRestoration = 'manual';
 }
 
-// Add listeners
-window.addEventListener('scroll', moveBike);
-window.addEventListener('resize', moveBike);
+// Scrolt direct naar boven bij het laden van de pagina
+window.scrollTo(0, 0);
+
 
 /* --- 1. GLOBAL FUNCTIONS (Must be outside DOMContentLoaded) --- */
 function setToolkit(mode) {
