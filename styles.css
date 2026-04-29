@@ -2,48 +2,32 @@
    1. CSS VARIABLES & THEMES
 ========================================= */
 :root {
-    /* --- LIGHT MODE (Default) --- */
     --bg-main: #FAFAFA;       
     --bg-secondary: #F4F4F5;  
     --text-main: #111111;
     --text-muted: #555555;
-    
-    /* ACCENTS */
     --accent-pink: #D100A6;   
     --accent-purple: #8B5CF6;
-    
-    /* UI ELEMENTS */
     --border-light: rgba(0, 0, 0, 0.08);
     --card-bg: #FFFFFF;
     --shadow: 0 10px 40px rgba(0,0,0,0.06);
     --road-color: rgba(0, 0, 0, 0.08);
-    
-    /* Image Borders */
     --img-border: #ffffff;
 }
 
 [data-theme="dark"] {
-    /* --- DARK MODE (Professional Charcoal) --- */
-    --bg-main: #0a0a0c;       /* Rich Deep Charcoal (Not Pitch Black) */
-    --bg-secondary: #141416;  /* Slightly Lighter for Contrast Sections */
-    
-    --text-main: #ececec;     /* Off-White for reading comfort */
-    --text-muted: #a1a1aa;    /* Cool Grey for subtitles */
-    
-    /* Brighter accents for dark mode visibility */
+    --bg-main: #0a0a0c; 
+    --bg-secondary: #141416; 
+    --text-main: #ececec;
+    --text-muted: #a1a1aa;
     --accent-pink: #ff5cd6;   
     --accent-purple: #a78bfa; 
-    
     --border-light: rgba(255, 255, 255, 0.08); 
-    --card-bg: #1f1f22;       /* Visible surface color */
+    --card-bg: #1f1f22; 
     --shadow: 0 10px 40px rgba(0,0,0,0.5); 
-    
     --road-color: rgba(255, 255, 255, 0.15);
-    
-    /* Dark Mode Image Border (Blends in) */
     --img-border: #27272a; 
 }
-
 
 /* =========================================
    2. RESET & GLOBAL STYLES
@@ -76,7 +60,7 @@ body {
 }
 
 /* =========================================
-   3. NAVBAR & HAMBURGER
+   3. NAVBAR & NAVIGATION
 ========================================= */
 .navbar {
     position: fixed; top: 0; width: 100%; padding: 20px 0;
@@ -94,91 +78,59 @@ body {
 
 .nav-right { display: flex; align-items: center; gap: 20px; }
 
-/* Desktop Menu */
 .nav-links { list-style: none; display: flex; gap: 30px; }
 .nav-links a { 
     text-decoration: none; color: var(--text-muted); 
     font-size: 0.9rem; font-weight: 500; transition: color 0.3s; 
 }
-.nav-links a:hover, .active-link, .active { color: var(--accent-pink); }
+.nav-links a:hover, .nav-links a.active { color: var(--accent-pink); }
 
-/* Theme Toggle Button */
 .theme-btn {
     background: none; border: 1px solid var(--border-light); 
     padding: 8px; border-radius: 50%; cursor: pointer; 
     color: var(--text-main); display: flex; 
     align-items: center; justify-content: center;
-    z-index: 1002;
-    width: 40px; height: 40px;
+    z-index: 1002; width: 40px; height: 40px;
 }
 .sun-icon { display: none; }
 [data-theme="dark"] .sun-icon { display: block; }
 [data-theme="dark"] .moon-icon { display: none; }
 
-/* Hamburger Button (Hidden by default) */
-.hamburger-btn {
-    display: none; /* Hidden on desktop */
-    background: none; border: none; cursor: pointer;
-    color: var(--text-main); padding: 5px;
-    z-index: 1002;
-}
-
-/* MOBILE MENU STYLES (Triggered at 768px) */
-@media (max-width: 768px) {
-    .hamburger-btn { display: block; }
-
-    .nav-links {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100vh;
-        background: var(--bg-main);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 40px;
-        transform: translateY(-100%); /* Hidden top */
-        transition: transform 0.4s ease-in-out;
-        z-index: 1001; /* Behind logo/buttons */
-    }
-
-    .nav-links.active {
-        transform: translateY(0); /* Slide down */
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    }
-
-    .nav-links a {
-        font-size: 1.5rem; /* Bigger text for mobile */
-        font-weight: 700;
-        color: var(--text-main);
-    }
-}
+.hamburger-btn { display: none; background: none; border: none; cursor: pointer; color: var(--text-main); z-index: 1002; }
 
 /* =========================================
    4. HERO SECTION
 ========================================= */
 .hero-section { min-height: 100vh; display: flex; align-items: center; padding-top: 80px; }
 .hero-layout { display: flex; align-items: center; justify-content: space-between; gap: 50px; width: 100%; }
-.hero-text-content { flex: 1; }
 
 .main-title { 
-    font-size: clamp(2.5rem, 4.5vw, 3.8rem); 
-    line-height: 1.1; font-weight: 700; margin-bottom: 10px; 
+    font-size: clamp(2.0rem, 4.0vw, 3.0rem); 
+    line-height: 1.25; /* Terug naar een natuurlijkere, luchtige afstand */
+    font-weight: 650;  /* Iets dikker aangezet, zoals in je eerste versie */
+    margin-bottom: 25px;
+    letter-spacing: -0.02em; /* Maakt grote koppen veel krachtiger en leesbaarder */
+    display: block;
 }
 
-.gradient-text {
-    background: linear-gradient(to right, var(--accent-pink), var(--accent-purple));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+/* Zorg dat de hero-content niet probeert alles in het midden te proppen op desktop */
+.hero-text-content {
+    flex: 1;
+    display: block; /* Forceert natuurlijke tekst-flow */
 }
-.highlight-text { color: var(--accent-pink); }
 
-.hero-subtitle { 
-    font-size: 1.1rem; color: var(--text-main); 
-    font-weight: 600; margin-bottom: 20px; 
+/* Zorgt dat de span met de dot netjes aansluit */
+.main-title span.dot-text {
+    display: inline;
 }
-.hero-desc { 
-    font-size: 1rem; color: var(--text-muted); 
-    line-height: 1.6; max-width: 480px; margin-bottom: 35px; 
+
+/* Zorgt ervoor dat de span (met de dot) niet losgescheurd wordt van het woord */
+.main-title span {
+    display: inline-block;
 }
+
+.hero-subtitle { font-size: 1.1rem; color: var(--text-main); font-weight: 600; margin-bottom: 20px; }
+.hero-desc { font-size: 1rem; color: var(--text-muted); line-height: 1.6; max-width: 480px; margin-bottom: 35px; }
 
 .cta-wrapper { display: flex; gap: 20px; align-items: center; }
 
@@ -189,566 +141,109 @@ body {
     transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     display: inline-block;
 }
-.btn-primary:hover { 
-    background: var(--accent-pink); color: white; transform: translateY(-3px); 
-}
+.btn-primary:hover { background: var(--accent-pink); color: white; transform: translateY(-3px); }
 
 .btn-text { 
     color: var(--text-main); text-decoration: none; 
     font-weight: 600; font-size: 0.9rem; display: flex; gap: 8px; 
-    border-bottom: 2px solid transparent; transition: 0.3s;
+    transition: 0.3s;
 }
-.btn-text:hover { border-color: var(--accent-pink); }
+.btn-text:hover { color: var(--accent-pink); }
 
-/* Hero Visual */
 .hero-visual { flex: 1; display: flex; justify-content: center; position: relative; }
 .image-blobs { 
     width: 320px; height: 420px; border-radius: 100px; 
     overflow: hidden; position: relative; z-index: 2; 
     transform: rotate(-2deg); transition: transform 0.5s; 
 }
-.image-blobs:hover { transform: rotate(0deg); }
-
-.main-img, .creative-img { 
-    width: 100%; height: 100%; object-fit: cover; 
-    position: absolute; top: 0; left: 0; transition: opacity 0.4s; 
-}
-.creative-img { opacity: 0; transform: scale(1.1); }
-.hero-visual:hover .main-img { opacity: 0; }
-.hero-visual:hover .creative-img { opacity: 1; transform: scale(1); }
-
+.main-img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
 .circle-decoration { 
     position: absolute; width: 380px; height: 380px; 
     border: 1px solid var(--border-light); border-radius: 50%; z-index: 1; 
 }
 
 /* =========================================
-   5. ABOUT SUMMARY & TOOLKIT
-========================================= */
-.about-section { padding: 100px 0; background-color: var(--bg-secondary); }
-.bio-block { max-width: 700px; margin-bottom: 60px; }
-.section-label { 
-    font-size: 0.8rem; letter-spacing: 2px; color: var(--accent-pink); 
-    font-weight: 700; margin-bottom: 10px; display: block; 
-}
-.bio-title { font-size: 2.5rem; margin-bottom: 20px; line-height: 1.2; }
-.bio-text { 
-    color: var(--text-muted); line-height: 1.7; 
-    margin-bottom: 20px; font-size: 1.05rem; 
+   /* --- HERO FLOATING UI ELEMENTS (Refined) --- */
+/* ========================================= */
+
+.hero-visual { 
+    position: relative; /* Zorgt dat de elementen binnen deze container blijven */
 }
 
-.toolkit-block h3 { margin-bottom: 20px; font-size: 1.2rem; }
-.skill-cloud { display: flex; flex-wrap: wrap; gap: 12px; }
-.skill-cloud span {
-    padding: 12px 24px; 
-    border: 1px solid var(--border-light); 
-    border-radius: 30px; 
-    font-size: 1rem; 
-    font-weight: 500;
-    color: var(--text-muted); 
+/* De algemene stijl: Veel kleiner, rustiger en zonder code-buzzwords */
+.floating-ui {
+    position: absolute;
+    z-index: 10;
     background: var(--card-bg);
-    transition: all 0.3s ease;
-}
-.skill-cloud span:hover {
-    border-color: var(--accent-pink); color: var(--text-main);
-    transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-
-.about-section .bio-block {
-    max-width: 100% !important; /* Overrides the previous 700px limit */
-    margin-bottom: 80px;
-}
-
-/* Create the Split Layout */
-.bio-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr; /* Text gets slightly more space than the turtle */
-    gap: 60px;
-    align-items: center; /* Vertically centers the turtle with the text */
-}
-
-/* The Left Side (Text) */
-.bio-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Aligns button to the left */
-}
-
-/* The Right Side (Visual/Turtle) */
-.bio-visual {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-/* Add a subtle decoration behind the turtle to frame it */
-.bio-visual::before {
-    content: '';
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    background: var(--bg-main);
     border: 1px solid var(--border-light);
-    border-radius: 50%;
-    z-index: 0;
-    opacity: 0.5;
-}
-
-/* Ensure the Ocean/Turtle sits on top of the decoration */
-.ocean-container {
-    z-index: 1; 
-    margin-top: 0 !important; /* Reset margin since it's now in a grid */
-    align-items: center !important; /* Center the caption */
-}
-
-/* Mobile Responsive: Stack them back up on phones */
-@media (max-width: 900px) {
-    .bio-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        text-align: center;
-    }
-    
-    .bio-content {
-        align-items: center; /* Center text on mobile */
-    }
-    
-    .bio-visual::before {
-        display: none; /* Hide decoration on mobile to save space */
-    }
-}
-
-/* =========================================
-   5. ABOUT SUMMARY 
-========================================= */
-
-.about-section { 
-    padding: 100px 0; 
-    /* A slightly warmer grey/blue to let the white pop less harshly */
-    background-color: #f9fbfd; 
-    overflow: hidden; 
-}
-
-.bio-block {
-    max-width: 100%;
-    margin-bottom: 80px;
-}
-
-.section-label { 
-    font-size: 0.8rem; letter-spacing: 2px; color: var(--accent-pink); 
-    font-weight: 700; margin-bottom: 10px; display: block; 
-}
-
-/* --- THE 3-PART GRID LAYOUT --- */
-.bio-grid {
-    display: grid;
-    /* Desktop: Text/Btn on Left, Visual on Right */
-    grid-template-columns: 1.1fr 1fr; 
-    grid-template-areas: 
-        "text visual"
-        "btn visual";
-    gap: 0px 60px; 
-    align-items: center;
-}
-
-/* 1. Text Area */
-.bio-text-group {
-    grid-area: text;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 30px;
-}
-
-.bio-title { font-size: 2.5rem; margin-bottom: 20px; line-height: 1.2; }
-.bio-text { color: var(--text-muted); line-height: 1.7; font-size: 1.05rem; margin: 0; }
-
-/* 2. Button Area */
-.bio-btn-group {
-    grid-area: btn;
-    align-self: start; 
-}
-
-/* 3. Visual Area (The Stage) */
-.bio-visual {
-    grid-area: visual;
-    position: relative;
-    height: 350px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04); /* Zachtere schaduw */
+    border-radius: 50px;
     display: flex;
     align-items: center;
-    justify-content: center;
-}
-
-/* --- BACKGROUND PATTERN (Travel/Network Nodes) --- */
-.bio-visual::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    opacity: 0.4;
-    z-index: 0;
-    /* This creates a subtle pattern of connected dots */
-    background-image: 
-        radial-gradient(circle at center, var(--border-light) 1.5px, transparent 1.5px),
-        linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px);
-    background-size: 40px 40px, 80px 80px, 80px 80px;
-    background-position: 0 0, 40px 40px, 40px 40px;
-    /* Fades the edges out */
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
-    -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
-}
-
-/* --- THE WIDGET CARD (Refined Size & 3D Shadow) --- */
-.ocean-wrapper {
-    /* DESKTOP SIZE: 320px is the sweet spot */
-    width: 320px; 
-    height: 200px; 
-    
-    position: relative;
-    z-index: 1;
-    cursor: pointer;
-    
-    /* Rounder, organic shape (Squircle) */
-    border-radius: 40px; 
-    
-    overflow: hidden;
-    /* Subtle premium gradient */
-    background: linear-gradient(to bottom right, #ffffff, #f4f9ff);
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    
-    /* NEW SHADOW: Deep Ambient + Sharp Detail */
-    box-shadow: 
-        0 20px 50px rgba(0, 40, 80, 0.12), /* Deep ambient glow */
-        0 5px 15px rgba(0, 0, 0, 0.05);    /* Sharp close shadow */
-    
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
-}
-
-.ocean-wrapper:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 30px 60px rgba(0, 40, 80, 0.18);
-}
-
-.ocean-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-}
-
-/* Text inside the card */
-.ocean-static-label {
-    position: absolute;
-    top: 45%; left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1rem; font-weight: 800;
-    color: var(--text-main);
-    text-transform: uppercase; letter-spacing: 2px;
-    z-index: 5;
-    transition: all 0.3s ease;
-}
-
-.ocean-wrapper:hover .ocean-static-label {
-    opacity: 0;
-    transform: translate(-50%, -100%);
-}
-
-.ocean-fill { bottom: -160%; height: 160%; }
-
-/* RESPONSIVE TABLET/MOBILE (Intermediate & Phones) */
-@media (max-width: 900px) {
-    
-    /* --- 1. HERO & BIO LAYOUT --- */
-    .hero-layout { flex-direction: column; text-align: center; gap: 40px; }
-    .hero-visual { order: -1; height: 300px; }
-    .image-blobs { width: 250px; height: 250px; border-radius: 50%; }
-    .cta-wrapper { justify-content: center; }
-
-    /* --- 2. BIO GRID (About Section) FIXES --- */
-    .bio-grid {
-        display: flex; 
-        flex-direction: column;
-        gap: 20px; 
-        text-align: left; /* Keep text left-aligned */
-    }
-    
-    .bio-text-group { 
-        order: 1; 
-        margin-bottom: 0; 
-        align-items: flex-start; 
-    }
-    
-    .bio-visual { 
-        order: 2; 
-        height: auto; 
-        padding: 10px 0 20px 0; 
-        width: 100%; 
-        display: flex;
-        justify-content: center; /* Center the widget */
-    }
-    
-    .bio-btn-group { 
-        order: 3; 
-        justify-content: center; /* Center the button below widget */
-        width: 100%; 
-        display: flex; 
-    }
-    
-    .ocean-wrapper { 
-        width: 280px;   
-        height: 170px;  
-        border-radius: 30px;
-    }
-
-    /* --- 3. PROCESS GRID (How I Design) - 2x2 GRID FIX --- */
-    .process-grid {
-        display: grid;
-        /* This creates the 2 columns side-by-side */
-        grid-template-columns: 1fr 1fr; 
-        gap: 15px; /* Tighter gap for mobile */
-        margin-top: 20px;
-    }
-
-    .process-card {
-        width: 100%;
-        max-width: none; /* Allow full fill of the grid cell */
-        /* Reduce padding slightly to fit text better on small screens */
-        padding: 15px; 
-        min-height: 100%; /* Ensures they are same height */
-    }
-    
-    /* Optional: Slightly smaller text for the 2-col layout */
-    .process-card h3 { font-size: 1rem; }
-    .process-card p { font-size: 0.85rem; line-height: 1.5; }
-
-    /* ... inside @media (max-width: 900px) ... */
-
-    /* --- 4. PROJECT ITEMS & TIMELINE --- */
-    .project-list {
-        display: flex;
-        flex-direction: column;
-        gap: 40px; /* Gap between cards */
-    }
-
-    .project-card { 
-        display: flex; 
-        flex-direction: column; 
-        gap: 20px; 
-        
-        /* The Size Fix */
-        width: 92%; 
-        max-width: 560px; 
-        margin: 0 auto; 
-    }
-    
-    .card-visual { 
-        order: -1 !important; 
-        width: 100%;
-    }
-    
-    .timeline-line { left: 20px; }
-    .milestone, .milestone.reverse { 
-        flex-direction: column !important; 
-        align-items: flex-start; 
-        gap: 20px; 
-    }
-    
-    .milestone-content.image-block { order: -1 !important; width: 100%; }
-    .milestone-content.text-block { order: 1 !important; width: 100%; padding: 0 0 0 20px; }
-    .image-frame { height: 200px; transform: rotate(0); }
-    
-    /* Work/About Grid Resets */
-    .story-grid { grid-template-columns: 1fr; gap: 30px; }
-    .story-grid.reverse .story-text { order: 1; }
-    .story-grid.reverse .story-image { order: 2; }
-    .card-grid { grid-template-columns: 1fr; max-width: 400px; }
-    .study-grid { grid-template-columns: 1fr; }
-    .gallery-grid.multi { grid-template-columns: 1fr; }
-    .span-full { grid-column: span 1; }
-}
-
-/* =========================================
-   6. PORTFOLIO SECTION (The Homepage List)
-========================================= */
-.portfolio-section { padding: 80px 0; } /* Reduced from 120px */
-
-.section-header { font-size: 2.5rem; margin-bottom: 10px; font-weight: 700; color: var(--text-main); }
-
-/* Reduced margin-bottom from 80px to 50px to bring cards closer */
-.section-subtitle { color: var(--text-muted); margin-bottom: 50px; font-size: 1.1rem; max-width: 600px; }
-
-/* The Container - Back to LIST layout */
-.project-list {
-    display: flex;
-    flex-direction: column;
-    gap: 80px; /* Reduced gap between projects from 120px */
-    max-width: 1000px; 
-    margin: 0 auto;
-}
-
-/* THE CARD STRUCTURE (Clean List in Light Mode) */
-.project-card {
-    display: grid;
-    grid-template-columns: 1.1fr 1fr; /* Image left, Text right */
-    gap: 50px;
-    align-items: center;
-    
-    /* NO Card styling in Light Mode (Transparent) */
-    background-color: transparent;
-    padding: 0;
-    border-radius: 0;
-    border: none;
-    box-shadow: none;
-    
-    transition: transform 0.3s ease;
-}
-
-/* Hover Effect - Movement only */
-.project-card:hover {
-    transform: translateY(-5px);
-}
-
-/* Image Container */
-.card-visual {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 4/3; 
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.08); /* Shadow is on the image itself */
-    
-    /* Dynamic border */
-    border: 2px solid var(--img-border);
-    background-color: var(--bg-secondary);
-}
-
-.card-visual img {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform 0.6s ease;
-}
-
-.project-card:hover .card-visual img { transform: scale(1.03); }
-
-/* Text Content */
-.card-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.project-year {
-    font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.85rem;
-    color: var(--accent-pink); margin-bottom: 10px; display: inline-block; letter-spacing: 1px;
-}
-
-.project-title {
-    font-size: 2rem; font-weight: 800; margin-bottom: 15px;
-    line-height: 1.1; color: var(--text-main);
-}
-
-.project-desc {
-    font-size: 1rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 25px;
-}
-
-/* --- NEW META DATA STYLING (Stacked & Clean) --- */
-
-.meta-container {
-    margin-bottom: 25px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* Separate Role info from Tags */
-    border-top: 1px solid var(--border-light);
-    padding-top: 18px;
-    width: 100%;
-}
-
-/* 1. The Context Block (Stacked Left) */
-.meta-block {
-    display: flex;
-    flex-direction: column; /* Stack label on top of value */
-    gap: 4px; /* Tight gap between label and value */
-    align-items: flex-start;
-}
-
-.meta-label {
-    text-transform: uppercase;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: var(--accent-pink); /* Use accent color for label so it acts as a clear header */
-    opacity: 0.9;
-}
-
-.meta-value {
-    font-size: 0.95rem;
+    gap: 6px; /* Kleiner gap voor strakkere UI */
+    font-size: 0.75rem; /* Kleiner lettertype */
     font-weight: 600;
     color: var(--text-main);
-    line-height: 1.2;
+    padding: 6px 12px; /* Veel minder padding */
+    animation: floatUI 8s ease-in-out infinite; /* Langzamere, rustigere animatie */
+    pointer-events: none; /* Ze blokkeren de hover op de afbeelding niet */
+    white-space: nowrap;
 }
 
-/* 2. The Tags Row (Pills) */
-.meta-tags {
-    display: flex;
-    flex-wrap: wrap; /* Allows them to wrap if list is long */
-    gap: 8px;
+/* Staggered float animaties */
+.ui-insights { animation-delay: 0s; padding: 4px 10px; }
+.ui-workflow { animation-delay: -3s; }
+.ui-ux { animation-delay: -1.5s; }
+
+/* Primair Element: Het roze tooltipje is nu kleiner en subtieler */
+.ui-tooltip-badge {
+    background: var(--accent-pink);
+    color: #fff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    margin-left: 2px;
 }
 
-.tag {
-    font-size: 0.75rem;
-    font-weight: 500;
-    padding: 6px 12px;
-    background-color: var(--bg-secondary);
-    border-radius: 20px; 
-    color: var(--text-muted);
-    border: 1px solid var(--border-light);
-    white-space: nowrap; 
-    transition: all 0.3s ease;
+/* Zachtere floating animatie */
+@keyframes floatUI {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); } /* Minder heftige beweging */
+    100% { transform: translateY(0px); }
 }
 
-/* Hover Effect for Tags */
-.project-card:hover .tag {
-    border-color: var(--accent-pink);
-    color: var(--text-main);
-    background: var(--card-bg);
-}
-
-
-/* Button */
-.btn-case-study {
-    align-self: flex-start; display: inline-flex; align-items: center; gap: 10px;
-    padding: 12px 0; font-size: 0.95rem; font-weight: 600;
-    color: var(--text-main); text-decoration: none;
-    border-bottom: 2px solid var(--border-light); transition: all 0.3s ease;
-}
-
-.btn-case-study:hover {
-    color: var(--accent-pink); border-color: var(--accent-pink); gap: 15px;
-}
-
-/* Mobile Responsive - Stack Vertical */
-@media (max-width: 900px) {
-    .project-card { 
-        grid-template-columns: 1fr; 
-        gap: 30px; 
+/* --- Mobiele weergave voor de Floating UI --- */
+@media (max-width: 768px) {
+    .floating-ui { 
+        font-size: 0.65rem; 
+        padding: 4px 8px;
     }
-    .card-visual { order: -1; aspect-ratio: 16/10; }
+    
+    .ui-tooltip-badge {
+        font-size: 0.55rem; 
+    }
+
+    /* We duwen de zij-labels flink naar buiten, weg van de afbeelding */
+    .ui-insights { top: -26px !important; left: -7% !important;}
+    
+    /* Naar de rechter buitenrand geduwd */
+    .ui-workflow { right: -110px !important; top: 35% !important; } 
+    
+    /* Naar de linker buitenrand geduwd */
+    .ui-ux { left: -50px !important; bottom: 15px !important; }
 }
 
 /* =========================================
-   6b. PROCESS SECTION
+   5. PROCESS SECTION (How I Create Value)
 ========================================= */
-.process-section { padding: 60px 0; } /* Reduced padding */
+.process-section { padding: 60px 0; }
 
 .process-grid { 
     display: grid; 
     grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); 
     gap: 24px; 
-    margin-top: 30px; /* Reduced from 40px */
+    margin-top: 30px;
 }
 
 .process-card {
@@ -759,275 +254,223 @@ body {
     box-shadow: var(--shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
+
 .process-card:hover {
     transform: translateY(-6px);
     border-color: var(--accent-pink);
     box-shadow: 0 16px 40px rgba(0,0,0,0.08);
 }
-.process-card h3 {
-    font-size: 1.1rem;
-    margin-bottom: 8px;
-}
-.process-card p {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    line-height: 1.7;
-}
 
-/* --- NEW VIEW ALL CONTAINER --- */
-.view-all-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 80px; /* Space before the project cards start */
-    margin-top: -40px;   /* Pulls it closer to the subtitle */
-}
+.process-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+.process-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
 
-.view-all-label {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    font-weight: 500;
-}
 
-/* A secondary button style (Outline) */
-.btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 24px;
-    border-radius: 50px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-decoration: none;
-    
-    /* Style: Outline */
-    background: transparent;
-    color: var(--text-main);
-    border: 2px solid var(--border-light);
-    transition: all 0.3s ease;
-}
-
-.btn-secondary:hover {
-    border-color: var(--accent-pink);
-    color: var(--accent-pink);
-    transform: translateY(-2px);
-    background: rgba(209, 0, 166, 0.03); /* Very faint pink tint */
-}
 
 /* =========================================
-   7. JOURNEY SECTION (Dashed Road & Cyclist)
+   7. PORTFOLIO SECTION (Selected Projects)
 ========================================= */
-.journey-section { 
-    padding: 120px 0; 
-    position: relative; 
-    background-color: var(--bg-secondary); 
+.portfolio-section { padding: 80px 0; }
+.section-header { font-size: 2.5rem; margin-bottom: 10px; font-weight: 700; }
+
+.project-list {
+    display: flex; flex-direction: column;
+    gap: 80px; max-width: 1000px; margin: 0 auto;
 }
 
-.zigzag-timeline { 
-    position: relative; 
-    display: flex; 
-    flex-direction: column; 
-    gap: 80px; 
-    width: 100%; 
+.project-card {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 50px; align-items: center;
+    transition: transform 0.3s ease;
 }
 
-/* THE TRACK (Dashed Map Path) */
-.timeline-track { 
-    position: absolute; 
-    left: 50%; 
-    top: 0; 
-    height: 100%; 
-    width: 3px; 
-    
-    /* Uses the new variable so it switches color automatically */
-    background-image: linear-gradient(to bottom, var(--road-color) 50%, transparent 50%);
-    background-size: 3px 16px; 
-    background-repeat: repeat-y;
-    
-    transform: translateX(-50%); 
-    z-index: 0;
+.card-visual {
+    position: relative; width: 100%; aspect-ratio: 4/3; 
+    border-radius: 16px; overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    border: 2px solid var(--img-border);
 }
 
-/* THE CYCLIST */
-.timeline-bike {
-    position: absolute;
-    left: 50%;
-    top: 0%; 
-    transform: translate(-50%, -50%); 
-    
-    /* 1. Make container big enough to mask the line behind the whole bike */
-    width: 40px; 
-    height: 40px;
-    
-    /* 2. Solid background hides the "Road" line behind the icon */
-    background-color: var(--bg-secondary); 
-    border-radius: 50%;
-    
-    /* 3. A border helps separate it from the background visuals */
-    border: 3px solid var(--bg-secondary); 
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 100; 
-    
-    /* Clean shadow to lift it off the page */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    
-    /* Smooth transitions */
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+.card-visual img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+.project-card:hover .card-visual img { transform: scale(1.03); }
+
+.project-year {
+    font-weight: 700; font-size: 0.85rem;
+    color: var(--accent-pink); margin-bottom: 10px; letter-spacing: 1px;
 }
 
-.timeline-bike i {
-    width: 18px; 
-    height: 18px;
-    stroke-width: 2px;
-    color: var(--text-muted); 
-    transition: color 0.3s ease;
+.project-title { font-size: 1.6rem; font-weight: 650; margin-bottom: 15px; line-height: 1.1; }
+.project-desc { font-size: 1rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 25px; }
+
+.meta-container {
+    margin-bottom: 25px; display: flex; flex-direction: column; gap: 15px;
+    border-top: 1px solid var(--border-light); padding-top: 18px;
 }
 
-/* Interaction */
-.timeline-bike:hover i { color: var(--accent-pink); }
+.meta-block { display: flex; flex-direction: column; gap: 4px; }
+.meta-label { text-transform: uppercase; font-size: 0.7rem; font-weight: 700; color: var(--accent-pink); }
+.meta-value { font-size: 0.95rem; font-weight: 600; }
 
-/* --- MILESTONE STYLING --- */
-.milestone { 
-    display: flex; 
-    align-items: center; 
-    justify-content: space-between; 
-    position: relative; 
-    z-index: 1; 
+.btn-case-study {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 12px 0; font-size: 0.95rem; font-weight: 600;
+    text-decoration: none; color: var(--text-main);
+    border-bottom: 2px solid var(--border-light); transition: 0.3s;
+}
+
+.btn-case-study:hover { color: var(--accent-pink); border-color: var(--accent-pink); gap: 15px; }
+
+/* =========================================
+   8. EXPLORATIONS (Side Projects)
+========================================= */
+.side-projects-wrapper {
+    max-width: 1000px; /* Gecorrigeerd naar volledige breedte */
+    margin: 8rem auto 0 auto;
     width: 100%;
 }
 
-.milestone.reverse { flex-direction: row-reverse; }
-
-.milestone-content { width: 42%; position: relative; }
-
-.text-block { padding: 0 30px; }
-
-.year { 
-    color: var(--accent-pink); 
-    font-weight: 700; font-size: 0.9rem; 
-    margin-bottom: 10px; display: block; 
-    text-transform: uppercase; letter-spacing: 1px;
+.side-projects {
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+    margin-bottom: 2rem;
 }
 
-/* Image Styling */
-.image-frame { 
-    width: 100%; height: 280px; 
-    border-radius: 16px; 
-    overflow: hidden; 
-    position: relative; 
-    transition: all 0.5s ease; 
-    box-shadow: var(--shadow); 
-    
-    /* Use variables for dynamic background/border colors */
-    background: var(--img-border);
-    border: 4px solid var(--img-border); 
+.side-project-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-light);
+    transition: background 0.25s ease;
+    text-decoration: none;
 }
 
-.image-frame img { 
-    width: 100%; height: 100%; object-fit: cover; 
-    filter: grayscale(100%); 
-    transition: transform 0.6s ease, filter 0.6s ease;
+.side-project-item:last-child { border-bottom: none; }
+.side-project-item:hover { background: var(--bg-secondary); }
+
+.side-project-left { display: flex; align-items: center; gap: 1rem; }
+
+.side-project-thumb {
+    width: 3rem; height: 3rem;
+    border-radius: 6px; overflow: hidden;
+    flex-shrink: 0; background: var(--bg-secondary);
 }
 
-.tilt-right { transform: rotate(2deg); }
-.tilt-left { transform: rotate(-2deg); }
+.side-project-thumb img { width: 100%; height: 100%; object-fit: cover; }
 
-.image-frame:hover { 
-    transform: rotate(0) scale(1.02) translateY(-5px); 
-    box-shadow: 0 20px 40px rgba(0,0,0,0.12); z-index: 50; 
-}
-.image-frame:hover img { filter: grayscale(0%); transform: scale(1.05); }
-
-/* MOBILE OVERRIDES */
-@media (max-width: 900px) {
-    .timeline-track { display: none; } 
-    .milestone-content { width: 100%; }
+.side-project-left h4 {
+    font-size: 1rem; font-weight: 600;
+    color: var(--text-main); margin: 0 0 2px 0;
 }
 
+.side-project-left .meta { font-size: 0.8rem; color: var(--text-muted); }
+
+.side-project-arrow {
+    color: var(--text-muted); font-size: 1.2rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.side-project-item:hover .side-project-arrow {
+    color: var(--accent-pink); transform: translate(4px, -4px);
+}
+
+/* 
 /* =========================================
-   8. CONTACT SECTION
+   10. CONTACT SECTION & FOOTER
 ========================================= */
-.contact-section { padding: 100px 0 50px; text-align: center; background: var(--bg-main); }
-.contact-subtitle { 
-    font-size: 1.1rem; color: var(--text-muted); 
-    margin-bottom: 40px; line-height: 1.6; max-width: 600px; margin: 0 auto 40px; 
+.contact-section { padding: 100px 0 50px; text-align: center; }
+.contact-subtitle { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 40px; line-height: 1.6; }
+
+/* Zorg dat Lucide icons in knoppen altijd een maat hebben */
+.contact-actions .btn-secondary i,
+.contact-actions .btn-primary i {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
 }
 
-.big-email-center {
-    display: inline-block; font-size: 1.5rem; font-weight: 700; 
-    color: var(--text-main); text-decoration: none; 
-    border-bottom: 2px solid var(--accent-pink); transition: 0.3s;
+.btn-secondary {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 10px 24px; border-radius: 50px;
+    font-size: 0.9rem; font-weight: 600; text-decoration: none;
+    background: transparent; color: var(--text-main);
+    border: 2px solid var(--border-light); transition: all 0.3s ease;
 }
-.big-email-center:hover { color: var(--accent-pink); }
 
-.social-links { display: flex; justify-content: center; gap: 30px; margin-top: 40px; margin-bottom: 60px; }
-.social-icon { color: var(--text-main); transform: scale(1.2); transition: color 0.3s, transform 0.3s; }
-.social-icon:hover { color: var(--accent-pink); transform: scale(1.4); }
+.btn-secondary:hover { border-color: var(--accent-pink); color: var(--accent-pink); transform: translateY(-2px); }
 
 .simple-footer p {
     font-size: 0.9rem; color: var(--text-muted); 
     border-top: 1px solid var(--border-light); 
-    padding-top: 30px; display: inline-block; width: 100%;
+    padding-top: 30px; margin-top: 60px; display: inline-block; width: 100%;
 }
 
 /* =========================================
-   9. ABOUT PAGE SPECIFIC STYLES
+   11. ABOUT PAGE SPECIFIC STYLES (RESTORED)
 ========================================= */
 
-/* Reuse the exact same header styles as Work page */
-.page-header { 
-    padding-top: 120px; 
-    padding-bottom: 60px; 
-    text-align: center; 
-}
-
-.page-title { 
-    font-size: 2.2rem; /* Matches Work Page exactly */
-    font-weight: 800; 
-    margin-bottom: 15px; 
-    color: var(--text-main); 
-    line-height: 1.1;
-}
-
-.page-subtitle { 
-    color: var(--text-muted); 
-    font-size: 1rem; 
-    max-width: 500px; 
-    margin: 0 auto; 
-    line-height: 1.6;
-}
-
-/* Story Section */
-.story-section { padding: 40px 0 100px; }
-
-.story-grid {
+/* --- STORY SECTION (Improved Typography & Hierarchy) --- */
+.story-grid { 
     display: grid; 
-    grid-template-columns: 1fr 1fr;
-    gap: 60px; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 80px; /* Increased from 60px for better breathing room */
     align-items: center; 
-    margin-bottom: 100px;
+    margin-bottom: 120px; 
+}
+
+/* Adds a subtle constraint so the text lines don't get too long and exhausting to read */
+.story-text {
+    max-width: 95%; 
 }
 
 .story-text h3 { 
-    font-size: 1.6rem; 
-    margin-bottom: 20px; 
-    font-weight: 700; 
+    font-size: 1.6rem; /* Bumped up from 1.6rem for clearer hierarchy */
+    margin-bottom: 24px; 
+    font-weight: 650; /* Made bolder to match your main titles */
+    color: var(--text-main);
+    letter-spacing: -0.02em; /* Tightens the large text slightly for a premium feel */
+    line-height: 1.2;
 }
 
 .story-text p { 
-    font-size: 1rem; 
+    font-size: 1.05rem; /* Increased for comfortable reading */
     color: var(--text-muted); 
-    line-height: 1.8; 
-    margin-bottom: 20px; 
+    line-height: 1.7; /* Optimal line height for body text */
+    margin-bottom: 1.5rem; /* Adds clear separation between multiple paragraphs */
+}
+
+/* Removes the extra space under the very last paragraph */
+.story-text p:last-child {
+    margin-bottom: 0;
+}
+
+/* Mobile Responsive Typography Fixes */
+@media (max-width: 900px) {
+    .story-grid {
+        gap: 40px;
+        margin-bottom: 80px;
+    }
+    .story-text {
+        max-width: 100%;
+    }
+    .story-text h3 {
+        font-size: 1.8rem;
+        margin-bottom: 16px;
+    }
+    .story-text p {
+        font-size: 1.05rem; 
+    }
+}
+
+/* --- STORY SECTION IMAGES (Restored) --- */
+.story-section { 
+    padding: 40px 0 100px; 
 }
 
 .story-image {
     width: 100%; 
-    height: 400px; 
+    height: 400px; /* De vaste hoogte die je eerst had */
     border-radius: 20px;
     overflow: hidden; 
     box-shadow: 0 10px 30px rgba(0,0,0,0.08);
@@ -1041,692 +484,608 @@ body {
     transition: transform 0.4s ease; 
 }
 
-.story-image:hover { transform: translateY(-5px); }
-.story-image:hover img { transform: scale(1.03); }
-
-/* Reverse layout for alternating look */
-.story-grid.reverse .story-text { order: 2; }
-.story-grid.reverse .story-image { order: 1; }
-
-/* Value Grid */
-.value-grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-    gap: 30px; 
-    margin-bottom: 80px; 
+/* Hover effect voor die extra luxe touch */
+.story-image:hover { 
+    transform: translateY(-5px); 
 }
 
-.value-card { 
-    background: var(--card-bg); 
-    padding: 30px; 
-    border-radius: 16px; 
-    border: 1px solid var(--border-light); 
-    box-shadow: var(--shadow); 
-    transition: transform 0.3s; 
+.story-image:hover img { 
+    transform: scale(1.03); 
 }
 
-.value-card:hover { transform: translateY(-5px); }
+/* --- STORY GRID FLOW (Desktop & Mobile) --- */
 
-.icon-box { 
-    color: var(--accent-pink); 
-    margin-bottom: 15px; 
+/* 1. Desktop: Om-en-om layout */
+@media (min-width: 901px) {
+    .story-grid.reverse .story-text {
+        order: 2; /* Tekst rechts */
+    }
+    .story-grid.reverse .story-image {
+        order: 1; /* Afbeelding links */
+    }
 }
 
-.value-card h3 { 
-    font-size: 1.2rem; 
-    margin-bottom: 10px; 
-}
-
-.value-card p { 
-    font-size: 0.9rem; 
-    color: var(--text-muted); 
-    line-height: 1.6; 
-}
-
-/* Mobile Responsive */
+/* 2. Mobiel: Altijd afbeelding boven tekst */
 @media (max-width: 900px) {
-    .page-title { font-size: 2.2rem; }
-    .story-grid { grid-template-columns: 1fr; gap: 40px; }
-    .story-grid.reverse .story-text { order: 1; }
-    .story-grid.reverse .story-image { order: 2; }
-    .story-image { height: 300px; }
+    .story-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .story-image {
+        order: 1; /* Afbeelding eerst */
+        height: 300px;
+    }
+
+    .story-text {
+        order: 2; /* Tekst eronder */
+    }
 }
+
+/* --- Page Hero --- */
+.page-hero { padding: 8rem 0 4rem; text-align: center; }
+.page-hero .section-label { font-size: 0.6875rem; font-weight: 600; color: var(--accent-pink); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1rem; text-align: center; }
+.page-hero .page-title { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 600; margin-bottom: 0.5rem; color: var(--text-main); }
+.page-hero .page-subtitle { color: var(--text-muted); max-width: 40rem; margin: 0 auto; font-size: 1.1rem; line-height: 1.6; }
+
+/* --- Story & Pink Text --- */
+.story-image img, .milestone-content img { filter: none !important; -webkit-filter: none !important; }
+.pink-text { color: var(--accent-pink); position: relative; display: inline-block; }
+.pink-text::after { content: ''; position: absolute; width: 100%; height: 6px; bottom: -5px; left: 0; background-color: var(--accent-pink); opacity: 0.3; border-radius: 4px; z-index: -1; }
+
+/* --- Hobbies --- */
+.hobbies-section { padding: 80px 0; background-color: transparent; }
+.hobbies-title { text-align: center; font-size: 2.2rem; margin-bottom: 10px; font-weight: 700; }
+.hobbies-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 50px; }
+.hobby-card { background: var(--card-bg); padding: 20px 30px; border-radius: 12px; border: 1px solid var(--border-light); display: flex; align-items: center; gap: 15px; min-width: 200px; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+.hobby-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); border-color: var(--accent-pink); }
+.hobby-icon-circle { width: 45px; height: 45px; border-radius: 50%; background: rgba(209, 0, 166, 0.1); display: flex; align-items: center; justify-content: center; color: var(--accent-pink); }
+.hobby-label { font-weight: 600; font-size: 1rem; color: var(--text-main); }
+
+/* --- Vertical Journey Timeline (About specifieke versie) --- */
+.journey-section { padding: 6rem 1.5rem; background-color: #f9fafb; transition: background-color 0.4s ease; }
+
+/* --- Contact Section (About specifieke versie) --- */
+.contact-section { padding: 8rem 1.5rem; text-align: center; }
+.contact-subtitle { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 2.5rem auto; line-height: 1.6; }
+
+/* --- Overige --- */
+.changing-greeting { display: inline-block; transition: opacity 0.4s ease; }
+
+/* Dark Mode fixes voor deze specifieke secties */
+[data-theme="dark"] .journey-section { background-color: var(--bg-secondary) !important; }
+[data-theme="dark"] .journey-dot { background: var(--bg-secondary); }
+[data-theme="dark"] .journey-item h3 { color: #ffffff !important; }
+[data-theme="dark"] .journey-item .sub, 
+[data-theme="dark"] .journey-item .desc { color: var(--text-muted) !important; }
 
 
 /* =========================================
-   10. WORK PAGE STYLES
+   12. ANIMATIONS (Unified)
 ========================================= */
-.card-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px; 
-    padding-bottom: 100px;
-    max-width: 900px; /* Aligned with Index */
-    margin: 0 auto; 
-}
+.hidden-left { opacity: 0; transform: translateX(-50px); transition: all 1s ease; }
+.hidden-right { opacity: 0; transform: translateX(50px); transition: all 1s ease; }
+.hidden-up { opacity: 0; transform: translateY(50px); transition: all 1s ease; }
 
-.work-card {
-    display: block; text-decoration: none; color: inherit;
-    
-    /* CARD LOOK (Applied to Work Page too) */
-    background-color: var(--card-bg);
-    padding: 24px;         
-    border-radius: 20px;   
-    border: 1px solid var(--border-light);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
-    
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-}
+/* De 'reveal' klasse voor de About pagina */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
 
-.work-card:hover { 
-    transform: translateY(-8px); 
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15); 
-    border-color: var(--border-light); 
-}
+/* De activering-klassen die door JS worden toegevoegd */
+.show, .visible { opacity: 1; transform: translate(0); }
 
-.card-image-wrap {
-    width: 100%; aspect-ratio: 4/3; 
-    overflow: hidden; border-radius: 12px; margin-bottom: 20px;
-    box-shadow: none; 
-    background: var(--bg-secondary);
-    border: 2px solid var(--img-border); 
-}
-
-.card-image-wrap img {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform 0.6s ease;
-}
-.work-card:hover .card-image-wrap img { transform: scale(1.05); }
-
-.card-meta {
-    font-size: 0.75rem; color: var(--accent-pink);
-    font-weight: 700; text-transform: uppercase;
-    letter-spacing: 1.5px; margin-bottom: 10px; display: block;
-}
-
-.card-title {
-    font-size: 1.4rem; font-weight: 700;
-    margin: 0 0 8px 0; color: var(--text-main);
-}
-
-.card-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
-
-/* Detail Pages */
-.project-hero { padding: 140px 0 60px 0; }
-.study-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; align-items: start; margin-bottom: 100px; }
-.study-context { position: sticky; top: 120px; }
-.study-year { font-family: monospace; color: var(--accent-pink); font-weight: 600; display: block; margin-bottom: 10px; }
-.study-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 20px; line-height: 1.1; color: var(--text-main); }
-.study-desc { font-size: 1rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 30px; }
-.study-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; border-top: 1px solid var(--border-light); padding-top: 20px; }
-.gallery-grid { display: grid; grid-template-columns: 1fr; gap: 30px; }
-.gallery-grid.multi { grid-template-columns: 1fr 1fr; gap: 20px; }
-.gallery-img { width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); object-fit: cover; border: 2px solid var(--img-border); }
-.span-full { grid-column: span 2; }
+.delay-100 { transition-delay: 0.1s; }
+.delay-200 { transition-delay: 0.2s; }
+.delay-300 { transition-delay: 0.3s; }
 
 /* =========================================
-   11. INTERACTIVE & BUTTONS (Restored)
+   13. DARK MODE POLISH
 ========================================= */
-
-/* --- INTERACTIVE TOOLKIT STYLES --- */
-.toolkit-controls {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 25px;
-    justify-content: flex-start; /* Aligns buttons to start */
-}
-
-.toolkit-btn {
-    border: none;
-    background: transparent;
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    cursor: pointer;
-    padding: 8px 16px;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-    border: 1px solid transparent;
-}
-
-.toolkit-btn:hover { background: var(--bg-secondary); color: var(--text-main); }
-
-.toolkit-btn.active {
-    background: var(--text-main);
-    color: var(--bg-main);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-/* Skill Cloud Transitions & Styling */
-.skill-cloud span {
-    padding: 12px 24px; 
-    border: 1px solid var(--border-light); 
-    border-radius: 30px; 
-    font-size: 1rem; 
-    font-weight: 500;
-    color: var(--text-muted); 
-    background: var(--card-bg);
-    
-    /* ADDED: Subtle shadow to distinguish from background */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
-    
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* Design Mode: Dim Tech, Highlight Design (Pink) */
-.skill-cloud[data-state="design"] span[data-type="tech"] {
-    opacity: 0.2; transform: scale(0.95); filter: grayscale(100%);
-}
-.skill-cloud[data-state="design"] span[data-type="design"] {
-    border-color: var(--accent-pink); color: var(--accent-pink);
-    background: rgba(209, 0, 166, 0.05); transform: scale(1.05);
-}
-
-/* Tech Mode: Dim Design, Highlight Tech (Purple) */
-.skill-cloud[data-state="tech"] span[data-type="design"] {
-    opacity: 0.2; transform: scale(0.95); filter: grayscale(100%);
-}
-.skill-cloud[data-state="tech"] span[data-type="tech"] {
-    border-color: var(--accent-purple); color: var(--accent-purple);
-    background: rgba(139, 92, 246, 0.05); transform: scale(1.05);
-}
-
-/* --- COOLER "READ CASE STUDY" BUTTONS --- */
-.btn-case-study {
-    /* Existing styles override */
-    position: relative;
-    padding: 12px 20px 12px 0; /* Extra space on right for arrow movement */
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    overflow: hidden;
-    gap: 12px;
-}
-
-.btn-case-study i {
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-/* Hover: Slide Text & Arrow */
-.btn-case-study:hover {
-    color: var(--accent-pink);
-    border-bottom-color: var(--accent-pink);
-    padding-left: 5px; /* Subtle text shift right */
-}
-
-.btn-case-study:hover i {
-    transform: translateX(5px) scale(1.1); /* Arrow shoots forward */
-}
-
-/* Click: Tactile Press */
-.btn-case-study:active {
-    transform: scale(0.98);
-    opacity: 0.8;
-}
-
-
-
-/* =========================================
-   DARK MODE POLISH (Professional Readability)
-========================================= */
-
-/* 1. Ensure All Headings are Readable (Force White) */
 [data-theme="dark"] h1, 
 [data-theme="dark"] h2, 
 [data-theme="dark"] h3, 
 [data-theme="dark"] h4,
 [data-theme="dark"] .section-header, 
-[data-theme="dark"] .bio-title,
-[data-theme="dark"] .hobbies-title,
 [data-theme="dark"] .project-title, 
 [data-theme="dark"] .card-title,
 [data-theme="dark"] .main-title {
     color: #ffffff !important; 
 }
 
-/* 2. HOVER STATES FOR CARDS */
-/* Ensure background stays DARK on hover so white text is readable */
 [data-theme="dark"] .project-card:hover,
-[data-theme="dark"] .work-card:hover,
-[data-theme="dark"] .process-card:hover,
-[data-theme="dark"] .value-card:hover {
-    background-color: #27272a; /* Slightly lighter charcoal, but still DARK */
-    border-color: var(--border-light);
-}
-
-/* 3. SPECIAL FIX: "My Approach" (Process Cards) */
-/* On Hover: Switch to Dark Grey (instead of White) */
 [data-theme="dark"] .process-card:hover {
-    background-color: #27272a; 
-    border-color: var(--accent-pink); 
-}
-
-/* Ensure Text stays WHITE */
-[data-theme="dark"] .process-card:hover h3,
-[data-theme="dark"] .process-card:hover p,
-[data-theme="dark"] .process-card:hover .icon-box {
-    color: #ffffff !important;
-}
-
-/* 4. BUTTON VISIBILITY */
-[data-theme="dark"] .toolkit-btn {
-    border: 1px solid var(--border-light);
-    color: var(--text-muted);
-}
-[data-theme="dark"] .toolkit-btn.active {
-    background: var(--accent-pink);
-    color: #fff;
+    background-color: #1f1f22; 
     border-color: var(--accent-pink);
-    font-weight: 700;
 }
+
+[data-theme="dark"] .about-section,
+[data-theme="dark"] .hobbies-section {
+    background-color: var(--bg-secondary) !important;
+}
+
 [data-theme="dark"] .btn-primary {
     background: rgba(255,255,255,0.05); 
     border: 1px solid var(--text-main);
     color: var(--text-main);
 }
+
 [data-theme="dark"] .btn-primary:hover {
     background: var(--text-main);
     color: var(--bg-main);
 }
 
-/* 5. LINK & META VISIBILITY */
-[data-theme="dark"] .btn-case-study {
-    color: var(--text-main);
-    border-bottom-color: rgba(255,255,255,0.2);
-}
-[data-theme="dark"] .btn-case-study:hover {
-    color: var(--accent-pink);
-    border-bottom-color: var(--accent-pink);
-}
-[data-theme="dark"] .project-desc,
-[data-theme="dark"] .card-desc,
-[data-theme="dark"] .meta-item p {
-    color: var(--text-muted); 
-}
-
-/* 6. SPECIAL FIX: "My Approach" (Ocean Box) */
-[data-theme="dark"] .ocean-wrapper {
-    background-color: var(--card-bg) !important;
-    border: 1px solid var(--border-light);
-}
-[data-theme="dark"] .ocean-static-label {
-    color: #ffffff !important;
-}
-[data-theme="dark"] .caption-text {
-    color: var(--text-muted);
-}
-/* Fix for Creative Technology Section Background */
-[data-theme="dark"] .about-section {
-    background-color: var(--bg-secondary) !important; /* Switches to Charcoal */
-}
-
-/* Bonus: Inverts the grid pattern so it's visible on dark mode */
-[data-theme="dark"] .bio-visual::before {
-    background-image: 
-        radial-gradient(circle at center, rgba(255,255,255,0.15) 1.5px, transparent 1.5px),
-        linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
-}
-
 /* =========================================
-   12. ANIMATIONS & RESPONSIVE
-========================================= */
-.hidden-left { opacity: 0; transform: translateX(-50px); transition: all 1s ease; }
-.hidden-right { opacity: 0; transform: translateX(50px); transition: all 1s ease; }
-.hidden-up { opacity: 0; transform: translateY(50px); transition: all 1s ease; }
-.show { opacity: 1; transform: translate(0); }
-
-.delay-100 { transition-delay: 0.1s; }
-.delay-200 { transition-delay: 0.2s; }
-.delay-300 { transition-delay: 0.3s; }
-
-/* RESPONSIVE TABLET/LAPTOP (Intermediate) */
-@media (max-width: 900px) {
-    .hero-layout { flex-direction: column; text-align: center; gap: 40px; }
-    .hero-visual { order: -1; height: 300px; }
-    .image-blobs { width: 250px; height: 250px; border-radius: 50%; }
-    .cta-wrapper { justify-content: center; }
-    
-    /* Project Items Mobile */
-    .project-item, .project-item:nth-child(even) { flex-direction: column-reverse; gap: 20px; }
-    .project-thumbnail { width: 100%; height: 200px; order: -1; }
-    
-    /* FIX FOR JOURNEY SECTION ORDER (900px and below) */
-    .timeline-line { left: 20px; }
-    .milestone, .milestone.reverse { 
-        flex-direction: column !important; 
-        align-items: flex-start; 
-        gap: 20px; 
-    }
-    
-    /* Enforce Image First, Text Second */
-    .milestone-content.image-block {
-        order: -1 !important; /* Forces image to top */
-        width: 100%;
-    }
-    .milestone-content.text-block {
-        order: 1 !important; /* Forces text to bottom */
-        width: 100%;
-        padding: 0 0 0 20px;
-    }
-    
-    .image-frame { height: 200px; transform: rotate(0); }
-    
-    /* About Page Mobile */
-    .story-grid { grid-template-columns: 1fr; gap: 30px; }
-    .story-grid.reverse .story-text { order: 1; }
-    .story-grid.reverse .story-image { order: 2; }
-    .story-image { height: 300px; }
-
-    /* Work Page Mobile */
-    .card-grid { grid-template-columns: 1fr; max-width: 400px; }
-    .study-grid { grid-template-columns: 1fr; }
-    .study-context { position: relative; top: 0; }
-    .gallery-grid.multi { grid-template-columns: 1fr; }
-    .span-full { grid-column: span 1; }
-}
-
-@media (max-width: 768px) {
-    .mobile-hide { display: none; }
-}
-
-/* =========================================
-   MASTER MOBILE OPTIMIZATION (Final Polish)
-   Target: Phones (< 768px)
+   15. MASTER MOBILE OPTIMIZATION (< 768px)
 ========================================= */
 @media (max-width: 768px) {
-
-    /* --- 1. GLOBAL CONTAINER --- */
     .container { width: 100%; padding: 0 20px; }
 
-    /* --- 2. TYPOGRAPHY --- */
-    .section-header, 
-    .bio-title {
-        font-size: 1.8rem !important;
-        line-height: 1.25;
-        margin-bottom: 20px;
-        text-align: left !important;
-    }
+    .page-hero { padding-top: 100px !important; }
+    .page-title { font-size: 2.2rem !important; }
 
-    .hobbies-title {
-        font-size: 2.5rem !important; 
-        text-align: center !important; 
-        margin-bottom: 30px;
-        width: 100%; display: block;
-    }
-
-    .page-header {
-        padding-top: 100px !important; padding-bottom: 40px !important;
-        text-align: center !important;
-        display: flex; flex-direction: column; align-items: center;
-    }
-    .page-title {
-        font-size: 2.2rem !important; text-align: center !important;
-        margin-bottom: 10px; line-height: 1.1;
-    }
-    .page-subtitle {
-        font-size: 1rem !important; text-align: center !important;
-    }
-
-    /* --- 3. HERO SECTION --- */
-    .hero-section {
-        padding-top: 90px; text-align: center !important;
-        display: flex; flex-direction: column; align-items: center;
-    }
-    .hero-layout { flex-direction: column; gap: 20px; }
-    .hero-text-content { align-items: center; display: flex; flex-direction: column; }
-    
-    .main-title {
-        font-size: 2.3rem !important; text-align: center !important;
-    }
-    .hero-subtitle {
-        font-size: 1rem !important; text-align: center !important;
-        display: flex; flex-direction: column; gap: 4px;
-    }
-    .hero-desc { text-align: center !important; }
-    .cta-wrapper { justify-content: center; }
-    .hero-visual {
-        order: -1; height: 250px;
-        display: flex; justify-content: center; margin-bottom: 10px;
-    }
+    /* Hero Mobile */
+    .hero-layout { flex-direction: column; text-align: center; gap: 20px; }
+    .hero-visual { order: -1; height: 250px; }
     .image-blobs { width: 220px; height: 270px; }
+    .cta-wrapper { justify-content: center; }
 
-    /* --- 4. TOOLKIT --- */
-    .toolkit-block {
-        margin-top: 60px; margin-bottom: 60px; 
-        text-align: left !important;
-    }
-    .toolkit-controls, .skill-cloud { justify-content: flex-start !important; }
-
-    .skill-cloud span {
-        /* Smaller padding and font for mobile */
-        padding: 6px 14px !important; 
-        font-size: 0.8rem !important;
-        
-        /* Keep these to maintain the look */
-        border: 1px solid var(--border-light); 
-        border-radius: 30px; 
-        font-weight: 500;
-        color: var(--text-muted); 
-        background: var(--card-bg);
-    }
-
-    /* --- 5. SELECTED WORK --- */
+    /* Project List Mobile */
     .project-list { gap: 60px; }
-    .project-card { gap: 20px; margin-bottom: 0; display: flex; flex-direction: column; }
-    .card-visual {
-        order: -1; width: 100%; height: auto; 
-        aspect-ratio: 4 / 3; object-fit: cover;
+    .project-card { 
+        display: flex; flex-direction: column; 
+        gap: 20px; width: 100%; 
     }
+    .card-visual { order: -1; width: 100%; aspect-ratio: 4/3; }
     .project-title { font-size: 1.6rem !important; }
+    .image-frame { height: 220px; transform: rotate(0) !important; }
 
-    /* --- 6. JOURNEY (Connector Style) --- */
-    .zigzag-timeline { gap: 50px; }
-    .timeline-line { display: none; } 
+    /* Side Projects Mobile */
+    .side-project-item { padding: 1.2rem 0; }
+    .side-project-left h4 { font-size: 0.95rem; }
 
-    .milestone, .milestone.reverse {
-        flex-direction: column !important; gap: 15px;
-        align-items: flex-start; text-align: left;
+    /* Navigation Mobile */
+    .hamburger-btn { display: block; }
+    .nav-links {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+        background: var(--bg-main); flex-direction: column;
+        justify-content: center; align-items: center;
+        transform: translateY(-100%); transition: 0.4s ease;
     }
+    .nav-links.active { transform: translateY(0); }
+}
 
-    .milestone-content.image-block { 
-        order: -1; width: 100%; margin-bottom: 10px;
+/* Navbar behavior voor Desktop */
+@media (min-width: 769px) {
+    .nav-links { display: flex !important; transform: none !important; }
+}
+
+/* =========================================
+   16. SKILL BOXES
+========================================= */
+.resume-skills { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); /* Forces exactly 3 columns */
+    gap: 24px; 
+    max-width: 1100px; /* Widened slightly to give 3 columns enough breathing room */
+    margin: 0 auto;
+}
+
+.resume-skill-item { 
+    background: var(--card-bg); 
+    padding: 24px; 
+    border-radius: 16px; 
+    border: 1px solid var(--border-light); 
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.resume-skill-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-pink);
+}
+
+.skill-name { 
+    font-weight: 800; 
+    color: var(--text-main); 
+    font-size: 1.15rem; 
+}
+
+.skill-tools { 
+    font-size: 0.95rem; 
+    color: var(--text-muted); 
+    margin-top: 8px; 
+    line-height: 1.5;
+}
+
+/* Dark Mode fixes */
+[data-theme="dark"] .skill-name { color: #ffffff !important; }
+
+/* --- Progress Bars voor Resume --- */
+.skill-bar-container {
+    width: 100%; 
+    background: var(--bg-secondary); 
+    height: 6px;
+    border-radius: 10px; 
+    margin-top: 16px; 
+    overflow: hidden;
+}
+
+.skill-bar-fill {
+    height: 100%; 
+    background: var(--accent-pink);
+    border-radius: 10px; 
+    /* Zorgt voor een mooie laad-animatie als de map opent */
+    transition: width 1.5s cubic-bezier(0.1, 0.5, 0.1, 1);
+}
+
+/* Tablet responsiveness: Drops to 2 columns so text isn't squished */
+@media (max-width: 992px) {
+    .resume-skills {
+        grid-template-columns: repeat(2, 1fr);
     }
+}
+
+/* Mobile responsiveness: Drops to 1 column */
+@media (max-width: 768px) {
+    .resume-skills {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================
+   19. REALISTIC FOLDER INTERACTION
+========================================= */
+
+/* Definieer de Manilla-kleur */
+:root {
+    --folder-manilla: #fdf2d0; /* Klassiek lichtgeel */
+    --folder-manilla-dark: #f9eac1; /* Iets donkerder voor diepte/hover */
+    --tab-rose: #d100a6; /* Jouw roze touch */
+    --tab-blue: #0088cc; /* Een frisse, secundaire touch */
+}
+
+/* De container voor de mappen */
+.folders-grid {
+    display: flex;
+    justify-content: center;
+    gap: 40px; /* Meer ruimte tussen mappen */
+    flex-wrap: wrap;
+    padding-top: 30px; /* Offset voor de tabjes */
+}
+
+/* Het basis-element van de map (grid-item) */
+.realistic-folder {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    width: 100%;
+    max-width: 280px; /* Iets breder voor organische vorm */
+    margin-top: 30px; /* Offset voor tab */
+}
+
+/* Hover-effect: map komt omhoog */
+.realistic-folder:hover {
+    transform: translateY(-8px);
+}
+
+/* De tabjes van de mappen */
+.realistic-folder::before {
+    content: '';
+    position: absolute;
+    top: -20px; /* Steekt naar boven uit */
+    width: 90px;
+    height: 25px;
+    border-radius: 10px 10px 0 0; /* Organische, ronde bovenkant */
+    transition: all 0.3s ease;
+    z-index: 1; /* Achter het onzichtbare witwask-lijntje */
+}
+
+/* Witwask-lijntje om de scheiding tussen tab en body weg te poetsen */
+.realistic-folder::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    width: 88px;
+    height: 2px;
+    background: var(--folder-manilla);
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+/* --- Unieke Kleuren voor de Tabjes --- */
+
+/* Technical Skills (Rose Tab) */
+.skill-folder::before {
+    background: var(--tab-rose);
+    left: 20px; /* Tabje staat links */
+}
+
+/* Languages (Blueish Tab) */
+.lang-folder::before {
+    background: var(--tab-blue);
+    right: 20px; /* Tabje staat rechts */
+}
+
+/* --- De 'Body' van de map --- */
+.folder-body {
+    position: relative;
+    background: var(--folder-manilla);
+    border: 1px solid rgba(0,0,0,0.06); /* Héél zachte border */
+    border-radius: 0 16px 16px 16px; /* Speelse hoeken */
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* Zachte schaduw */
+    transition: all 0.3s ease;
+    z-index: 3; /* Voor de tab en het witwask-lijntje */
+}
+
+/* Hover: Body wordt iets donkerder voor diepte */
+.realistic-folder:hover .folder-body {
+    background: var(--folder-manilla-dark);
+}
+
+/* Hover: Witwask-lijntje kleurt mee */
+.realistic-folder:hover::after {
+    background: var(--folder-manilla-dark);
+}
+
+/* Zorg dat de text/iconen in de map goed leesbaar zijn op het geel */
+.folder-content-wrapper {
+    position: relative;
+    z-index: 5;
+}
+
+/* --- Detail Views (De balkjes-skills) --- */
+.folder-content {
+    display: none;
+    animation: fadeInFolder 0.4s ease forwards;
+}
+
+@keyframes fadeInFolder {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Dark Mode Support --- */
+[data-theme="dark"] :root {
+    --folder-manilla: #4a4a36; /* Een donkere, gedempte Manilla */
+    --folder-manilla-dark: #3f3f2e;
+}
+[data-theme="dark"] .folder-body {
+    color: #f0f0f0; /* Lichtere tekst in dark mode */
+}
+[data-theme="dark"] .folder-body h3 {
+    color: #ffffff !important;
+}
+[data-theme="dark"] .folder-body p,
+[data-theme="dark"] .folder-body i {
+    color: #cccccc !important;
+}
+/* --- EXTRA FOLDER COLOR (COMPETENCIES) --- */
+:root {
+    --tab-purple: #8e44ad; /* Elegante kleur voor Soft Skills */
+}
+
+.comp-folder::before {
+    background: var(--tab-purple);
+    left: 50%;
+    transform: translateX(-50%); /* Tabje staat mooi in het midden */
+}
+
+/* Zorg dat de 3 folders mooi in het grid passen */
+.folders-grid {
+    gap: 30px; 
+}
+@media (max-width: 900px) {
+    .folders-grid {
+        gap: 20px;
+    }
+}
+
+.ui-folder-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--border-light);
+    transition: background 0.4s ease;
+}
+
+.ui-folder-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--border-light);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+}
+
+.ui-folder-card:hover::before {
+    background: var(--accent-pink);
+}
+
+.card-icon-wrap {
+    width: 48px;
+    height: 48px;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-main);
+    margin-bottom: 24px;
+    transition: color 0.4s ease;
+}
+
+.ui-folder-card:hover .card-icon-wrap {
+    color: var(--accent-pink);
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 8px;
+}
+
+.card-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.folder-content {
+    animation: fadeUpContent 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeUpContent {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   19. RESUME: TABS & STATISCHE TIJDLIJN
+========================================= */
+
+/* --- Segmented Control (iOS style Toggle) --- */
+.timeline-header {
+    margin-bottom: 50px;
+    padding-left: 205px;
+}
+
+.segmented-control {
+    display: inline-flex;
+    background-color: var(--bg-secondary);
+    padding: 6px;
+    border-radius: 12px;
+    border: 1px solid var(--border-light);
+}
+
+.segmented-control .toggle-btn {
+    background: transparent;
+    border: none;
+    padding: 8px 24px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.segmented-control .toggle-btn.active {
+    background-color: var(--card-bg);
+    color: var(--accent-pink);
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* --- De Compacte 2-Kolommen Tijdlijn --- */
+.cv-timeline-wrap { position: relative; max-width: 900px; margin: 0 auto; }
+.cv-track { position: absolute; left: 170px; top: 10px; bottom: 0; width: 2px; background: var(--border-light); }
+.cv-item { align-items: flex-start; margin-bottom: 50px; position: relative; transition: opacity 0.3s ease; }
+.cv-item:last-child { margin-bottom: 0; }
+
+.cv-date { width: 170px; flex-shrink: 0; text-align: right; padding-right: 35px; font-size: 0.9rem; font-weight: 600; color: var(--text-muted); margin-top: 4px; }
+.cv-dot { position: absolute; left: 170px; top: 10px; transform: translateX(-50%); width: 12px; height: 12px; background: var(--bg-main); border: 2px solid var(--border-light); border-radius: 50%; z-index: 2; transition: border-color 0.3s ease, background-color 0.3s ease; }
+.cv-item:hover .cv-dot { border-color: var(--accent-pink); background: var(--accent-pink); }
+
+.cv-content { padding-left: 35px; flex-grow: 1; }
+.cv-title { font-size: 1.15rem; font-weight: 700; color: var(--text-main); margin-bottom: 4px; }
+.cv-company { font-size: 1rem; font-weight: 600; color: var(--accent-pink); margin-bottom: 12px; }
+.cv-desc { font-size: 0.95rem; line-height: 1.6; color: var(--text-muted); max-width: 600px; }
+
+
+/* =========================================
+   20. SLEEK UI FOLDERS (Clean UI)
+========================================= */
+
+.folders-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    padding-top: 15px;
+}
+
+.sleek-folder {
+    position: relative;
+    width: 100%;
+    max-width: 280px; 
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    margin-top: 15px;
+}
+
+.sleek-folder:hover { transform: translateY(-6px); }
+
+.folder-body {
+    position: relative;
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 0 12px 12px 12px;
+    padding: 35px 25px;
+    text-align: left;
+    box-shadow: var(--shadow);
+    z-index: 2;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.sleek-folder::before {
+    content: '';
+    position: absolute;
+    top: -14px;
+    left: -1px;
+    width: 90px;
+    height: 15px;
+    border-radius: 8px 8px 0 0;
+    z-index: 1;
+    border: 1px solid var(--border-light);
+    border-bottom: none;
+    transition: background 0.3s ease;
+}
+
+.sleek-folder::after {
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 0;
+    width: 88px;
+    height: 2px;
+    background: var(--card-bg);
+    z-index: 3;
+}
+
+.skill-folder::before { background: var(--accent-pink); border-color: var(--accent-pink); }
+.comp-folder::before { background: #8e44ad; border-color: #8e44ad; }
+.lang-folder::before { background: #0088cc; border-color: #0088cc; }
+
+.sleek-folder:hover .folder-body {
+    border-color: var(--border-light);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.06);
+}
+
+.folder-content {
+    display: none;
+    animation: fadeUpContent 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeUpContent {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Mobiele Layout Fixes --- */
+@media (max-width: 768px) {
+    .timeline-header { padding-left: 45px; display: block; margin-bottom: 40px; }
+    .segmented-control { width: auto; display: inline-flex; }
+    .segmented-control .toggle-btn { flex: none; padding: 8px 16px; font-size: 0.85rem; }
     
-    .milestone-content.text-block { 
-        width: 100%; padding: 0 0 0 20px; order: 1;
-        border-left: 3px solid var(--accent-pink);
-        position: relative;
-    }
-
-    .image-frame {
-        width: 100%; height: 200px; 
-        transform: rotate(0deg) !important; margin: 0;
-        border-radius: 12px;
-    }
-
-    /* --- 7. CONTACT --- */
-    .contact-section { text-align: center !important; }
-    .contact-section .section-header { text-align: center !important; font-size: 2rem !important; }
-    .contact-subtitle { text-align: center !important; margin: 0 auto 40px auto; }
-    .social-links { justify-content: center; }
-
-    /* --- 8. ANIMATIONS (Refined for Vertical Scrolling) --- */
-    .mobile-hide { display: none !important; }
+    .cv-track { left: 20px; }
+    .cv-item { flex-direction: column; margin-bottom: 40px; }
+    .cv-date { text-align: left; width: 100%; padding-right: 0; padding-left: 45px; margin-bottom: 4px; margin-top: 0; color: var(--accent-pink); font-size: 0.95rem; line-height: 1.4; }
+    .cv-dot { left: 20px; top: 4px; }
+    .cv-content { padding-left: 45px; }
     
-    /* We allow the animations to run, but use safe distances.
-       hidden-up is set to 40px to give a clear "rising" effect as you scroll down.
-    */
-    .hidden-left { 
-        opacity: 0; 
-        transform: translateX(-20px); /* Subtle side fade */
-        transition: all 0.8s ease-out;
-    }
-    .hidden-right { 
-        opacity: 0; 
-        transform: translateX(20px); 
-        transition: all 0.8s ease-out;
-    }
-    .hidden-up { 
-        opacity: 0; 
-        transform: translateY(40px); /* 40px gives a nice 'float up' feeling */
-        transition: all 0.6s ease-out;
-    }
-    
-    /* When the JS adds this class, element glides into place */
-    .show { 
-        opacity: 1 !important; 
-        transform: translate(0) !important; 
-    }
-
-/* --- CUSTOM MOBILE ABOUT SECTION (Final Strict Layout) --- */
-    
-    /* 1. ROBUST GRID LAYOUT */
-    .bio-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr; /* Two equal columns */
-        /* Rows: 
-           1. Text (takes whatever space it needs)
-           2. Buttons (fixed 50px height) 
-        */
-        grid-template-rows: min-content 50px; 
-        
-        /* Map where things go to prevent overlapping */
-        grid-template-areas: 
-            "text text"
-            "anim btn";
-            
-        gap: 20px; /* Space between text and buttons */
-        margin-top: 0;
-        text-align: left;
-        margin-bottom: 40px; /* Extra space at bottom for the pop-up text */
-    }
-
-    /* 2. Text Area (Spans top) */
-    .bio-text-group {
-        grid-area: text;
-        margin-bottom: 0;
-        z-index: 10;
-    }
-
-    /* 3. Animation Button Area (Left) */
-    .bio-visual {
-        grid-area: anim;
-        width: 100%;
-        height: 50px; 
-        padding: 0; margin: 0;
-        display: block;
-        position: relative;
-        /* CRITICAL: Allows the text to appear below the button without being cut off */
-        overflow: visible !important; 
-    }
-    
-    /* Ensure inner container doesn't block caption */
-    .ocean-container { margin: 0; width: 100%; height: 100%; position: static; }
-
-    /* 4. "Read Story" Button Area (Right) */
-    .bio-btn-group {
-        grid-area: btn;
-        width: 100%;
-        height: 50px;
-        margin: 0;
-        display: block;
-    }
-    
-    /* Match button style */
-    .bio-btn-group .btn-primary {
-        width: 100%;
-        height: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0 5px; 
-        font-size: 0.75rem; 
-        white-space: nowrap;
-    }
-
-    /* 5. THE POP-UP CAPTION ("Boundless Energy...") */
-    #oceanCaption {
-        display: block !important;
-        position: absolute;
-        top: 60px; /* Positions it 10px below the button */
-        left: 0;
-        width: 200%; /* Wide enough to fit the text */
-        
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: var(--accent-pink);
-        text-align: left;
-        padding-left: 5px;
-        
-        opacity: 0; /* Hidden by default */
-        transition: opacity 0.3s ease;
-        pointer-events: none;
-        z-index: 100;
-        white-space: nowrap;
-    }
-
-    /* Logic: When you touch the wrapper, show the sibling caption */
-    .ocean-wrapper:active + #oceanCaption,
-    .ocean-wrapper:focus + #oceanCaption,
-    .ocean-wrapper:hover + #oceanCaption {
-        opacity: 1;
-    }
-
-    /* 6. THE ANIMATION BUTTON ITSELF */
-    .ocean-wrapper {
-        width: 100% !important;
-        height: 100% !important;
-        border-radius: 50px !important; 
-        position: relative !important;
-        overflow: hidden !important; /* Clips the turtle inside */
-        background: var(--bg-secondary);
-        border: 1px solid var(--border-light);
-        z-index: 2;
-    }
-
-    /* Label */
-    .ocean-static-label {
-        position: absolute !important; 
-        top: 50% !important; 
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        font-size: 0.75rem !important;
-        width: 100%; text-align: center;
-        margin: 0 !important;
-        z-index: 20;
-        transition: top 0.4s ease;
-        opacity: 1;
-    }
-
-    /* Turtle */
-    .turtle-icon {
-        position: absolute !important;
-        top: 200% !important; /* Start hidden below */
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        z-index: 20;
-        transition: top 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    .turtle-icon i { width: 22px !important; height: 22px !important; }
-
-    /* 7. INTERACTION */
-    .ocean-wrapper:active .ocean-static-label,
-    .ocean-wrapper:hover .ocean-static-label {
-        top: -100% !important; /* Text flies up */
-        opacity: 0;
-    }
-
-    .ocean-wrapper:active .turtle-icon,
-    .ocean-wrapper:hover .turtle-icon {
-        top: 50% !important; /* Turtle swims to center */
-    }
-
-    /* --- FIX: Spacing for "View Full Archive" on Mobile --- */
-    .view-all-container {
-        margin-top: 20px !important; /* Pushes it down away from the last card */
-        margin-bottom: 40px !important; /* Adds some breathing room at the bottom too */
-    }
+    .contact-section .section-header { text-align: center !important; }
+    .contact-actions { justify-content: center !important; width: 100%; }
 }

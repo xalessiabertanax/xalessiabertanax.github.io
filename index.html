@@ -3,194 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alessia Bertana | Product & UX Designer</title>
+    <title>Alessia Bertana | Human-Centered Product Designer</title>
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
     <link rel="stylesheet" href="styles.css">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <style>
-        /* --- 1. IMAGE ZOOM & ALIGNMENT FIXES --- */
-        .image-blobs img, .milestone-content img, .project-thumbnail img {
-            filter: none !important;
-            -webkit-filter: none !important;
-        }
-
-        .image-blobs .main-img {
-            object-position: center 25% !important;
-        }
-
-        .image-frame {
-            width: 100%;
-            aspect-ratio: 3 / 2; 
-            overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
-        .image-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; 
-            object-position: center center;
-            transition: transform 0.5s ease;
-        }
-
-        .zigzag-timeline .milestone:nth-of-type(4) .image-frame img {
-            object-position: center bottom !important;
-        }
-        
-        .milestone-content.image-block a {
-            display: block;
-            width: 100%;
-            height: 100%;
-        }
-        .milestone-content.image-block:hover img {
-            transform: scale(1.05);
-        }
-
-        /* --- 2. UPDATED OCEAN / TURTLE INTERACTION --- */
-        .ocean-container {
-            margin-top: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 12px;
-        }
-
-        .ocean-wrapper {
-            width: 260px;
-            height: 70px;
-            position: relative;
-            cursor: pointer;
-            border-radius: 12px;
-            overflow: hidden;
-            background: #f4f4f5;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
-            transition: all 0.5s ease;
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-
-        /* The Trigger Text */
-        .ocean-static-label {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--text-color);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            z-index: 5;
-            white-space: nowrap;
-        }
-
-        /* The Water Levels */
-        .ocean-fill {
-            position: absolute;
-            bottom: -150%; 
-            left: 0;
-            width: 100%;
-            height: 150%;
-            background: linear-gradient(180deg, #4facfe 0%, #00f2fe 100%);
-            opacity: 0.9;
-            transition: bottom 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 1;
-        }
-
-        .wave {
-            position: absolute;
-            top: -15px;
-            left: 0;
-            width: 200%;
-            height: 30px;
-            background-repeat: repeat-x;
-            background-size: 50% 100%;
-        }
-
-        .wave-front {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 88.7'%3E%3Cpath d='M800 56.9c-155.5 0-204.9-50-405.5-49.9-200 0-250 49.9-394.5 49.9v31.8h800v-.2-31.6z' fill='%234facfe'/%3E%3C/svg%3E");
-            animation: waveMove 4s linear infinite;
-            opacity: 1;
-            z-index: 2;
-        }
-
-        .wave-back {
-            top: -20px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 88.7'%3E%3Cpath d='M800 56.9c-155.5 0-204.9-50-405.5-49.9-200 0-250 49.9-394.5 49.9v31.8h800v-.2-31.6z' fill='%2300f2fe'/%3E%3C/svg%3E");
-            animation: waveMove 6s linear infinite reverse;
-            opacity: 0.6;
-            z-index: 1;
-        }
-
-        /* The Turtle */
-        .turtle-icon {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, 100px) rotate(0deg); 
-            color: #fff;
-            z-index: 10;
-            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
-        }
-        
-        .bubble {
-            position: absolute;
-            background: rgba(255,255,255,0.4);
-            border-radius: 50%;
-            bottom: -20px;
-            z-index: 2;
-            animation: rise 2s infinite ease-in;
-        }
-
-        /* --- HOVER STATES --- */
-        .ocean-wrapper:hover .ocean-fill {
-            bottom: 0;
-        }
-        
-        .ocean-wrapper:hover .ocean-static-label {
-            opacity: 0;
-            transform: translate(-50%, -150%);
-        }
-
-        .ocean-wrapper:hover .turtle-icon {
-            transform: translate(-50%, -50%);
-            animation: swimRotate 3s ease-in-out infinite alternate;
-        }
-
-        .caption-text {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            min-height: 20px;
-            font-style: italic;
-            transition: color 0.3s;
-        }
-        
-        .ocean-wrapper:hover + .caption-text {
-            color: #4facfe;
-            font-style: normal;
-            font-weight: 500;
-        }
-
-        @keyframes waveMove {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        @keyframes swimRotate {
-            0% { transform: translate(-50%, -50%) rotate(-5deg); }
-            100% { transform: translate(-50%, -50%) rotate(5deg); }
-        }
-        
-        @keyframes rise {
-            0% { bottom: -10px; transform: translateX(0); opacity: 0; }
-            50% { opacity: 1; }
-            100% { bottom: 100%; transform: translateX(-20px); opacity: 0; }
-        }
-    </style>
 </head>
 <body>
 
@@ -202,10 +19,9 @@
             
             <div class="nav-right">
                 <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="resume.html">Resume</a></li>
                     <li><a href="about.html">About</a></li>
-                    <li><a href="work.html">Work</a></li>
-                    <li><a href="index.html#journey">Journey</a></li>
                 </ul>
                 
                 <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
@@ -220,429 +36,245 @@
         </div>
     </nav>
 
-    <section id="hero" class="hero-section">
+    <section id="hero" class="hero-section" style="background-color: var(--bg-main);">
         <div class="container hero-layout">
             
             <div class="hero-text-content hidden-left">
                 <h1 class="main-title">
-                    Designing <span class="gradient-text">Interactions.</span><br>
-                    Connecting <span class="highlight-text">People.</span>
+                    Researching for<br> <span class="dot">Clarity.</span><br>Designing for <br><span class="dot">Change.</span>
                 </h1>
                 
                 <h2 class="hero-subtitle">
-                    Product &amp; UX Designer • Creative Technologist • MSc HCI
+                    Human-Centered Product Designer
                 </h2>
                 
                 <p class="hero-desc">
-                    I design end‑to‑end product experiences: from framing the problem with users and stakeholders, 
-                    to high‑fidelity prototypes.
+                    I help mission-driven organizations translate complex challenges into human-centered solutions through deep research and strategic design.
                 </p>
 
                 <div class="cta-wrapper">
-                    <a href="#work" class="btn-primary magnetic">View Portfolio</a>
+                    <a href="#work" class="btn-primary magnetic">View Projects</a>
                     <a href="about.html" class="btn-text magnetic">My Story <i data-lucide="arrow-right"></i></a>
                 </div>
             </div>
 
             <div class="hero-visual magnetic-wrap hidden-right">
                 <div class="image-blobs">
-                    <img src="images/About.png" alt="Hi" class="main-img">
-                    <img src="images/About_creative.png" alt="Alessia Creative" class="creative-img">
+                    <img src="images/About.png" alt="Alessia Bertana" class="main-img">
                 </div>
                 <div class="circle-decoration"></div>
+
+                <div class="floating-ui ui-insights" style="top: -35px; left: 0; right: 0; margin: 0 auto; width: max-content;">
+                    <i data-lucide="search" style="width: 14px; height: 14px; color: var(--accent-pink);"></i>
+                    User Insights
+                    <span class="ui-tooltip-badge">Shared strategic roadmaps</span>
+                </div>
+
+                <div class="floating-ui ui-pill ui-workflow" style="top: 45%; right: -25px;">
+                    <i data-lucide="map" style="width: 14px; height: 14px; color: #10B981;"></i>
+                    Redesign Workflows
+                </div>
+                
+                <div class="floating-ui ui-pill ui-ux" style="bottom: 25px; left: -15px;">
+                     <i data-lucide="users" style="width: 14px; height: 14px; color: #8B5CF6;"></i>
+                     User Experience
+                </div>
             </div>
         </div>
     </section>
 
-<section class="about-section">
+    <section class="process-section" id="what-i-do" style="background-color: var(--bg-secondary); padding: 100px 0;">
         <div class="container">
-            
-            <div class="bio-block hidden-up">
-                <div class="bio-grid">
-                    
-                    <div class="bio-text-group">
-                        <span class="section-label">THE BRIDGE</span> 
-                        <h2 class="bio-title">The Creative Technologist.</h2>
-                        <p class="bio-text">
-                            I’m Alessia, and I thrive at the <strong>dynamic intersection</strong> of Design and Engineering. 
-                            With a BSc in Creative Technology and a Double Master's in HCI, I aim to understand both the technical <em>how</em> and the human <em>why</em>.
-                        </p>
-                    </div>
-
-                    <div class="bio-btn-group">
-                        <a href="about.html" class="btn-primary">Read My Full Story</a>
-                    </div>
-
-                    <div class="bio-visual">
-                        <div class="ocean-container">
-                            
-                            <div class="ocean-wrapper" id="oceanBox">
-                                <span class="ocean-static-label">My Approach?</span>
-                                
-                                <div class="ocean-fill">
-                                    <div class="wave wave-back"></div>
-                                    <div class="wave wave-front"></div>
-                                </div>
-                                
-                                <div class="turtle-icon">
-                                    <i data-lucide="turtle" style="width: 50px; height: 50px;"></i>
-                                </div>
-                            </div>
-                            
-                            <p class="caption-text" id="oceanCaption">(Tap to find out)</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            
-            <div class="toolkit-block hidden-up">
-                <h3>Product &amp; UX Toolkit</h3>
-                <div class="toolkit-controls">
-                    <button class="toolkit-btn active" onclick="setToolkit('all')">All</button>
-                    <button class="toolkit-btn" onclick="setToolkit('design')">Design</button>
-                    <button class="toolkit-btn" onclick="setToolkit('tech')">Tech &amp; Bridge</button>
-                </div>
-                <div class="skill-cloud" id="skillCloud" data-state="all">
-                    <span data-type="design">UX Research &amp; Synthesis</span>
-                    <span data-type="design">Prototyping in Figma</span>
-                    <span data-type="tech">Physical Computing</span>
-                    <span data-type="design">Interaction Design</span>
-                    <span data-type="tech">Virtual Reality</span>
-                    <span data-type="design">Design Thinking</span>
-                    <span data-type="design">Usability Testing</span>
-                    <span data-type="tech">Front-end Design</span>
-                    <span data-type="tech">Design &lt;&gt; Dev Handover</span>
-                    <span data-type="tech">Data Visualization</span>
-                </div>
-            </div>
-
-        </div>
-    </section>
-    
-    <section class="process-section">
-        <div class="container">
-            <h2 class="section-header align-left hidden-left">How I Design <span class="dot">.</span></h2>
-            <p class="section-subtitle hidden-left">
-                A flexible process I can adapt to each product team.
+            <p class="section-label hidden-left" style="color: var(--accent-pink); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px;">Expertise</p>
+            <h2 class="section-header align-left hidden-left" style="margin-bottom: 0.5rem;">How I Create Value<span class="dot">.</span></h2>
+            <p class="hidden-left" style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin-bottom: 3rem; line-height: 1.6; transition-delay: 0.1s;">
+                I believe that meaningful change happens at the intersection of deep empathy, strategic thinking, and technical reality.
             </p>
+            
             <div class="process-grid">
                 <div class="process-card hidden-up">
-                    <div class="icon-box"><i data-lucide="target"></i></div>
-                    <h3>1. Frame &amp; Align</h3>
-                    <p>I start by clarifying the problem with stakeholders, understanding user journeys and constraints so we solve the right thing.</p>
+                    <div class="icon-box" style="color: var(--accent-pink); margin-bottom: 15px;"><i data-lucide="search" style="width: 28px; height: 28px;"></i></div>
+                    <h3>Strategic Research</h3>
+                    <p>Uncovering the 'why' behind user behavior through deep discovery, ensuring the right problems and pain points are addressed form the start.</p>
                 </div>
+                
                 <div class="process-card hidden-up">
-                    <div class="icon-box"><i data-lucide="users"></i></div>
-                    <h3>2. Explore with Users</h3>
-                    <p>Research (interviews, surveys, desk research) surfaces motivations, hurdles and success metrics that inform the experience.</p>
+                    <div class="icon-box" style="color: var(--accent-pink); margin-bottom: 15px;"><i data-lucide="map" style="width: 28px; height: 28px;"></i></div>
+                    <h3>Service Design</h3>
+                    <p>Observing how services run through a human-centered lens, spotting the gaps, and designing a better way forward.</p>
                 </div>
+                
                 <div class="process-card hidden-up">
-                    <div class="icon-box"><i data-lucide="pen-tool"></i></div>
-                    <h3>3. Prototype &amp; Iterate</h3>
-                    <p>I move from low-fidelity prototypes into high‑fidelity prototypes, validating early with users to reduce risk before building.</p>
+                    <div class="icon-box" style="color: var(--accent-pink); margin-bottom: 15px;"><i data-lucide="users" style="width: 28px; height: 28px;"></i></div>
+                    <h3>Strategic Alignment</h3>
+                    <p>Transforming qualitative and quantitative data into clear, actionable roadmaps, aligning diverse teams around a shared vision.</p>
                 </div>
+                 
                 <div class="process-card hidden-up">
-                    <div class="icon-box"><i data-lucide="rocket"></i></div>
-                    <h3>4. Ship &amp; Learn</h3>
-                    <p>Paired with engineers, I refine the product by using analytics and feedback to inform the next iteration.</p>
+                    <div class="icon-box" style="color: var(--accent-pink); margin-bottom: 15px;"><i data-lucide="code" style="width: 28px; height: 28px;"></i></div>
+                    <h3>Technical Empathy</h3>
+                    <p>Leveraging my background in Creative Tech to ensure designs are not just desirable, but technically viable.</p>
                 </div>
+            </div>
+
+            <div class="hidden-up" style="text-align: center; margin-top: 4rem;">
+                <a href="about.html" class="btn-primary magnetic" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px;">
+                    Read more about me <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+                </a>
             </div>
         </div>
     </section>
 
-<section id="work" class="portfolio-section">
+    <section id="work" class="portfolio-section" style="background-color: var(--bg-main);">
         <div class="container">
-            <h2 class="section-header">Highlighted Work <span class="dot">.</span></h2>
-            <p class="section-subtitle">Iterative projects from user research studies to real-world implementations.</p>
-
+            <p class="section-label hidden-up" style="color: var(--accent-pink); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px;">Highlighted Work</p>
+            <h2 class="section-header hidden-up" data-delay="0.1" style="text-align: left; margin-bottom: 50px;">Selected Projects<span class="dot">.</span></h2>
             <div class="project-list">
-    
-                <div class="project-card hidden-up">
-                    <a href="work/baker.html" class="card-visual">
-                        <img src="images/BakerHughes.jpeg" alt="Baker Hughes Dashboard Interface">
-                    </a>
-                    <div class="card-content">
-                        <span class="project-year">2025</span>
-                        <h3 class="project-title">Baker Hughes Enterprise</h3>
-                        <p class="project-desc">
-                            A year-long digital transformation journey. I created an automated Power BI dashboard, designed MVPs for a new pain-point gathering application, and e-learning modules.
-                        </p>
-                        
-                        <div class="meta-container">
-                            <div class="meta-block">
-                                <span class="meta-label">Role</span>
-                                <span class="meta-value">Services Intern</span>
-                            </div>
-                            <div class="meta-tags">
-                                <span class="tag">Figma</span>
-                                <span class="tag">Power BI</span>
-                                <span class="tag">Power Automate</span>
-                                <span class="tag">Storyline 360</span>
-                            </div>
-                        </div>
-
-                        <a href="work/baker.html" class="btn-case-study">
-                            Read Case Study <i data-lucide="arrow-right"></i>
-                        </a>
+                
+                <div class="project-card hidden-up" data-delay="0.2">
+                    <div class="card-visual">
+                        <img src="images/norlandia-playground.jpg" alt="Norlandia Childcare Olympics" loading="lazy" />
                     </div>
-                </div>
-
-                <div class="project-card hidden-up">
-                    <a href="work/glove.html" class="card-visual">
-                        <img src="images/glove.jpeg" alt="Haptic ASL Glove Prototype">
-                    </a>
                     <div class="card-content">
                         <span class="project-year">2024</span>
-                        <h3 class="project-title">Multisensory ASL Glove</h3>
-                        <p class="project-desc">
-                            A haptic glove designed to teach American Sign Language. I engineered a hardware prototype (flex sensors & actuators) and handled Serial communication between Arduino and Processing to test if multimodal feedback improves retention.
-                        </p>
+                        <h3 class="project-title">Childcare Olympics</h3>
+                        <p class="project-desc">A scalable, screen-free team-building concept designed to retain older children in childcare. Built entirely on contextual research and journey mapping.</p>
                         
                         <div class="meta-container">
                             <div class="meta-block">
-                                <span class="meta-label">University of Trento</span>
-                                <span class="meta-value">Multisensory Design</span>
-                            </div>
-                            <div class="meta-tags">
-                                <span class="tag">Arduino</span>
-                                <span class="tag">Sensors</span>
-                                <span class="tag">Physical Computing</span>
-                                <span class="tag">UX Research</span>
+                                <span class="meta-label">Expertise</span>
+                                <span class="meta-value">Service Design & Strategy</span>
                             </div>
                         </div>
-
-                        <a href="work/glove.html" class="btn-case-study">
+                        
+                        <a href="work/norlandia.html" class="btn-case-study">
                             Read Case Study <i data-lucide="arrow-right"></i>
                         </a>
                     </div>
                 </div>
 
-                <div class="project-card hidden-up">
-                    <a href="work/vr.html" class="card-visual">
-                        <img src="images/VRNS.jpg" alt="VR Environment for Therapy">
-                    </a>
+                <div class="project-card hidden-up" data-delay="0.3">
+                    <div class="card-visual">
+                        <img src="images/VRNS.jpg" alt="NS Railways Trauma Recovery" loading="lazy" />
+                    </div>
                     <div class="card-content">
                         <span class="project-year">2023</span>
-                        <h3 class="project-title">VR Exposure Therapy</h3>
-                        <p class="project-desc">
-                            A VR environment to help train conductors process trauma. I handled the Virtual Reality build, focusing on level design, pacing, and psychological safety.
-                        </p>
+                        <h3 class="project-title">NS Railways Trauma Recovery</h3>
+                        <p class="project-desc">Translating highly sensitive user needs into an impactful, empathetic digital solution using Virtual Reality to support train conductors processing trauma.</p>
                         
                         <div class="meta-container">
                             <div class="meta-block">
-                                <span class="meta-label">University of Twente</span>
-                                <span class="meta-value">Virtual Reality</span>
-                            </div>
-                            <div class="meta-tags">
-                                <span class="tag">Unity</span>
-                                <span class="tag">C#</span>
-                                <span class="tag">Level Design</span>
+                                <span class="meta-label">Expertise</span>
+                                <span class="meta-value">Social Impact & HCI</span>
                             </div>
                         </div>
-
+                        
                         <a href="work/vr.html" class="btn-case-study">
                             Read Case Study <i data-lucide="arrow-right"></i>
                         </a>
                     </div>
                 </div>
 
-                <div class="project-card hidden-up">
-                    <a href="work/bci.html" class="card-visual">
-                        <img src="images/BCI.jpeg" alt="Brain Computer Interface Setup">
-                    </a>
+                <div class="project-card hidden-up" data-delay="0.1">
+                    <div class="card-visual">
+                        <img src="images/BakerHughes.jpeg" alt="Baker Hughes Insight Tool" loading="lazy" />
+                    </div>
                     <div class="card-content">
-                        <span class="project-year">2023</span>
-                        <h3 class="project-title">Neural Pac-Man</h3>
-                        <p class="project-desc">
-                            A game controlled by brainwaves using an EEG headset. I handled the logic to adapt game mechanics in real-time based on cognitive load data.
-                        </p>
+                        <span class="project-year">2025</span>
+                        <h3 class="project-title">Baker Hughes Insight Tool</h3>
+                        <p class="project-desc">A centralized B2B system designed to capture and analyze pain points flagged by customer-facing teams, resulting in an MVP delivered directly to engineering.</p>
                         
                         <div class="meta-container">
                             <div class="meta-block">
-                                <span class="meta-label">University of Twente</span>
-                                <span class="meta-value">BCI Logic</span>
-                            </div>
-                            <div class="meta-tags">
-                                <span class="tag">Python</span>
-                                <span class="tag">EEG</span>
-                                <span class="tag">UX Research</span>
+                                <span class="meta-label">Expertise</span>
+                                <span class="meta-value">Strategy & UX Research</span>
                             </div>
                         </div>
-
-                        <a href="work/bci.html" class="btn-case-study">
+                        
+                        <a href="work/baker.html" class="btn-case-study">
                             Read Case Study <i data-lucide="arrow-right"></i>
                         </a>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <div class="view-all-container">
-                    <span class="view-all-label">Curious to explore more of my work?</span>
-                    <a href="work.html" class="btn-secondary">
-                        View Full Archive <i data-lucide="layers"></i>
+
+    <section id="work2" class="portfolio-section" style="background-color: var(--bg-main); padding-top: 40px; padding-bottom: 80px; margin-top: 0;">
+        <div class="container">
+            <div class="side-projects-wrapper" style="margin-top: 0;">
+                <p class="section-label hidden-up" style="color: var(--text-muted); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1.5px; margin-bottom: 0.5rem; margin-top: 0;">Explorations</p>
+                <h3 class="hidden-up" data-delay="0.1" style="font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--text-main);">Side Projects & Experiments<span class="dot">.</span></h3>
+
+                <div class="side-projects hidden-up" data-delay="0.2">
+                    
+                    <div style="padding: 20px 0 40px; color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; border-bottom: 1px solid var(--border-light);">
+                        While my core focus is Research and Service Design, I love exploring emerging tech. It keeps my curiosity fed and helps me grasp technical constraints so I can collaborate seamlessly with engineering teams.
+                    </div>
+                    
+                    <a href="work/dashboard.html" class="side-project-item">
+                        <div class="side-project-left">
+                            <div class="side-project-thumb"><img src="images/BakerHughes.jpeg" alt="Dashboard" /></div>
+                            <div>
+                                <h4>Baker Hughes Training Dashboard</h4>
+                                <p class="meta">Data Viz & Automation · 2025</p>
+                            </div>
+                        </div>
+                        <span class="side-project-arrow">↗</span>
+                    </a>
+                    
+                    <a href="work/glove.html" class="side-project-item">
+                        <div class="side-project-left">
+                            <div class="side-project-thumb"><img src="images/glove.jpeg" alt="Glove" /></div>
+                            <div>
+                                <h4>Haptic ASL Glove</h4>
+                                <p class="meta">Wearable Tech · 2024</p>
+                            </div>
+                        </div>
+                        <span class="side-project-arrow">↗</span>
+                    </a>
+                    
+                    <a href="work/bci.html" class="side-project-item">
+                        <div class="side-project-left">
+                            <div class="side-project-thumb"><img src="images/BCI.jpeg" alt="Neural Pacman" /></div>
+                            <div>
+                                <h4>Neural Pac-Man</h4>
+                                <p class="meta">Neuro-Tech & Python · 2023</p>
+                            </div>
+                        </div>
+                        <span class="side-project-arrow">↗</span>
                     </a>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <section id="journey" class="journey-section">
-        <div class="container">
-            <h2 class="section-header align-left hidden-left">My Route <span class="dot">.</span></h2>
-            <div class="zigzag-timeline">
-                
-                <div class="timeline-track">
-                    <div id="bikeRider" class="timeline-bike">
-                        <i data-lucide="bike"></i>
-                    </div>
-                </div>
-
-                <div class="milestone hidden-right">
-                    <div class="milestone-content text-block">
-                        <span class="year">2024 - 2025</span>
-                        <h3>University of Trento (Exit)</h3>
-                        <h4>MSc Computer Science</h4>
-                        <p>Specialization in Computer Science. Final Thesis on developing an automated training evaluation dashboard for Baker Hughes.</p>
-                    </div>
-                    <div class="milestone-content image-block">
-                        <div class="image-frame tilt-right">
-                            <a href="https://www.unitn.it/en" target="_blank" title="Visit UniTrento">
-                                <img src="images/EITGraduationCeremony.jpeg" alt="EIT Graduation">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="milestone reverse hidden-left">
-                    <div class="milestone-content image-block">
-                        <div class="image-frame tilt-left">
-                            <a href="https://www.utwente.nl/en/" target="_blank" title="Visit UTwente">
-                                <img src="images/University-of-twente-letters.jpg" alt="Twente Master">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="milestone-content text-block">
-                        <span class="year">2023 - 2024</span>
-                        <h3>University of Twente (Entry)</h3>
-                        <h4>MSc Interaction Technology</h4>
-                        <p>Focus on Interaction Technology and User Experience.</p>
-                    </div>
-                </div>
-
-                <div class="milestone hidden-right">
-                    <div class="milestone-content text-block">
-                        <span class="year">2019 - 2023</span>
-                        <h3>BSc Creative Technology</h3>
-                        <h4>University of Twente</h4>
-                        <p>The foundation. Rapid prototyping, sensors, and physical computing.</p>
-                    </div>
-                    <div class="milestone-content image-block">
-                        <div class="image-frame tilt-right">
-                            <a href="https://www.utwente.nl/en/education/bachelor/creative-technology/" target="_blank" title="Visit Create Degree">
-                                <img src="images/Bachelor.jpg" alt="Bachelor">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="milestone reverse hidden-left">
-                    <div class="milestone-content image-block">
-                        <div class="image-frame tilt-left">
-                            <a href="https://www.upv.es/en" target="_blank" title="Visit UPV">
-                                <img src="images/palms.jpeg" alt="Valencia Minor">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="milestone-content text-block">
-                        <span class="year">2023</span>
-                        <h3>Minor in Valencia</h3>
-                        <h4>Universitat Politècnica de València</h4>
-                        <p>Expanded my technical skillset with CAD and UI Wireframing while immersing myself in Spanish culture.</p>
-                    </div>
-                </div>
-
-                <div class="milestone hidden-right">
-                    <div class="milestone-content text-block">
-                        <span class="year">2017 - 2018</span>
-                        <h3>Rotary Youth Exchange</h3>
-                        <h4>Colegio San Tomaso | Ecuador</h4>
-                        <p>A transformative year in Portoviejo. I learned fluent Spanish, adaptability, and how to navigate entirely new environments.</p>
-                    </div>
-                    <div class="milestone-content image-block">
-                        <div class="image-frame tilt-right">
-                            <a href="https://www.rotary.org/en/our-programs/youth-exchanges" target="_blank" title="Rotary Youth Exchange">
-                                <img src="images/colegio.JPG" alt="Exploring Ecuador">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <h2 class="section-header hidden-up">Let's Connect <span class="dot">.</span></h2>
+    <section id="contact" class="contact-section" style="background-color: var(--bg-secondary);">
+        <div class="container" style="text-align: center;">
+            <h2 class="section-header hidden-up">Get in touch <span class="dot">.</span></h2>
             
             <p class="contact-subtitle hidden-up delay-100" style="max-width: 600px; margin: 0 auto 40px auto; line-height: 1.6;">
-                Whether you need a UX designer who codes, a facilitator for your workshop, or just want to chat about design, travel, and building the future, I'm here for it!
+                Whether you’re reshaping a complex service or building for social impact, I’d love to hear about the challenges you are trying to solve.
             </p>
             
-            <a href="mailto:alesbertana@gmail.com" class="big-email-center hidden-up delay-200">Email Me</a>
-
-            <div class="social-links hidden-up delay-200" style="margin-top: 40px;">
-                <a href="https://linkedin.com/in/alessiabertana" target="_blank" class="social-icon"><i data-lucide="linkedin"></i></a>
-                <a href="https://instagram.com/xalessiabertanax" target="_blank" class="social-icon"><i data-lucide="instagram"></i></a>
+            <div class="contact-actions hidden-up delay-200" style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 60px;">
+                <a href="mailto:alesbertana@gmail.com" class="btn-primary magnetic" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px;">
+                    <i data-lucide="mail" style="width: 20px; height: 20px;"></i> Email Alessia
+                </a>
+                <a href="https://linkedin.com/in/alessiabertana" target="_blank" class="btn-secondary magnetic" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    Connect on LinkedIn 
+                    <i data-lucide="arrow-up-right" style="min-width: 18px; min-height: 18px; flex-shrink: 0; color: inherit;"></i>
+                </a>
             </div>
-            
-            <footer class="simple-footer hidden-up delay-300">
-                <p>&copy; 2026 Alessia Bertana. Designed with Energy ⚡</p>
-            </footer>
         </div>
     </section>
 
+    <footer style="text-align:center; padding: 40px; color: var(--text-muted); background-color: var(--bg-main);">
+        <p>&copy; 2026 Alessia Bertana. Bridging Empathy, Strategy & Tech ⚡</p>
+    </footer>
+
     <script src="script.js"></script>
-    
-    <script>
-        const ocean = document.getElementById('oceanBox');
-        const caption = document.getElementById('oceanCaption');
-        let bubbleInterval;
-
-        function createBubble() {
-            const fill = ocean.querySelector('.ocean-fill');
-            if(!fill) return;
-
-            const bubble = document.createElement('div');
-            bubble.classList.add('bubble');
-            const size = Math.random() * 8 + 4 + 'px';
-            bubble.style.width = size;
-            bubble.style.height = size;
-            bubble.style.left = Math.random() * 100 + '%';
-            bubble.style.animationDuration = Math.random() * 2 + 1 + 's';
-            
-            fill.appendChild(bubble);
-
-            setTimeout(() => { bubble.remove(); }, 3000);
-        }
-
-        ocean.addEventListener('mouseenter', () => {
-            // New "Reveal" text
-            caption.innerText = "Boundless Energy & Empathy";
-            bubbleInterval = setInterval(createBubble, 250);
-        });
-
-        ocean.addEventListener('mouseleave', () => {
-            caption.innerText = "(Tap to find out)";
-            clearInterval(bubbleInterval);
-            const bubbles = ocean.querySelectorAll('.bubble');
-            bubbles.forEach(b => b.remove());
-        });
-
-        if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
-        }
-    </script>
 </body>
 </html>

@@ -190,3 +190,42 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+
+/* =========================================
+   FOLDER INTERACTION LOGIC
+========================================= */
+
+// Maak de functies globaal toegankelijk voor de onclick="" attributen in de HTML
+window.openFolder = function(folderId) {
+    const foldersView = document.getElementById('folders-view');
+    const skillsView = document.getElementById('skills-view');
+    const languagesView = document.getElementById('languages-view');
+
+    // Verberg het overzicht en alle detail-views
+    if (foldersView) foldersView.style.display = 'none';
+    if (skillsView) skillsView.style.display = 'none';
+    if (languagesView) languagesView.style.display = 'none';
+    
+    // Toon alleen de aangeklikte view
+    const targetView = document.getElementById(folderId);
+    if (targetView) targetView.style.display = 'block';
+    
+    // Forceer het laden van iconen in de nieuwe view
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+};
+
+window.closeFolders = function() {
+    const foldersView = document.getElementById('folders-view');
+    const skillsView = document.getElementById('skills-view');
+    const languagesView = document.getElementById('languages-view');
+
+    // Verberg detail-views
+    if (skillsView) skillsView.style.display = 'none';
+    if (languagesView) languagesView.style.display = 'none';
+    
+    // Toon het hoofdoverzicht weer
+    if (foldersView) foldersView.style.display = 'flex';
+};

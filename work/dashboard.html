@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baker Hughes Case Study | Alessia Bertana</title>
+    <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- BACKGROUND SPLIT --- */
+        body {
+            background: linear-gradient(
+                to bottom, 
+                var(--bg-secondary) 0%, 
+                var(--bg-secondary) 650px, 
+                var(--bg-main) 650px, 
+                var(--bg-main) 100%
+            ) !important;
+        }
+
+        /* --- PAGE SPECIFIC STYLES --- */
+        .project-hero { 
+            padding-top: 120px; 
+            padding-bottom: 80px;
+        }
+        
+        .study-grid { 
+            display: grid; 
+            grid-template-columns: 380px 1fr; 
+            gap: 100px; 
+            align-items: start; 
+            margin-bottom: 120px; 
+        }
+        
+        /* --- STICKY SIDEBAR --- */
+        .study-context { 
+            position: sticky; 
+            top: 120px; 
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 0; 
+            overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        .context-header-img {
+            width: 100%;
+            height: 200px; 
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-light);
+            display: block;
+        }
+
+        .context-inner { padding: 40px 30px; } 
+
+        .study-year { 
+            font-family: monospace; color: var(--accent-pink); 
+            font-size: 0.85rem; font-weight: 700; 
+            display: block; margin-bottom: 12px; 
+            letter-spacing: 1.5px;
+        }
+        
+        /* AANGEPAST: Minder groot en minder dik */
+        .study-title { 
+            font-size: 1.8rem; 
+            font-weight: 700; margin-bottom: 20px; 
+            line-height: 1.2; color: var(--text-main); 
+        }
+        
+        .study-intro { 
+            font-size: 1rem; line-height: 1.8; 
+            color: var(--text-muted); margin-bottom: 30px; 
+        }
+
+        .study-meta { 
+            display: flex; flex-direction: column; gap: 25px; 
+            padding: 30px 0; 
+            border-top: 1px solid var(--border-light); 
+            border-bottom: 1px solid var(--border-light);
+            margin-bottom: 30px;
+        }
+
+        .meta-group h4 { 
+            font-size: 0.75rem; text-transform: uppercase; 
+            letter-spacing: 1px; color: var(--accent-pink); 
+            margin-bottom: 12px; font-weight: 700;
+        }
+
+        .meta-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+        
+        .tag { 
+            font-size: 0.8rem; padding: 6px 14px; 
+            background: var(--bg-secondary); 
+            border-radius: 20px; 
+            color: var(--text-main); 
+            border: 1px solid var(--border-light); 
+        }
+
+        .btn-text { 
+            color: var(--text-main); text-decoration: none; font-weight: 600; 
+            display: inline-flex; align-items: center; gap: 8px; 
+            border-bottom: 2px solid var(--accent-pink); padding-bottom: 4px; 
+            transition: all 0.3s ease; font-size: 0.95rem; margin-top: 10px;
+        }
+        .btn-text:hover { gap: 12px; color: var(--accent-pink); }
+
+        /* --- CONTENT STYLING --- */
+        .study-content { padding-top: 10px; }
+        .content-block { margin-bottom: 90px; } 
+        
+        /* AANGEPAST: h2 minder dominant */
+        .content-block h2 { 
+            font-size: 1.7rem; 
+            margin-bottom: 25px; 
+            color: var(--text-main); 
+            font-weight: 600; 
+            line-height: 1.3;
+        }
+        
+        .content-block p { 
+            font-size: 1.05rem; 
+            line-height: 1.9; 
+            color: var(--text-muted); 
+            margin-bottom: 30px; 
+            max-width: 75ch; 
+        }
+
+        .section-divider { 
+            height: 1px; 
+            background: var(--border-light); 
+            margin: 80px 0; 
+            width: 100%; 
+            max-width: 75ch; 
+        }
+
+        .highlight-box { 
+            background: var(--bg-secondary); 
+            padding: 40px; 
+            border-radius: 16px; 
+            border: 1px solid var(--border-light); 
+            margin: 50px 0; 
+            max-width: 75ch; 
+        }
+        
+        /* AANGEPAST: h3 verfijnd */
+        .highlight-box h3 { 
+            font-size: 1.1rem; 
+            margin-bottom: 15px; 
+            color: var(--accent-pink); 
+            font-weight: 600; 
+        }
+
+        .stats-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 30px; 
+            margin: 50px 0; 
+            max-width: 75ch;
+        }
+        
+        .stat-box { 
+            background: var(--bg-secondary); 
+            padding: 35px; 
+            border-radius: 16px; 
+            border: 1px solid var(--border-light); 
+        }
+        
+        /* AANGEPAST: Cijfers iets minder groot */
+        .stat-number { 
+            font-size: 2.2rem; 
+            font-weight: 700; 
+            color: var(--accent-pink); 
+            display: block; 
+            margin-bottom: 10px; 
+            line-height: 1;
+        }
+        
+        .stat-label { 
+            font-size: 0.85rem; 
+            color: var(--text-muted); 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+        }
+
+        @media (max-width: 900px) { 
+            .study-grid { grid-template-columns: 1fr; gap: 60px; } 
+            .study-context { position: relative; top: 0; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo"><a href="../index.html" style="text-decoration:none; color:inherit;">Alessia<span class="dot">.</span></a></div>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../resume.html">Resume</a></li>
+                    <li><a href="../about.html">About</a></li>
+                </ul>
+                <button id="theme-toggle" class="theme-btn"><i data-lucide="moon" class="moon-icon"></i><i data-lucide="sun" class="sun-icon"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container project-hero">
+        <a href="../index.html#work" style="text-decoration:none; color:var(--text-muted); font-size:0.9rem; margin-bottom:50px; display:inline-flex; align-items:center; gap:8px;">
+            <i data-lucide="arrow-left" style="width:18px;"></i> Back to Projects
+        </a>
+
+        <div class="study-grid">
+            <aside class="study-context">
+                <img src="../images/BakerHughes.jpeg" alt="Baker Hughes Dashboard Design" class="context-header-img">
+                
+                <div class="context-inner">
+                    <span class="study-year">2024 / 2025 • MASTER THESIS</span>
+                    <h1 class="study-title">Elevating Training Analytics</h1>
+                    
+                    <p class="study-intro">
+                        How I collaborated with the Digital Customer Service team at <strong>Baker Hughes</strong> to unlock the full potential of their existing training data, building a multi-metric diagnostic tool.
+                    </p>
+
+                    <div class="study-meta">
+                        <div class="meta-group">
+                            <h4>Methodology</h4>
+                            <div class="meta-tags">
+                                <span class="tag">Design Science Research</span>
+                                <span class="tag">Kirkpatrick Framework</span>
+                                <span class="tag">Usability Testing</span>
+                            </div>
+                        </div>
+                        <div class="meta-group">
+                            <h4>The Toolkit</h4>
+                            <div class="meta-tags">
+                                <span class="tag">Power BI</span>
+                                <span class="tag">Figma</span>
+                                <span class="tag">Python (Pandas)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="https://purl.utwente.nl/essays/108870" target="_blank" rel="noopener noreferrer" class="btn-text">
+                        View Full Dissertation <i data-lucide="external-link" style="width:16px;"></i>
+                    </a>
+                </div>
+            </aside>
+
+            <article class="study-content">
+
+                <div class="content-block" style="background: var(--bg-secondary); padding: 50px; border-radius: 20px; border: 1px solid var(--border-light); margin-bottom: 90px; max-width: 75ch;">
+                    <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-pink); font-weight: 700; display: block; margin-bottom: 15px;">Project Summary</span>
+                    <h2 style="margin-bottom: 20px; color: var(--text-main);">Unlocking the Power of Existing Data</h2>
+                    
+                    <p style="font-size: 1.05rem; margin-bottom: 35px;">
+                        Baker Hughes has a strong culture of evaluating their B2B customer training programs, primarily utilizing the industry-standard Net Promoter Score (NPS). To help the team extract even deeper insights from their evaluations, I designed and validated a <strong>multi-metric dashboard</strong>. By triangulating the NPS with eight other quantitative metrics the company was already diligently collecting—such as instructor competence and training documentation—we empowered the team to easily visualize trends and identify specific areas for curriculum enhancement.
+                    </p>
+
+                    <div style="display: flex; gap: 20px; align-items: flex-start; background: var(--bg-main); padding: 30px; border-radius: 16px; border: 1px solid var(--border-light); box-shadow: 0 8px 30px rgba(0,0,0,0.02);">
+                        <div style="color: var(--accent-pink); margin-top: 2px;">
+                            <i data-lucide="trending-up" style="width: 24px; height: 24px;"></i>
+                        </div>
+                        <div>
+                            <span style="color: var(--text-main); text-transform: uppercase; font-size: 0.85rem; font-weight: 700; letter-spacing: 1.5px; display: block; margin-bottom: 8px;">The Impact</span>
+                            <p style="margin-bottom: 0; font-size: 1rem; color: var(--text-muted); line-height: 1.8;">
+                                A task-based usability study revealed a <strong style="color: var(--accent-pink);">92% task completion rate</strong> and an "excellent" <strong style="color: var(--accent-pink);">87.75 System Usability Scale (SUS) score</strong>, proving that the tool successfully supported data-driven decision-making.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-pink); font-weight: 700;">The Context</span>
+                    <h2 style="margin-top: 10px;">"How likely are you to recommend this course?"</h2>
+                    <p>
+                        That single question is the foundation of the <strong>Net Promoter Score (NPS)</strong>. 
+                        The metric is elegantly simple: respondents are categorized into <strong>Promoters</strong> (scores of 9-10), <strong>Passives</strong> (scores of 7-8), and <strong>Detractors</strong> (scores of 0-6). The final score is calculated by subtracting the percentage of Detractors from the percentage of Promoters. At Baker Hughes, this score served as a reliable, high-level indicator of course quality and customer loyalty.
+                    </p>
+                    
+                    <div class="highlight-box">
+                        <h3>The Challenge: Extracting Deeper Diagnostic Value</h3>
+                        <p>
+                            While the NPS is fantastic for a high-level overview, as a standalone metric it can sometimes oversimplify the multidimensional nature of a learner's experience. It indicates <em>how</em> participants feel overall, but it doesn't inherently explain <em>why</em> they feel that way. Was a high score driven by engaging instructor communication, or by the quality of the documentation?
+                        </p>
+                    </div>
+
+                    <p>
+                        To uncover the "why" behind the scores, the evaluation team often had to read through every single participant comment, which was incredibly time-consuming. But Baker Hughes is a highly data-mature organization. Over the years, they had already collected a wealth of data, consisting of eight additional quantitative evaluation metrics covering everything from logistics to course consistency. 
+                    </p>
+                    <p>
+                        However, these rich supplementary metrics were typically only analyzed in-depth when an NPS score fell below a specific threshold. This meant that a lot of valuable insights about average or high-performing courses remained unexplored.
+                    </p>
+                    <p>
+                        My mission was clear: the solution wasn't to collect <em>new</em> data, but to design a tool that could effectively triangulate and visualize the rich data foundation Baker Hughes had already built. I wanted to create a bridge between their high-level satisfaction scores and deep, actionable insights.
+                    </p>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <div class="content-block">
+                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-pink); font-weight: 700;">The Process</span>
+                    <h2>Building with Purpose: Design Science Research</h2>
+                    <p>
+                        To ensure the dashboard would seamlessly integrate into the team's workflow and provide genuine value, I adopted the <strong>Design Science Research (DSR)</strong> paradigm. DSR is an iterative problem-solving approach that aims to enhance human knowledge by creating innovative, practical artifacts.
+                    </p>
+                    <p>
+                        Before designing any visual components, I needed to deeply understand the stakeholders who evaluate these training programs. I conducted semi-structured interviews across the digital customer service team. Using an Influence-Interest matrix, I mapped out the key users to ensure the design focused on the primary decision-makers.
+                    </p>
+                    
+                    <div class="highlight-box">
+                        <h3>Collaborative Requirement Gathering</h3>
+                        <p>
+                            Through these conversations, we identified opportunities to enhance the current evaluation process. Using the <strong>MoSCoW prioritization method</strong>, we aligned on core requirements. A crucial "Must-Have" identified by the stakeholders was the ability to systematically analyze <em>all</em> courses, allowing the team to uncover trends in successful programs as well, rather than solely focusing on courses with lower NPS scores.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <div class="content-block">
+                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-pink); font-weight: 700;">The Framework</span>
+                    <h2>Structuring the Data: The Kirkpatrick Model</h2>
+                    <p>
+                        Baker Hughes had done an excellent job collecting diverse evaluation data, but to maximize its diagnostic potential, it needed a structured analytical lens. I introduced <strong>Kirkpatrick’s four-level training evaluation framework</strong>—a highly regarded industry standard.
+                    </p>
+                    <p>
+                        I analyzed the existing dataset and mapped their eight supplementary metrics to the first two levels of the Kirkpatrick model to create a cohesive narrative:
+                    </p>
+
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <h3 style="color: var(--accent-pink); margin-bottom: 10px; font-weight: 600;">Level 1: Reaction</h3>
+                            <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0;">
+                                <em>"How did participants respond to the training?"</em><br><br>
+                                I mapped metrics like <strong>Course Duration</strong>, <strong>Training Logistics</strong>, and <strong>Instructor Communication</strong> to this level. This provides insights into the immediate, qualitative experience and engagement of the learner.
+                            </p>
+                        </div>
+                        
+                        <div class="stat-box">
+                            <h3 style="color: var(--accent-pink); margin-bottom: 10px; font-weight: 600;">Level 2: Learning</h3>
+                            <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0;">
+                                <em>"Have participants learned from the training?"</em><br><br>
+                                I mapped metrics like <strong>Instructor Competence</strong>, <strong>Course Consistency</strong>, and <strong>Training Documentation</strong> here. These metrics indicate whether the environment successfully facilitated knowledge transfer.
+                            </p>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 30px;">
+                        This theoretical grounding was a powerful addition. It enabled the team to connect a Level 1 issue (e.g., poor instructor communication) with a Level 2 metric (e.g., instructor competence) to instantly diagnose the context behind a specific NPS. Data triangulation was transformed into a structured, highly actionable diagnostic system.
+                    </p>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <div class="content-block">
+                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-pink); font-weight: 700;">Design & Iteration</span>
+                    <h2>Designing for Clarity: The Single-Page Strategy</h2>
+                    <p>
+                        My initial approach involved exploring multiple visualizations through low-fidelity sketches, which evolved into a prototype with multiple tabs to organize the wealth of information Baker Hughes had available. However, early collaborative testing with the team highlighted that splitting the data across multiple pages caused cognitive overload and hindered their ability to quickly connect the dots.
+                    </p>
+                    <p>
+                        To better support their fast-paced decision-making, I pivoted the UX strategy. I embraced the principle of "focused simplicity" and consolidated the experience into a single-page Power BI dashboard. This eliminated complex navigation and allowed stakeholders to view high-level scores and detailed diagnostic metrics side-by-side.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-pink); font-weight: 700;">Visual Hierarchy</span>
+                    <h2>Directing the Eye: The Gutenberg Diagram</h2>
+                    <p>
+                        A powerful dashboard is one where users instinctively know where to look. To structure the layout of the data, I applied the <strong>Gutenberg Diagram</strong>, a key Human-Computer Interaction principle that maps the natural western reading pattern from top-left to bottom-right.
+                    </p>
+
+                    <div class="highlight-box">
+                        <h3>1. The Primary Optical Area (Top-Left)</h3>
+                        <p>
+                            This is where the eyes land first. I strategically placed the most critical KPIs here: the Overall NPS and the Overall Satisfaction score. Stakeholders immediately get the high-level answers they are used to tracking the millisecond the page loads.
+                        </p>
+                        
+                        <h3 style="margin-top: 25px;">2. The Center Focus: The Radar Chart</h3>
+                        <p>
+                            To add the missing diagnostic layer, I introduced a central <strong>Radar Chart</strong>. This visualization simultaneously displays the eight supplementary training metrics. Instead of reading through hundreds of comments, evaluators can instantly spot the shape of the data and see exactly which metric (e.g., Course Interaction) is influencing the overall NPS.
+                        </p>
+
+                        <h3 style="margin-top: 25px;">3. The Terminal Area (Bottom): Exception Reporting</h3>
+                        <p>
+                            Following the natural visual flow, the bottom of the screen houses the "Training Sessions Requiring Attention" table. This implements the principle of <em>management by exception</em>: it automatically highlights courses that fall below Baker Hughes' internal benchmarks, making it effortless for the team to transition from analysis to targeted action.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <div class="content-block">
+                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-pink); font-weight: 700;">Evaluation</span>
+                    <h2>Validating the Impact</h2>
+                    <p>
+                        To ensure the dashboard truly met the needs of the evaluation team, I conducted a rigorous task-based usability test with 10 Baker Hughes employees. They were given real-world scenarios to retrieve specific information, analyze trends over time, and identify course weaknesses.
+                    </p>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <span class="stat-number">92%</span>
+                            <span class="stat-label">Task Completion Rate</span>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 10px;">Significantly exceeding the 80% success target.</p>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">87.8</span>
+                            <span class="stat-label">System Usability Score</span>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 10px;">Placing the dashboard's UX firmly in the "excellent" category.</p>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 20px;">
+                        The results were a fantastic validation of the team's data maturity combined with user-centric design. 100% of the participants successfully completed tasks related to extracting participant sentiments and identifying specific metric weaknesses. While building a full narrative across filters (Task 6) proved slightly challenging due to interactive limitations within Power BI, 80% of users still completed it successfully.
+                    </p>
+                </div>
+
+                <div class="content-block" style="background: var(--bg-secondary); padding: 50px; border-radius: 20px; border: 1px solid var(--border-light); max-width: 75ch;">
+                    <h2 style="margin-bottom: 20px; color: var(--text-main);">Final Takeaways</h2>
+                    <p style="font-size: 1.05rem; margin-bottom: 0;">
+                        This project beautifully demonstrated the value of bridging raw data and human decision-making. By applying UX and Human-Computer Interaction principles to Business Intelligence tools, I helped Baker Hughes evolve their evaluation process. We successfully unlocked the potential of their existing data, providing the team with a multi-dimensional diagnostic tool that doesn't just ask <em>"What is our score?"</em> but provides the actionable insights to answer <em>"How do we elevate our training even further?"</em>
+                    </p>
+                </div>
+
+            </article>
+        </div>
+    </main>
+
+    <footer class="simple-footer" style="text-align:center; padding: 60px 0; border-top: 1px solid var(--border-light); color: var(--text-muted);">
+        <p>&copy; 2026 Alessia Bertana. Designed with Insight ⚡</p>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume | Alessia Bertana</title>
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="cursor"></div>
+
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo"><a href="index.html" style="text-decoration:none; color:inherit;">Alessia<span class="dot">.</span></a></div>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="resume.html" class="active">Resume</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                    <i data-lucide="moon" class="moon-icon"></i>
+                    <i data-lucide="sun" class="sun-icon"></i>
+                </button>
+                <button id="hamburger-btn" class="hamburger-btn" aria-label="Menu">
+                    <i data-lucide="menu"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page-content">
+        
+        <section class="page-hero" style="padding: 120px 0 20px;">
+            <p class="section-label reveal" style="color: var(--text-muted); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem;">Professional Background</p>
+            <h1 class="page-title reveal" style="margin-top: 0.5rem; font-size: 3rem;">
+                Curriculum <span class="pink-text">Vitae.</span>
+            </h1>
+        </section>
+
+        <section id="journeySection" class="journey-section" style="padding-top: 0; padding-bottom: 100px;">
+            <div class="container" style="max-width: 900px;">
+                
+                <div class="cv-timeline-wrap reveal">
+                    
+                    <div class="timeline-header">
+                        <div class="segmented-control">
+                            <button class="toggle-btn active" data-filter="experience">Experience</button>
+                            <button class="toggle-btn" data-filter="education">Education</button>
+                        </div>
+                    </div>
+
+                    <div class="cv-track"></div>
+
+                    <div class="cv-milestones" id="journeyMilestones">
+                        
+                        <div class="cv-item" data-category="experience" style="display: flex;">
+                            <div class="cv-date">Dec 2025 - Present</div>
+                            <div class="cv-dot"></div>
+                            <div class="cv-content">
+                                <h3 class="cv-title">Digital Content Strategist</h3>
+                                <div class="cv-company">CAPE | Digital Agency</div>
+                                <p class="cv-desc">Analyzing user engagement data to shape targeted digital content and strategic brand narratives for online audiences.</p>
+                            </div>
+                        </div>
+
+                        <div class="cv-item" data-category="experience" style="display: flex;">
+                            <div class="cv-date">Feb 2025 - Jan 2026</div>
+                            <div class="cv-dot"></div>
+                            <div class="cv-content">
+                                <h3 class="cv-title">UX Research Intern (Data Analytics)</h3>
+                                <div class="cv-company">Baker Hughes | Energy Tech</div>
+                                <p class="cv-desc">Led the discovery of a B2B Customer Insight Tool, delivering a finalized Figma MVP directly to engineering. Delivered an automated Power BI dashboard for strategic decisions.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="cv-item" data-category="experience" style="display: flex;">
+                            <div class="cv-date">Sep 2022 - Jun 2024</div>
+                            <div class="cv-dot"></div>
+                            <div class="cv-content">
+                                <h3 class="cv-title">B2B Engagement Specialist</h3>
+                                <div class="cv-company">Enodes | Energy Transition</div>
+                                <p class="cv-desc">Managed B2B outreach and stakeholder communication to gather environmental data for government-funded sustainability programs.</p>
+                            </div>
+                        </div>
+
+                        <div class="cv-item" data-category="experience" style="display: flex;">
+                            <div class="cv-date">Mar 2022 - Aug 2022</div>
+                            <div class="cv-dot"></div>
+                            <div class="cv-content">
+                                <h3 class="cv-title">UX Research Intern (V2G Innovation)</h3>
+                                <div class="cv-company">Enodes | Energy Transition</div>
+                                <p class="cv-desc">Conducted mixed-methods research with EV owners and sustainability officials to inform the design of a visual tool explaining Vehicle-to-Grid systems when implemented in business parks.</p>
+                            </div>
+                        </div>
+
+                        <div class="cv-item" data-category="education" style="display: none;">
+                            <div class="cv-date">2023 - 2025</div>
+                            <div class="cv-dot"></div>
+                            <div class="cv-content">
+                                <h3 class="cv-title">Exit, double degree Master in Human-Computer Interaction and Design</h3>
+                                <div class="cv-company">Università di Trento</div>
+                                <p class="cv-desc">Master of Science (with specialization in Computer Science).</p>
+                            </div>
+                        </div>
+
+                        <div class="cv-item" data-category="education" style="display: none;">
+                            <div class="cv-date">2024</div>
+                            <div class="cv-dot"></div>
+                            <div class="cv-content">
+                                <h3 class="cv-title">Summer School: TechFin & Innovation</h3>
+                                <div class="cv-company">Universidad Politècnica de Madrid</div>
+                                <p class="cv-desc">Creating a method to support educating people financially through an application.</p>
+                            </div>
+                        </div>
+
+                        <div class="cv-item" data-category="education" style="display: none;">
+                            <div class="cv-date">2023 - 2024</div>
+                            <div class="cv-dot"></div>
+                            <div class="cv-content">
+                                <h3 class="cv-title">Entry, double degree Master in Human-Computer Interaction and Design</h3>
+                                <div class="cv-company">University of Twente</div>
+                                <p class="cv-desc">Master of Science (specialization in Interaction Technology) at University of Twente.</p>
+                            </div>
+                        </div>
+
+                        <div class="cv-item" data-category="education" style="display: none;">
+                            <div class="cv-date">2023</div>
+                            <div class="cv-dot"></div>
+                            <div class="cv-content">
+                                <h3 class="cv-title">Erasmus Exchange</h3>
+                                <div class="cv-company">Universitat Politècnica de València</div>
+                                <p class="cv-desc">Expanded my analytical and design skillset while deeply immersing myself in Spanish culture.</p>
+                            </div>
+                        </div>
+
+                        <div class="cv-item" data-category="education" style="display: none;">
+                            <div class="cv-date">2019 - 2023</div>
+                            <div class="cv-dot"></div>
+                            <div class="cv-content">
+                                <h3 class="cv-title">BSc Creative Technology</h3>
+                                <div class="cv-company">University of Twente</div>
+                                <p class="cv-desc">The foundation. Bridging human needs with technical possibilities through rapid prototyping and design thinking.</p>
+                            </div>
+                        </div>
+
+                        <div class="cv-item" data-category="education" style="display: none;">
+                            <div class="cv-date">2017 - 2018</div>
+                            <div class="cv-dot"></div>
+                            <div class="cv-content">
+                                <h3 class="cv-title">Gap Year Program</h3>
+                                <div class="cv-company">Rotary Youth Exchange in Ecuador</div>
+                                <p class="cv-desc">Studied Spanish and enhanced my English language proficiency and soft skills.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="skills-section" style="padding: 100px 0 0px; background-color: var(--bg-secondary);">
+        <div class="container">
+            <p class="section-label hidden-up" style="color: var(--accent-pink); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; text-align: center;">The Toolkit</p>
+            <h2 class="hobbies-title" style="text-align: center; margin-bottom: 0.2rem;">My Capabilities<span class="dot">.</span></h2>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 4rem;">Select a folder to explore my skills and languages.</p>
+
+            <div id="folders-view" class="folders-grid hidden-up" style="padding-bottom: 40px;">
+                <div id="folder-skills-btn" class="realistic-folder skill-folder" onclick="window.openFolder('skills-view')">
+                    <div class="folder-body">
+                        <div class="folder-content-wrapper">
+                            <i data-lucide="code-2" style="width: 38px; height: 38px; color: #555; margin-bottom: 12px;"></i>
+                            <h3 style="font-size: 1.15rem; font-weight: 700; color: #333;">My Skills</h3>
+                            <p style="color: #666; font-size: 0.85rem; margin-top: 5px;">My Design & Dev Toolkit</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="folder-languages-btn" class="realistic-folder lang-folder" onclick="window.openFolder('languages-view')">
+                    <div class="folder-body">
+                        <div class="folder-content-wrapper">
+                            <i data-lucide="globe" style="width: 38px; height: 38px; color: #555; margin-bottom: 12px;"></i>
+                            <h3 style="font-size: 1.15rem; font-weight: 700; color: #333;">Languages</h3>
+                            <p style="color: #666; font-size: 0.85rem; margin-top: 5px;">Italian, English, Spanish...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="skills-view" class="folder-content" style="padding-bottom: 40px;">
+                <button class="btn-secondary magnetic back-to-folders-btn" onclick="window.closeFolders()" style="margin-bottom: 40px; display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; cursor: pointer; border-radius: 30px;">
+                    <i data-lucide="arrow-left" style="width: 18px; height: 18px;"></i> Back to Folders
+                </button>
+                
+                <div class="resume-skills">
+                    <div class="resume-skill-item">
+                        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                            <span class="skill-name">User Centered Design</span>
+                            <span style="color: var(--accent-pink); font-weight: 700;">95%</span>
+                        </div>
+                        <div class="skill-tools">User research, usability testing, contextual inquiry, design thinking.</div>
+                        <div class="skill-bar-container"><div class="skill-bar-fill" style="width: 95%;"></div></div>
+                    </div>
+                    
+                    <div class="resume-skill-item">
+                        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                            <span class="skill-name">UX/UI Design</span>
+                            <span style="color: var(--accent-pink); font-weight: 700;">90%</span>
+                        </div>
+                        <div class="skill-tools">Figma, prototyping, interaction design, wireframing.</div>
+                        <div class="skill-bar-container"><div class="skill-bar-fill" style="width: 90%;"></div></div>
+                    </div>
+
+                    <div class="resume-skill-item">
+                        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                            <span class="skill-name">Web development</span>
+                            <span style="color: var(--accent-pink); font-weight: 700;">75%</span>
+                        </div>
+                        <div class="skill-tools">HTML, CSS, Javascript: Responsive layout, custom styling.</div>
+                        <div class="skill-bar-container"><div class="skill-bar-fill" style="width: 75%;"></div></div>
+                    </div>
+
+                    <div class="resume-skill-item">
+                        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                            <span class="skill-name">Graphic Design</span>
+                            <span style="color: var(--accent-pink); font-weight: 700;">70%</span>
+                        </div>
+                        <div class="skill-tools">Illustrator, Adobe suite, Photoshop, Gimp, Figma</div>
+                        <div class="skill-bar-container"><div class="skill-bar-fill" style="width: 70%;"></div></div>
+                    </div>
+
+                    <div class="resume-skill-item">
+                        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                            <span class="skill-name">AI for Efficiency</span>
+                            <span style="color: var(--accent-pink); font-weight: 700;">70%</span>
+                        </div>
+                        <div class="skill-tools">Cursor, Codex, Claude Code, Lovable, Gemini</div>
+                        <div class="skill-bar-container"><div class="skill-bar-fill" style="width: 70%;"></div></div>
+                    </div>
+
+                    <div class="resume-skill-item">
+                        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                            <span class="skill-name">Software development</span>
+                            <span style="color: var(--accent-pink); font-weight: 700;">55%</span>
+                        </div>
+                        <div class="skill-tools">Java, M-Code (Power BI), Unity, C# (VR), Arduino, SQL</div>
+                        <div class="skill-bar-container"><div class="skill-bar-fill" style="width: 55%;"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="languages-view" class="folder-content" style="padding-bottom: 40px;">
+                <button class="btn-secondary magnetic back-to-folders-btn" onclick="window.closeFolders()" style="margin-bottom: 40px; display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; cursor: pointer; border-radius: 30px;">
+                    <i data-lucide="arrow-left" style="width: 18px; height: 18px;"></i> Back to Folders
+                </button>
+
+                <div class="resume-skills" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                    <div class="resume-skill-item">
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <span class="skill-name">Dutch</span>
+                            <span style="color: var(--accent-pink); font-weight: 700;">Native (C2)</span>
+                        </div>
+                    </div>
+                    <div class="resume-skill-item">
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <span class="skill-name">English</span>
+                            <span style="color: var(--accent-pink); font-weight: 700;">Fluent (C2)</span>
+                        </div>
+                    </div>
+                    <div class="resume-skill-item">
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <span class="skill-name">Spanish</span>
+                            <span style="color: var(--accent-pink); font-weight: 700;">Fluent (C1)</span>
+                        </div>
+                    </div>
+                    <div class="resume-skill-item">
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <span class="skill-name">Italian</span>
+                            <span style="color: var(--accent-pink); font-weight: 700;">Fluent (C1)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+        <section id="contact" class="contact-section" style="background-color: var(--bg-main); padding: 80px 0;">
+            <div class="container" style="text-align: center;">
+                <h2 class="section-header reveal" style="font-size: 2rem;">Get in touch <span class="dot">.</span></h2>
+                <p class="contact-subtitle hidden-up delay-100" style="max-width: 600px; margin: 0 auto 40px auto; line-height: 1.6;">
+                    Whether you’re reshaping a complex service or building for social impact, I’d love to hear about the challenges you are trying to solve.
+                </p>
+                <div class="contact-actions hidden-up delay-200" style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 60px;">
+                    <a href="mailto:alesbertana@gmail.com" class="btn-primary magnetic" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px;">
+                        <i data-lucide="mail" style="width: 20px; height: 20px;"></i> Email Alessia
+                    </a>
+                    <a href="https://linkedin.com/in/alessiabertana" target="_blank" class="btn-secondary magnetic" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                        Connect on LinkedIn 
+                        <i data-lucide="arrow-up-right" style="min-width: 18px; min-height: 18px; flex-shrink: 0; color: inherit;"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer style="text-align:center; padding: 30px; color: var(--text-muted); background-color: var(--bg-main); font-size: 0.9rem;">
+        <p>&copy; 2026 Alessia Bertana. Bridging Empathy, Strategy & Tech ⚡</p>
+    </footer>
+
+
+    <script src="script.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+
+            /* --- FOLDER LOGIC --- */
+            const foldersView = document.getElementById('folders-view');
+            const views = {
+                'skills-view': document.getElementById('skills-view'),
+                'languages-view': document.getElementById('languages-view'),
+                'comp-view': document.getElementById('comp-view')
+            };
+
+            window.openFolder = function(folderId) {
+                if (foldersView) foldersView.style.display = 'none';
+                Object.values(views).forEach(view => { if(view) view.style.display = 'none'; });
+                if (views[folderId]) views[folderId].style.display = 'block';
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+            };
+
+            window.closeFolders = function() {
+                Object.values(views).forEach(view => { if(view) view.style.display = 'none'; });
+                if (foldersView) foldersView.style.display = 'flex';
+            };
+
+            /* --- FILTER LOGICA --- */
+            const items = document.querySelectorAll('.cv-item');
+            const toggleBtns = document.querySelectorAll('.toggle-btn');
+            
+            toggleBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    toggleBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filter = btn.getAttribute('data-filter');
+
+                    items.forEach(item => {
+                        if (item.getAttribute('data-category') === filter) {
+                            item.style.display = 'flex';
+                            setTimeout(() => { item.style.opacity = '1'; }, 10);
+                        } else {
+                            item.style.opacity = '0';
+                            setTimeout(() => { item.style.display = 'none'; }, 300);
+                        }
+                    });
+                });
+            });
+
+            // Scroll Reveal Observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show', 'visible');
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+            document.querySelectorAll('.reveal, .hidden-up').forEach((el) => observer.observe(el));
+        });
+    </script>
+</body>
+</html>

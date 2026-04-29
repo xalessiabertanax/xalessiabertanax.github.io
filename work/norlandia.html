@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Norlandia: Norlympische Spelen | Alessia Bertana</title>
+    <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- BACKGROUND SPLIT --- */
+        body {
+            background: linear-gradient(
+                to bottom, 
+                var(--bg-secondary) 0%, 
+                var(--bg-secondary) 650px, 
+                var(--bg-main) 650px, 
+                var(--bg-main) 100%
+            ) !important;
+        }
+
+        .project-hero { padding-top: 120px; padding-bottom: 80px; }
+        .study-grid { display: grid; grid-template-columns: 380px 1fr; gap: 100px; align-items: start; margin-bottom: 120px; }
+        .study-context { position: sticky; top: 120px; background-color: var(--bg-main); border: 1px solid var(--border-light); border-radius: 20px; padding: 0; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+        .context-header-img { width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid var(--border-light); display: block; }
+        .context-inner { padding: 40px 30px; } 
+        .study-year { font-family: monospace; color: var(--accent-pink); font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 12px; letter-spacing: 1.5px; }
+        .study-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; line-height: 1.2; color: var(--text-main); }
+        .study-intro { font-size: 1rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 30px; }
+        
+        .study-meta { display: flex; flex-direction: column; gap: 25px; padding: 30px 0; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); margin-bottom: 30px; }
+        .meta-group h4 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-pink); margin-bottom: 12px; font-weight: 700; }
+        .meta-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+        .tag { font-size: 0.8rem; padding: 6px 14px; background: var(--bg-secondary); border-radius: 20px; color: var(--text-main); border: 1px solid var(--border-light); }
+        
+        /* --- CONTENT STYLING --- */
+        .study-content { padding-top: 10px; }
+        .content-block { margin-bottom: 90px; } 
+        .content-block h2 { font-size: 1.7rem; margin-bottom: 25px; color: var(--text-main); font-weight: 600; line-height: 1.3; }
+        .content-block p { font-size: 1.05rem; line-height: 1.9; color: var(--text-muted); margin-bottom: 30px; max-width: 75ch; }
+        .content-block ul { padding-left: 2.5rem; margin-bottom: 30px; }
+        .content-block li { font-size: 1.05rem; line-height: 1.9; color: var(--text-muted); margin-bottom: 12px; }
+
+        .section-divider { height: 1px; background: var(--border-light); margin: 80px 0; width: 100%; max-width: 75ch; }
+        .highlight-box { background: var(--bg-secondary); padding: 40px; border-radius: 16px; border: 1px solid var(--border-light); margin: 50px 0; max-width: 75ch; }
+        .highlight-box h3 { font-size: 1.1rem; margin-bottom: 15px; color: var(--accent-pink); font-weight: 600; }
+
+        @media (max-width: 900px) { .study-grid { grid-template-columns: 1fr; gap: 60px; } .study-context { position: relative; top: 0; width: 100%; } }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo"><a href="../index.html" style="text-decoration:none; color:inherit;">Alessia<span class="dot">.</span></a></div>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../resume.html">Resume</a></li>
+                    <li><a href="../about.html">About</a></li>
+                </ul>
+                <button id="theme-toggle" class="theme-btn"><i data-lucide="moon" class="moon-icon"></i><i data-lucide="sun" class="sun-icon"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container project-hero">
+        <a href="../index.html#work" style="text-decoration:none; color:var(--text-muted); font-size:0.9rem; margin-bottom:50px; display:inline-flex; align-items:center; gap:8px;">
+            <i data-lucide="arrow-left" style="width:18px;"></i> Back to Projects
+        </a>
+
+        <div class="study-grid">
+            <aside class="study-context">
+                <img src="../images/norlandia-playground.jpg" alt="Norlandia Project" class="context-header-img">
+                <div class="context-inner">
+                    <span class="study-year">2024 • SERVICE DESIGN</span>
+                    <h1 class="study-title">Norlympische Spelen: Revitalizing BSO Culture</h1>
+                    <p class="study-intro">
+                        Reimagining the after-school care (BSO) experience for children aged 8-12 by bridging the gap between organizational vision and daily practice.
+                    </p>
+
+                    <div class="study-meta">
+                        <div class="meta-group">
+                            <h4>Core Challenge</h4>
+                            <div class="meta-tags">
+                                <span class="tag">Retention (8-12 years)</span>
+                                <span class="tag">Scandinavian Roots</span>
+                                <span class="tag">Service Innovation</span>
+                            </div>
+                        </div>
+                        <div class="meta-group">
+                            <h4>Methods</h4>
+                            <div class="meta-tags">
+                                <span class="tag">Empathize (Observation/Interviews)</span>
+                                <span class="tag">Giga Mapping</span>
+                                <span class="tag">Prototyping & Feedback</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <article class="study-content">
+
+                <div class="content-block" style="background: var(--bg-secondary); padding: 50px; border-radius: 20px; border: 1px solid var(--border-light); margin-bottom: 90px; max-width: 75ch;">
+                    <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-pink); font-weight: 700; display: block; margin-bottom: 15px;">Project Summary</span>
+                    <h2 style="margin-bottom: 20px; color: var(--text-main);">Bridging the Organizational Disconnect</h2>
+                    
+                    <p style="font-size: 1.05rem; margin-bottom: 35px;">
+                        Norlandia faces a challenge: older children (8-12) often leave their after-school care (BSO) because it feels boring or lacks autonomy. Our research uncovered a deeper issue: a disconnect between Norlandia's Scandinavian "play-outside" philosophy and the reality on the ground. I co-designed the <strong>Norlympische Spelen</strong>, a competition-based service concept that empowers children, excites staff, and systematically revitalizes the company's Scandinavian roots.
+                    </p>
+
+                    <div style="display: flex; gap: 20px; align-items: flex-start; background: var(--bg-main); padding: 30px; border-radius: 16px; border: 1px solid var(--border-light); box-shadow: 0 8px 30px rgba(0,0,0,0.02);">
+                        <div style="color: var(--accent-pink); margin-top: 2px;">
+                            <i data-lucide="trophy" style="width: 24px; height: 24px;"></i>
+                        </div>
+                        <div>
+                            <span style="color: var(--text-main); text-transform: uppercase; font-size: 0.85rem; font-weight: 700; letter-spacing: 1.5px; display: block; margin-bottom: 8px;">The Strategy</span>
+                            <p style="margin-bottom: 0; font-size: 1rem; color: var(--text-muted); line-height: 1.8;">
+                                Moving from passive care to active engagement through a <strong>cross-unit competition</strong> that fosters autonomy and teamwork.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-pink); font-weight: 700;">The Discovery</span>
+                    <h2 style="margin-top: 10px;">The Invisible Wall</h2>
+                    <p>
+                        Through field visits, observations, and interviews with stakeholders—ranging from unit managers to the children themselves—we discovered that the core problem wasn't a lack of ideas. It was <strong>unclarity</strong>.
+                    </p>
+                    
+                    <div class="highlight-box">
+                        <h3>Critical Insight: Mismatch Information</h3>
+                        <p>
+                            Management at Norlandia had a clear vision of Scandinavian education (autonomy, nature, self-exploration). However, the staff on the floor often felt limited by regulations or a lack of creative guidance. To the children, this translated into "childish" activities that didn't match their developing need for independence.
+                        </p>
+                    </div>
+
+                    <p>
+                        We needed to find a way to make the Scandinavian culture tangible and consistent across all locations, while giving the older children a reason to <em>want</em> to stay.
+                    </p>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <div class="content-block">
+                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-pink); font-weight: 700;">The Solution</span>
+                    <h2>Norlympische Spelen: "Ik speel niet om te winnen, ik win omdat ik speel"</h2>
+                    <p>
+                        Our concept, the <strong>Norlympische Spelen</strong>, transforms the BSO into a collaborative playing field. Each BSO unit creates its own "country," competing in challenges that focus on teamwork, nature, and Scandinavian values.
+                    </p>
+                    
+                    <div class="highlight-box">
+                        <h3>How it Works</h3>
+                        <ul style="color: var(--text-muted); line-height: 1.8; margin-top: 15px; padding-left: 2.5rem;">
+                            <li><strong>Relative Point System:</strong> Points (Nordies) are awarded based on participation and effort, ensuring BSO size doesn't determine the winner.</li>
+                            <li><strong>Scandinavian Challenges:</strong> Activities like "Nature Art Gallery" and "Nordic Scavenger Hunt" encourage outdoor exploration.</li>
+                            <li><strong>Autonomy:</strong> Children vote on which challenges they want to tackle next, giving them control over their own program.</li>
+                            <li><strong>Digital-Physical Loop:</strong> A shared leaderboard creates a sense of community across different BSO units that normally never interact.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-pink); font-weight: 700;">Service Principles</span>
+                    <h2>Designing for Impact</h2>
+                    <p>
+                        To ensure feasibility, we applied five strategic lenses to our prototype (Utopia vs. Dystopia, SCAMPER), resulting in several core design principles:
+                    </p>
+                    <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 2.5rem;">
+                        <li><strong>Fairness over Talent:</strong> Challenges are designed so every child can participate, regardless of their specific skills.</li>
+                        <li><strong>Low-Barrier for Staff:</strong> We moved from complex digital platforms to an intuitive "playbook" approach to ensure staff aren't overwhelmed.</li>
+                        <li><strong>Visible Culture:</strong> By making Scandinavian roots the core of the competition, they become a lived experience rather than a management slogan.</li>
+                    </ul>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <div class="content-block">
+                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-pink); font-weight: 700;">Validation</span>
+                    <h2>Testing with Experts and Users</h2>
+                    <p>
+                        We evaluated our prototype with unit managers, Norlandia project holders, and children in the target age group. The feedback was overwhelmingly positive:
+                    </p>
+                    
+                    <div class="highlight-box">
+                        <h3>Key Feedback Takeaways</h3>
+                        <ul style="color: var(--text-muted); line-height: 1.8; margin-top: 15px; padding-left: 2.5rem;">
+                            <li><strong>Managers:</strong> Loved the sports theme and the potential for cross-country (international) involvement.</li>
+                            <li><strong>Staff:</strong> Indicated that clear instructions (a "playbook") are essential to prevent extra workload.</li>
+                            <li><strong>Children:</strong> Expressed excitement about the "cool" name and the competitive team element.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-block" style="background: var(--bg-secondary); padding: 50px; border-radius: 20px; border: 1px solid var(--border-light); max-width: 75ch;">
+                    <h2 style="margin-bottom: 20px; color: var(--text-main);">Final Reflection</h2>
+                    <p style="font-size: 1.05rem; margin-bottom: 0;">
+                        This project demonstrated that Service Design is as much about <strong>internal communication</strong> as it is about the end-user experience. By creating the Norlympische Spelen, we didn't just design "more activities"—we designed a mechanism that aligns the organization's high-level strategy with the daily joy of the children in their care.
+                    </p>
+                </div>
+
+            </article>
+        </div>
+    </main>
+
+    <footer class="simple-footer" style="text-align:center; padding: 60px 0; border-top: 1px solid var(--border-light); color: var(--text-muted);">
+        <p>&copy; 2026 Alessia Bertana. Designed with Insight ⚡</p>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

@@ -4,262 +4,200 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neural Pac-Man | Alessia Bertana</title>
+    <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
     <link rel="stylesheet" href="../styles.css">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* --- PAGE SPECIFIC STYLES (Matches Baker Hughes Template) --- */
-        
-        .project-hero { 
-            padding-top: 120px; 
-            padding-bottom: 80px;
-        }
-        
-        /* Layout: Left Column (Card) / Right Column (Story) */
-        .study-grid { 
-            display: grid; 
-            grid-template-columns: 380px 1fr; /* Fixed sidebar width */
-            gap: 80px; 
-            align-items: start; 
-            margin-bottom: 100px; 
-        }
-        
-        /* --- THE STICKY "PROFILE CARD" --- */
-        .study-context { 
-            position: sticky; 
-            top: 120px; 
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border-light);
-            border-radius: 20px;
-            padding: 0; 
-            overflow: hidden; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        /* --- BACKGROUND SPLIT --- */
+        body {
+            background: linear-gradient(
+                to bottom, 
+                var(--bg-secondary) 0%, 
+                var(--bg-secondary) 650px, 
+                var(--bg-main) 650px, 
+                var(--bg-main) 100%
+            ) !important;
         }
 
-        /* Banner Image inside card */
-        .context-header-img {
-            width: 100%;
-            height: 200px; 
-            object-fit: cover;
-            border-bottom: 1px solid var(--border-light);
-            display: block;
+        .btn-text {
+            width: fit-content; /* Zorgt dat de link (en dus de border) niet breder is dan de tekst */
+            display: inline-flex; /* Was al aanwezig, maar werkt nu samen met fit-content */
         }
 
-        .context-inner { padding: 30px; }
-
-        .study-year { 
-            font-family: monospace; color: var(--accent-pink); 
-            font-size: 0.85rem; font-weight: 700; 
-            display: block; margin-bottom: 10px; 
-            letter-spacing: 1px;
-        }
+        .project-hero { padding-top: 120px; padding-bottom: 80px; }
+        .study-grid { display: grid; grid-template-columns: 380px 1fr; gap: 100px; align-items: start; margin-bottom: 120px; }
+        .study-context { position: sticky; top: 120px; background-color: var(--bg-main); border: 1px solid var(--border-light); border-radius: 20px; padding: 0; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+        .context-header-img { width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid var(--border-light); display: block; }
+        .context-inner { padding: 40px 30px; } 
+        .study-year { font-family: monospace; color: var(--accent-pink); font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 12px; letter-spacing: 1.5px; }
+        .study-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; line-height: 1.2; color: var(--text-main); }
+        .study-intro { font-size: 1rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 30px; }
         
-        .study-title { 
-            font-size: 2rem; 
-            font-weight: 800; margin-bottom: 20px; 
-            line-height: 1.1; color: var(--text-main); 
-        }
+        .study-meta { display: flex; flex-direction: column; gap: 25px; padding: 30px 0; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); margin-bottom: 30px; }
+        .meta-group h4 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-pink); margin-bottom: 12px; font-weight: 700; }
+        .meta-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+        .tag { font-size: 0.8rem; padding: 6px 14px; background: var(--bg-secondary); border-radius: 20px; color: var(--text-main); border: 1px solid var(--border-light); }
         
-        .study-intro { 
-            font-size: 0.95rem; line-height: 1.7; 
-            color: var(--text-muted); margin-bottom: 25px; 
-        }
-
-        /* Button Styling */
-        .btn-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 5px;
-        }
-
-        .btn-text { 
-            color: var(--text-main); text-decoration: none; font-weight: 600; 
-            display: inline-flex; align-items: center; gap: 8px; 
-            border-bottom: 2px solid var(--accent-pink); padding-bottom: 4px; 
-            transition: all 0.3s ease; font-size: 0.95rem;
-            width: fit-content;
-        }
+        .btn-stack { display: flex; flex-direction: column; gap: 15px; margin-bottom: 10px; }
+        .btn-text { color: var(--text-main); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; border-bottom: 2px solid var(--accent-pink); padding-bottom: 4px; transition: all 0.3s ease; font-size: 0.95rem; }
         .btn-text:hover { gap: 12px; color: var(--accent-pink); }
 
-        /* Meta Data (Tags) */
-        .study-meta { 
-            display: flex; flex-direction: column; gap: 25px; 
-            padding: 25px 0 0 0; 
-            margin-top: 25px;    
-            border-top: 1px solid var(--border-light); 
-        }
-
-        .meta-group h4 { 
-            font-size: 0.7rem; text-transform: uppercase; 
-            letter-spacing: 1px; color: var(--accent-pink); 
-            margin-bottom: 10px; font-weight: 700;
-        }
-
-        .meta-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        /* --- CONTENT STYLING --- */
+        .study-content { padding-top: 10px; }
+        .content-block { margin-bottom: 90px; } 
+        .content-block h2 { font-size: 1.7rem; margin-bottom: 25px; color: var(--text-main); font-weight: 600; line-height: 1.3; }
+        .content-block p { font-size: 1.05rem; line-height: 1.9; color: var(--text-muted); margin-bottom: 30px; max-width: 75ch; }
+        .content-block ul { padding-left: 2.5rem; margin-bottom: 30px; }
+        .content-block li { font-size: 1.05rem; line-height: 1.9; color: var(--text-muted); margin-bottom: 12px; }
         
-        .tag { 
-            font-size: 0.75rem; padding: 5px 12px; 
-            background: var(--card-bg); 
-            border-radius: 15px; 
-            color: var(--text-main); 
-            border: 1px solid var(--border-light); 
-        }
-
-        /* --- RIGHT COLUMN CONTENT --- */
-        .study-content { padding-top: 0; }
+        .section-divider { height: 1px; background: var(--border-light); margin: 80px 0; width: 100%; max-width: 75ch; }
+        .highlight-box { background: var(--bg-secondary); padding: 40px; border-radius: 16px; border: 1px solid var(--border-light); margin: 50px 0; max-width: 75ch; }
+        .highlight-box h3 { font-size: 1.1rem; margin-bottom: 15px; color: var(--accent-pink); font-weight: 600; }
         
-        .content-block { margin-bottom: 70px; }
-        
-        .content-block h2 { 
-            font-size: 1.8rem; margin-bottom: 25px; 
-            color: var(--text-main); font-weight: 700;
-        }
-        
-        .content-block p { 
-            font-size: 1.05rem; line-height: 1.8; 
-            color: var(--text-muted); margin-bottom: 20px; 
-        }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 50px 0; max-width: 75ch; }
+        .stat-box { background: var(--bg-secondary); padding: 35px; border-radius: 16px; border: 1px solid var(--border-light); }
 
-        .highlight-box {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 16px;
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow);
-            margin: 30px 0;
-            transition: transform 0.3s ease;
-        }
-        .highlight-box:hover { transform: translateY(-3px); }
-        .highlight-box h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--accent-pink); font-weight: 700; }
-
-        /* --- MOBILE RESPONSIVE --- */
-        @media (max-width: 900px) { 
-            .project-hero { 
-                padding-left: 20px; padding-right: 20px; padding-top: 100px;
-            }
-            .study-grid { 
-                grid-template-columns: 1fr; 
-                gap: 50px; 
-            } 
-            .study-context { 
-                position: relative; top: 0; width: 100%;
-            } 
-            .study-title { font-size: 2.2rem; }
-        }
+        @media (max-width: 900px) { .study-grid { grid-template-columns: 1fr; gap: 60px; } .study-context { position: relative; top: 0; width: 100%; } }
     </style>
 </head>
 <body>
     <div class="cursor"></div>
-    
     <nav class="navbar">
         <div class="nav-content">
             <div class="logo"><a href="../index.html" style="text-decoration:none; color:inherit;">Alessia<span class="dot">.</span></a></div>
-            
             <div class="nav-right">
                 <ul class="nav-links">
                     <li><a href="../index.html">Home</a></li>
+                    <li><a href="../resume.html">Resume</a></li>
                     <li><a href="../about.html">About</a></li>
-                    <li><a href="../work.html" class="active" style="color:var(--accent-pink);">Work</a></li>
-                    <li><a href="../index.html#journey">Journey</a></li>
                 </ul>
                 <button id="theme-toggle" class="theme-btn"><i data-lucide="moon" class="moon-icon"></i><i data-lucide="sun" class="sun-icon"></i></button>
-                <button id="hamburger-btn" class="hamburger-btn"><i data-lucide="menu"></i></button>
             </div>
         </div>
     </nav>
 
     <main class="container project-hero">
-        
-        <a href="../work.html" style="text-decoration:none; color:var(--text-muted); font-size:0.9rem; margin-bottom:40px; display:inline-flex; align-items:center; gap:8px; transition: color 0.3s;">
+        <a href="../index.html#work" style="text-decoration:none; color:var(--text-muted); font-size:0.9rem; margin-bottom:50px; display:inline-flex; align-items:center; gap:8px;">
             <i data-lucide="arrow-left" style="width:18px;"></i> Back to Projects
         </a>
 
         <div class="study-grid">
-            
             <aside class="study-context">
-                <img src="../images/BCI.jpeg" alt="BCI Setup" class="context-header-img">
-                
+                <img src="../images/BCI.jpeg" alt="Neural Pac-Man Design" class="context-header-img">
                 <div class="context-inner">
-                    <span class="study-year">2023 • BRAIN COMPUTER INTERFACE</span>
-                    <h1 class="study-title">Neural Pac-Man</h1>
-                    
+                    <span class="study-year">2023 • BRAIN-COMPUTER INTERFACE</span>
+                    <h1 class="study-title">Neural Pac-Man: Gamifying Self-Regulation</h1>
                     <p class="study-intro">
-                        A gaming experience controlled by your brainwaves. Using a Unicorn EEG headset, we measured cognitive load to adapt the game in real-time.
+                        An adaptive gaming experience that uses <strong>real-time brainwaves</strong> to help players visualize, understand, and control their internal stress levels.
                     </p>
 
                     <div class="btn-stack">
-                        <a href="https://github.com/venk12/neural-pacman?tab=readme-ov-file" target="_blank" class="btn-text">
+                        <a href="https://github.com/venk12/neural-pacman" target="_blank" class="btn-text">
                             View Code on GitHub <i data-lucide="github" style="width:16px;"></i>
                         </a>
                         <a href="https://www.canva.com/design/DAGIw9N0Gf4/ZKLt3bppebT45dp8n2N-mQ/view" target="_blank" class="btn-text">
-                            View Presentation <i data-lucide="presentation" style="width:16px;"></i>
+                            Project Presentation <i data-lucide="presentation" style="width:16px;"></i>
                         </a>
                     </div>
 
                     <div class="study-meta">
                         <div class="meta-group">
-                            <h4>My Role</h4>
+                            <h4>The Focus</h4>
                             <div class="meta-tags">
-                                <span class="tag">Data Logic</span>
-                                <span class="tag">Python Dev</span>
+                                <span class="tag">Bio-feedback</span>
+                                <span class="tag">Experience Design</span>
+                                <span class="tag">User Empathy</span>
                             </div>
                         </div>
                         <div class="meta-group">
-                            <h4>Toolkit</h4>
+                            <h4>The Toolkit</h4>
                             <div class="meta-tags">
                                 <span class="tag">Python</span>
-                                <span class="tag">EEG (Unicorn)</span>
-                                <span class="tag">Game Design</span>
+                                <span class="tag">Unicorn EEG</span>
+                                <span class="tag">LSL Middleware</span>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </aside>
-            
+
             <article class="study-content">
 
-                <div class="content-block">
-                    <h2>The Challenge</h2>
-                    <p>
-                        Most video games have a static difficulty level. We wanted to create a "closed loop" system where the game knows how hard your brain is working and adjusts itself accordingly.
+                <div class="content-block" style="background: var(--bg-secondary); padding: 50px; border-radius: 20px; border: 1px solid var(--border-light); margin-bottom: 90px; max-width: 75ch;">
+                    <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-pink); font-weight: 700; display: block; margin-bottom: 15px;">The Concept</span>
+                    <h2 style="margin-bottom: 20px; color: var(--text-main);">Making the Invisible Visible</h2>
+                    
+                    <p style="font-size: 1.05rem; margin-bottom: 35px;">
+                        Internal stress is often abstract and hard to monitor. With <strong>Neural Pac-Man</strong>, we turned self-regulation into a tangible game mechanic. By linking a player's brainwaves directly to the game's speed, we changed the objective: it’s no longer just about avoiding ghosts, but about <strong>mastering your own internal stress</strong>. Winning the game is synonymous with achieving a calm, focused mindset.
                     </p>
-                    <p>
-                        The goal was to keep the player in a state of <strong>Flow</strong>. If they focused too hard (high cognitive load), the game would slow down to help them. If they relaxed or got bored, the game would speed up to challenge them.
-                    </p>
+
+                    <div style="display: flex; gap: 20px; align-items: flex-start; background: var(--bg-main); padding: 30px; border-radius: 16px; border: 1px solid var(--border-light); box-shadow: 0 8px 30px rgba(0,0,0,0.02);">
+                        <div style="color: var(--accent-pink); margin-top: 2px;">
+                            <i data-lucide="brain-circuit" style="width: 24px; height: 24px;"></i>
+                        </div>
+                        <div>
+                            <span style="color: var(--text-main); text-transform: uppercase; font-size: 0.85rem; font-weight: 700; letter-spacing: 1.5px; display: block; margin-bottom: 8px;">The Goal</span>
+                            <p style="margin-bottom: 0; font-size: 1rem; color: var(--text-muted); line-height: 1.8;">
+                                To create an intuitive <strong style="color: var(--accent-pink);">Bio-feedback Loop</strong> that uses the familiar world of Pac-Man to teach users how to recognize and lower their stress levels.
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="content-block">
-                    <h2>My Approach</h2>
+                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-pink); font-weight: 700;">The Design Challenge</span>
+                    <h2 style="margin-top: 10px;">Game Mechanics as a Mirror for the Mind</h2>
                     <p>
-                        I was responsible for the backend logic that translated raw brain signals into game mechanics.
+                        Most people aren't aware of their stress. In this project, we used a Brain-Computer Interface (BCI) to provide a "mirror." The challenge was to create a feedback loop that felt natural rather than clinical.
                     </p>
                     
                     <div class="highlight-box">
-                        <h3>1. Signal Acquisition</h3>
-                        <p>We used the Unicorn Hybrid Black headset to capture live EEG data. The challenge was filtering out noise (like muscle movement) to get a clean signal of "mental work."</p>
-                    </div>
-
-                    <div class="highlight-box">
-                        <h3>2. The Python Bridge</h3>
-                        <p>I wrote a Python script that acted as the middleware. It received UDP data packets from the headset, calculated the Alpha/Beta wave ratios in real-time to determine a "Workload Score."</p>
-                    </div>
-
-                    <div class="highlight-box">
-                        <h3>3. Adaptive Game Loop</h3>
-                        <p>Based on the workload score, my script sent commands to the game engine. <br><strong>High Load:</strong> "Bullet Time" (Ghosts slow down). <br><strong>Low Load:</strong> "Chaos Mode" (Ghosts speed up).</p>
+                        <h3>Design Principle: Feedback as Mastery</h3>
+                        <p>
+                            We linked the speed of the game directly to the player's cognitive workload. This created a unique interaction model:
+                        </p>
+                        <ul style="color: var(--text-muted); line-height: 1.8; margin-top: 15px; padding-left: 2.5rem;">
+                            <li><strong>Visual Cues:</strong> When Pac-Man speeds up, the player visually perceives their rising tension.</li>
+                            <li><strong>Incentivized Calm:</strong> To slow down the ghosts and survive, the player must actively learn to lower their internal focus or stress.</li>
+                            <li><strong>Intuitive Learning:</strong> Players don't need to understand neuroscience; they just follow the dopamine cues of winning to learn self-control.</li>
+                        </ul>
                     </div>
                 </div>
 
+                <div class="section-divider"></div>
+
                 <div class="content-block">
-                    <h2>The Outcome</h2>
+                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-pink); font-weight: 700;">The Implementation</span>
+                    <h2>Lowering the Barrier to Entry</h2>
                     <p>
-                        We successfully built a working prototype where players could physically feel the game reacting to their focus levels. 
+                        To make this experience seamless, I designed the technical "bridge" that connected the hardware to the player's experience. My focus was on ensuring that the data-processing felt invisible so the user could remain fully immersed in the "Flow State."
                     </p>
-                    <p>
-                        It demonstrated that BCI (Brain-Computer Interfaces) can be used not just for medical purposes, but to create deeper, more responsive entertainment experiences.
+
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <h3 style="color: var(--accent-pink); margin-bottom: 10px; font-weight: 600;">The Neural Sensor</h3>
+                            <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0;">
+                                Using a non-invasive Unicorn EEG headset, we monitored Alpha and Beta waves—signals that naturally shift when a person moves from a relaxed to a focused state.
+                            </p>
+                        </div>
+                        
+                        <div class="stat-box">
+                            <h3 style="color: var(--accent-pink); margin-bottom: 10px; font-weight: 600;">Real-Time Adaptation</h3>
+                            <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0;">
+                                I developed a Python-based middleware that calculated a 'Workload Score' every few milliseconds, instantly adjusting the game's difficulty to match the player's mental state.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <div class="content-block" style="background: var(--bg-secondary); padding: 50px; border-radius: 20px; border: 1px solid var(--border-light); max-width: 75ch;">
+                    <h2 style="margin-bottom: 20px; color: var(--text-main);">Final Reflection</h2>
+                    <p style="font-size: 1.05rem; margin-bottom: 0;">
+                        Neural Pac-Man taught me that the future of interaction design isn't just about what we can do with our hands, but how our internal states can shape our digital world. By transforming a stressful metric into a fun challenge, we proved that <strong>Design</strong> can be a powerful tool for emotional awareness and personal growth.
                     </p>
                 </div>
 
