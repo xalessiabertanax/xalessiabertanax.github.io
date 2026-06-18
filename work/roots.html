@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roots Brand Identity | Alessia Bertana</title>
+    <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- TAMMY BLUEPRINT: CONSTRAINED HERO IMAGE FIRST --- */
+        .hero-constrained {
+            max-width: 1100px;
+            margin: 110px auto 0; /* Clear fixed navbar space */
+            padding: 0 20px;
+        }
+
+        .hero-constrained img {
+            width: 100%;
+            max-height: 520px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            display: block;
+        }
+
+        /* --- EDITORIAL HEADER LAYOUT --- */
+        .case-header {
+            padding: 50px 20px 30px;
+            background-color: var(--bg-main);
+            max-width: 800px; /* Aligned tight to text column width */
+            margin: 0 auto;
+        }
+
+        .study-year { 
+            font-family: inherit; color: var(--accent-pink); 
+            font-size: 0.85rem; font-weight: 700; 
+            display: block; margin-bottom: 16px; 
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .case-title { 
+            font-size: 2.8rem; /* Desktop typography balance */
+            font-weight: 700; 
+            color: var(--text-main); 
+            line-height: 1.15; 
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .case-subtitle {
+            font-size: 1.4rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: var(--text-main);
+            margin-bottom: 40px;
+        }
+
+        /* --- MINIMALIST METADATA DECK --- */
+        .case-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 30px;
+            padding: 35px 0;
+            border-top: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .meta-block h4 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-pink);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .meta-block p, .meta-block ul {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            list-style: none;
+            padding: 0;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .meta-block ul li {
+            margin-bottom: 4px;
+        }
+
+        /* --- ARTICLE BODY LONGFORM WITH STRICT DARK & LIGHT ALTERNATION --- */
+        .case-section {
+            padding: 100px 0;
+            width: 100%;
+        }
+
+        /* Custom Alternation tokens overriding defaults locally */
+        .bg-dark-block { 
+            background-color: #0c0c0e; 
+            color: #f3f4f6;
+        }
+        .bg-light-block { 
+            background-color: #ffffff; 
+            color: #111827;
+        }
+
+        /* Text balance shifts based on container theme */
+        .bg-dark-block h2, .bg-dark-block h3, .bg-dark-block strong { color: #ffffff; }
+        .bg-light-block h2, .bg-light-block h3, .bg-light-block strong { color: #111827; }
+        
+        .bg-dark-block p { color: #9ca3af; }
+        .bg-light-block p { color: #4b5563; }
+
+        .content-col {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .content-col .section-tag {
+            font-size: 0.8rem; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            color: var(--accent-pink); 
+            font-weight: 700; 
+            display: block; 
+            margin-bottom: 12px;
+        }
+
+        .content-col h2 {
+            font-size: 2rem;
+            margin-bottom: 24px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .content-col h3 {
+            font-size: 1.3rem;
+            margin-top: 40px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .content-col p {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            margin-bottom: 28px;
+        }
+
+        /* --- TEXT BLOCK MEDIA / IMAGES --- */
+        .case-figure {
+            margin: 60px 0;
+            width: 100%;
+        }
+
+        .case-figure img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: block;
+        }
+
+        .bg-light-block .case-figure img {
+            border: 1px solid var(--border-light);
+        }
+
+        /* Constrain rule for technical charts and mapping diagrams */
+        .case-figure.diagram-scale img {
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        .case-figure figcaption {
+            text-align: center;
+            font-size: 0.85rem;
+            margin-top: 14px;
+            font-style: italic;
+        }
+        .bg-dark-block figcaption { color: #6b7280; }
+        .bg-light-block figcaption { color: #9ca3af; }
+
+        /* Pull-quote style */
+        .pull-quote {
+            font-size: 1.5rem;
+            font-weight: 500;
+            line-height: 1.45;
+            margin: 50px 0;
+            padding-left: 24px;
+            border-left: 3px solid var(--accent-pink);
+        }
+        .bg-dark-block .pull-quote { color: #ffffff; }
+        .bg-light-block .pull-quote { color: #111827; }
+
+        .highlight-box {
+            padding: 35px;
+            border-radius: 12px;
+            margin: 45px 0;
+        }
+        .bg-dark-block .highlight-box { background: #141417; border: 1px solid rgba(255, 255, 255, 0.05); }
+        .bg-light-block .highlight-box { background: #f9fafb; border: 1px solid var(--border-light); }
+
+        @media (max-width: 768px) {
+            .hero-constrained { padding: 0; margin-top: 80px; }
+            .hero-constrained img { border-radius: 0; border-left: none; border-right: none; }
+            .case-header { padding-top: 30px; }
+            .case-title { font-size: 2rem; }
+            .case-subtitle { font-size: 1.2rem; margin-bottom: 30px; }
+            .case-section { padding: 70px 0; }
+            .case-meta { gap: 20px; padding: 20px 0; }
+            .pull-quote { font-size: 1.25rem; margin: 35px 0; padding-left: 16px; }
+            .case-figure.diagram-scale img { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo"><a href="../index.html" style="text-decoration:none; color:inherit;">Alessia<span class="dot">.</span></a></div>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../resume.html">Resume</a></li>
+                    <li><a href="../about.html">About</a></li>
+                </ul>
+                <button id="theme-toggle" class="theme-btn"><i data-lucide="moon" class="moon-icon"></i><i data-lucide="sun" class="sun-icon"></i></button>
+                <button id="hamburger-btn" class="hamburger-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero-constrained">
+        <img src="../images/RootsThumb4.png" alt="Roots Premium Packaging Brand Overview">
+    </div>
+
+    <section class="case-header">
+        <a href="../index.html#work" style="text-decoration:none; color:var(--text-muted); font-size:0.9rem; margin-bottom:30px; display:inline-flex; align-items:center; gap:8px;">
+            <i data-lucide="arrow-left" style="width:18px;"></i> Back to Projects
+        </a>
+
+        <span class="study-year" style="font-family: inherit; font-weight: 600; font-size: 0.9rem; letter-spacing: 1px;">Brand Positioning & Identity Proposal</span>
+        <h1 class="case-title">Brand Transformation<span class="dot">.</span></h1>
+        
+        <p class="case-subtitle" style="font-size: 1.05rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 30px;">
+            Repositioning an innovative agricultural solution as a premium wholesale asset for the hospitality industry.
+        </p>
+
+        <div class="case-meta" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+            <div class="meta-block">
+                <h4>Role</h4>
+                <p>Brand Strategist<br>Visual Designer</p>
+            </div>
+            <div class="meta-block">
+                <h4>Methodology</h4>
+                <ul>
+                    <li>Competitor Matrix Auditing</li>
+                    <li>Archetypal Synthesis</li>
+                    <li>Kapferer Formula Mapping</li>
+                </ul>
+            </div>
+            <div class="meta-block">
+                <h4>Deliverables</h4>
+                <ul>
+                    <li>Positioning Architecture</li>
+                    <li>Tactile Identity Assets</li>
+                    <li>Packaging Renderings</li>
+                </ul>
+            </div>
+            <div class="meta-block">
+                <h4>Team</h4>
+                <p>4 designers</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="case-section bg-dark-block">
+        <div class="content-col">
+            <span class="section-tag">The Brief</span>
+            <h2>Disrupting the Overcrowced Consumer Shelf<span class="dot">.</span></h2>
+            
+            <p>
+                An innovative agricultural producer approached us with a highly sustainable, allergen safe milk alternative formulated entirely from locally harvested German potatoes. With an amazing technical foundation already in place, they were ready to establish a powerful market presence. To successfully introduce this innovation alongside established plant-based brands like Oatly and Alpro, they needed a strategic brand identity and a precise positioning framework designed to capture their unique competitive advantage.
+            </p>
+
+            <p>
+                Through market analysis, we uncovered a clear opportunity in the hospitality sector. Restaurants regularly juggle a complicated, expensive inventory of multiple plant milks to accommodate guest allergies. Because our specific potato formulation is entirely free from lactose, gluten, nuts, and soy, it serves as a universal kitchen asset. We shifted the strategy away from retail shelves toward B2B kitchens, positioning the product as an all-in-one solution built to streamline commercial workflows.
+            </p>
+        </div>
+    </section>
+
+    <section class="case-section bg-light-block">
+        <div class="content-col">
+            <span class="section-tag">Brand Identity Architecture</span>
+            <h2>Balancing Bold Innovation with Real World Reliability<span class="dot">.</span></h2>
+            
+            <p>
+                Turning a humble potato into a trusted wholesale asset meant building a really solid identity structure. During validation sprints with industry stakeholders, we found an interesting tension between two core directions: the authentic, down to earth vibe of local farming versus the boldly confident performance of our technical formula. To blend them smoothly without diluting our message, we leaned into a dual archetypal strategy.
+            </p>
+
+            <figure class="case-figure diagram-scale">
+                <img src="../images/Archetype.png" alt="Archetypal brand layout mapping Explorer and Everyman character attributes">
+                <figcaption>Fig 2. Merging enterprise stability with visionary agricultural design.</figcaption>
+            </figure>
+
+            <p>
+                We combined the pioneering drive of the <strong>Explorer</strong> (our bold choice to extract milk from potatoes) with the warm, universally accessible stability of the <strong>Everyman</strong> (our absolute commitment to allergen safe inclusion). This balance created the perfect brand voice to communicate cleanly with purchasing managers, blending a highly reliable tone with a beautifully progressive edge.
+            </p>
+        </div>
+    </section>
+
+    <section class="case-section bg-dark-block">
+        <div class="content-col">
+            <span class="section-tag">Visual Identity</span>
+            <h2>System Design & Visual Polish<span class="dot">.</span></h2>
+            
+            <p>
+                We built the visual universe around the core brand name: <strong>roots.</strong>, honoring raw, organic origins while using the trailing period as a structural anchor. To ensure high legibility on intense wholesale inventory sheets, our typography relies on a clean geometric sans serif typeface with uniform line weights for quick readability in fast paced work environments.
+            </p>
+
+            <figure class="case-figure diagram-scale">
+                <img src="../images/ProdValue.png" alt="Competitive positioning matrix mapping all purpose versus one purpose alternatives">
+                <figcaption>Fig 1. Product specifics.</figcaption>
+            </figure>
+
+            <p>
+                Color functions as a practical tool in busy barista environments. We established three sub variants using muted, earthy tones: Forest Green commands <em>The Original</em> foundation, Warm Ochre identifies the <em>Unsweetened</em> choice for recipes, and Earthy Espresso marks the high-stability <em>Barista</em> liquid built to steam smoothly into hot coffee profiles.
+            </p>
+
+            <figure class="case-figure diagram-scale">
+                <img src="../images/BrandColors.png" alt="Roots product line colors for Original, Unsweetened and Barista types">
+                <figcaption>Fig 3. Functional color rules dividing products by operational use-case.</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <section class="case-section bg-light-block">
+        <div class="content-col">
+            <span class="section-tag">Realization</span>
+            <h2>Designing the Package<span class="dot">.</span></h2>
+            
+            <p>
+                When it came to the packaging, we wanted to bring our minimalist ideas to life in a way that actually made sense on the floor. We threw out typical, loud supermarket graphics and focused entirely on the reality of a busy restaurant. Since nobody in a fast paced kitchen has time to read fine print, we structured the front panels to prioritize lightning fast reading, making vital allergen safety icons big and bold so baristas can grab the right box at a single glance.
+            </p>
+
+            <figure class="case-figure">
+                <img src="../images/MilkPackage.png" alt="Tactile final milk package layout and graphic distribution grids">
+                <figcaption>Fig 4. The finalized three-dimensional physical product layout utilizing clean structural grids.</figcaption>
+            </figure>
+
+            <figure class="case-figure">
+                <img src="../images/Packaging.png" alt="Tactile final milk package layout and graphic distribution grids">
+                <figcaption>Fig 5. Single package mockup view.</figcaption>
+            </figure>
+
+            <figure class="case-figure">
+                <img src="../images/EindShot.png" alt="Tactile final milk package layout and graphic distribution grids">
+                <figcaption>Fig 6. Mockup view.</figcaption>
+            </figure>
+
+            <div class="highlight-box">
+                <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 1.3rem;">Final Reflection<span class="dot">.</span></h3>
+                <p style="margin-bottom: 0;">
+                    Working on roots. completely flipped my perspective on how deep branding actually goes. It proved that a brand is not just a visual layer, it is all about perception and psychology. People do not just buy a product, they link their entire experience and trust to the personality behind the company. Diving into brand archetypes taught me that you cannot try to be everything to everyone. You have to lean into your core character and communicate with absolute consistency to build true brand recognition. When your category and archetype are crystal clear, customers instantly understand your story, which builds the emotional bridge that drives long term loyalty.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="simple-footer" style="text-align:center; padding: 60px 0; border-top: 1px solid var(--border-light); color: var(--text-muted); background-color: var(--bg-main);">
+        <p>&copy; 2026 Alessia Bertana. Designed with Insight ⚡</p>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

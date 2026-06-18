@@ -10,65 +10,477 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* --- BACKGROUND SPLIT --- */
-        body {
-            background: linear-gradient(
-                to bottom, 
-                var(--bg-secondary) 0%, 
-                var(--bg-secondary) 650px, 
-                var(--bg-main) 650px, 
-                var(--bg-main) 100%
-            ) !important;
+        /* --- TAMMY BLUEPRINT: CONSTRAINED HERO IMAGE FIRST --- */
+        .hero-constrained {
+            max-width: 1100px;
+            margin: 110px auto 0; 
+            padding: 0 20px;
         }
 
-        .highlight-box ul {
-            margin-top: 15px;
-            padding-left: 2rem; /* Dit zorgt voor de 'tab' afstand naar rechts */
-            list-style-position: outside; /* Houdt de bolletjes in de marge van de lijst */
+        .hero-constrained img {
+            width: 100%;
+            max-height: 520px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            display: block;
         }
 
-        .highlight-box li {
-            margin-bottom: 12px; /* Geeft wat extra ruimte tussen de verschillende scenario's */
+        /* --- EDITORIAL HEADER LAYOUT --- */
+        .case-header {
+            padding: 50px 20px 30px;
+            background-color: var(--bg-main);
+            max-width: 800px; 
+            margin: 0 auto;
         }
 
-        .project-hero { padding-top: 120px; padding-bottom: 80px; }
-        .study-grid { display: grid; grid-template-columns: 380px 1fr; gap: 100px; align-items: start; margin-bottom: 120px; }
-        .study-context { position: sticky; top: 120px; background-color: var(--bg-main); border: 1px solid var(--border-light); border-radius: 20px; padding: 0; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
-        .context-header-img { width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid var(--border-light); display: block; }
-        .context-inner { padding: 40px 30px; } 
-        .study-year { font-family: monospace; color: var(--accent-pink); font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 12px; letter-spacing: 1.5px; }
-        .study-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; line-height: 1.2; color: var(--text-main); }
-        .study-intro { font-size: 1rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 30px; }
-        .study-meta { display: flex; flex-direction: column; gap: 25px; padding: 30px 0; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); margin-bottom: 30px; }
-        .meta-group h4 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-pink); margin-bottom: 12px; font-weight: 700; }
-        .meta-tags { display: flex; flex-wrap: wrap; gap: 10px; }
-        .tag { font-size: 0.8rem; padding: 6px 14px; background: var(--bg-secondary); border-radius: 20px; color: var(--text-main); border: 1px solid var(--border-light); }
-        
-        /* --- CONTENT STYLING --- */
-        .study-content { padding-top: 10px; }
-        .content-block { margin-bottom: 90px; } 
-        .content-block h2 { font-size: 1.7rem; margin-bottom: 25px; color: var(--text-main); font-weight: 600; line-height: 1.3; }
-        .content-block p { font-size: 1.05rem; line-height: 1.9; color: var(--text-muted); margin-bottom: 30px; max-width: 75ch; }
-        .section-divider { height: 1px; background: var(--border-light); margin: 80px 0; width: 100%; max-width: 75ch; }
-        .highlight-box { background: var(--bg-secondary); padding: 40px; border-radius: 16px; border: 1px solid var(--border-light); margin: 50px 0; max-width: 75ch; }
-        .highlight-box h3 { font-size: 1.1rem; margin-bottom: 15px; color: var(--accent-pink); font-weight: 600; }
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 50px 0; max-width: 75ch; }
-        .stat-box { background: var(--bg-secondary); padding: 35px; border-radius: 16px; border: 1px solid var(--border-light); }
-        .stat-number { font-size: 2.2rem; font-weight: 700; color: var(--accent-pink); display: block; margin-bottom: 10px; line-height: 1; }
-        .stat-label { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
-
-        @media (max-width: 900px) { 
-            .study-grid { grid-template-columns: 1fr; gap: 60px; } 
-            .study-context { position: relative; top: 0; width: 100%; } 
+        .study-year { 
+            font-family: inherit; color: var(--accent-pink); 
+            font-size: 0.85rem; font-weight: 700; 
+            display: block; margin-bottom: 16px; 
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
-        @media (max-width: 768px) { 
-            .stats-grid { grid-template-columns: 1fr; gap: 20px; } 
+        .case-title { 
+            font-size: 2.8rem; 
+            font-weight: 700; 
+            color: var(--text-main); 
+            line-height: 1.15; 
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .case-subtitle {
+            font-size: 1.4rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: var(--text-main);
+            margin-bottom: 40px;
+        }
+
+        /* --- MINIMALIST METADATA DECK --- */
+        .case-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 30px;
+            padding: 35px 0;
+            border-top: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .meta-block h4 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-pink);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .meta-block p, .meta-block ul {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            list-style: none;
+            padding: 0;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* --- TAMMY HIGH-CONTRAST SECTION STRATEGY --- */
+        .case-section {
+            padding: 100px 0;
+            width: 100%;
+        }
+
+        .bg-main { 
+            background-color: var(--bg-main); 
+            color: var(--text-main);
+        }
+
+        .bg-dark-editorial { 
+            background-color: #111112; 
+            color: #f5f5f7;
+        }
+
+        .bg-dark-editorial h2, 
+        .bg-dark-editorial h3,
+        .bg-dark-editorial .profile-entry h3 {
+            color: #ffffff;
+        }
+
+        .bg-dark-editorial p {
+            color: #a1a1aa;
+        }
+
+        .content-col {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-tag {
+            font-size: 0.8rem; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            color: var(--accent-pink); 
+            font-weight: 700; 
+            display: block; 
+            margin-bottom: 12px;
+        }
+
+        .content-col h2 {
+            font-size: 2rem;
+            margin-bottom: 24px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .content-col h3 {
+            font-size: 1.4rem;
+            margin-top: 40px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .content-col p {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            margin-bottom: 28px;
+        }
+
+        /* --- RESEARCH PROFILES TWO-COLUMN SPLIT --- */
+        .split-profile-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+            margin: 60px 0;
+        }
+
+        .profile-sticky-media img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            display: block;
+        }
+
+        .profile-scrollable-content {
+            max-height: 520px;
+            overflow-y: auto;
+            padding-right: 20px;
+        }
+
+        .profile-scrollable-content::-webkit-scrollbar {
+            width: 4px;
+        }
+        .profile-scrollable-content::-webkit-scrollbar-thumb {
+            background: var(--accent-pink);
+            border-radius: 4px;
+        }
+
+        .profile-entry {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-entry:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .profile-entry h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* --- INTERACTIVE ACCORDION RESEARCH STYLES --- */
+        .research-tabs {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .research-tab-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            text-align: left;
+            width: 100%;
+        }
+
+        .research-tab-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .research-tab-card.is-active {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent-pink);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .tab-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tab-title-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tab-header h3 {
+            margin: 0 !important;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .chevron-icon {
+            transition: transform 0.3s ease;
+            color: var(--text-muted);
+        }
+
+        .research-tab-card.is-active .chevron-icon {
+            transform: rotate(180deg);
+            color: var(--accent-pink);
+        }
+
+        .tab-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+            opacity: 0;
+        }
+
+        .research-tab-card.is-active .tab-content {
+            max-height: 250px;
+            opacity: 1;
+            margin-top: 16px;
+        }
+
+        .tab-content p {
+            margin: 0 !important;
+            font-size: 0.98rem;
+            line-height: 1.7;
+            color: #a1a1aa;
+        }
+
+        /* --- INTERACTIVE LEVEL SLIDER --- */
+        .level-slider-wrapper {
+            position: relative;
+            width: 100%;
+            margin: 40px 0;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            background: var(--bg-main);
+            box-shadow: var(--shadow);
+        }
+
+        .level-slider-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            width: 100%;
+        }
+
+        .level-slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .level-slide img {
+            width: 100%;
+            height: auto;
+            max-height: 480px;
+            object-fit: contain;
+            display: block;
+            background: #000000;
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background: var(--bg-main);
+            border-top: 1px solid var(--border-light);
+        }
+
+        .slider-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: var(--transition-smooth);
+        }
+
+        .slider-btn:hover {
+            background: var(--accent-pink);
+            color: #ffffff;
+        }
+
+        .slider-counter {
+            font-family: monospace;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: 1px;
+            font-size: 0.95rem;
+        }
+
+        /* --- FIGURES & MEDIA --- */
+        .case-figure {
+            margin: 60px 0;
+            width: 100%;
+        }
+
+        .case-figure img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            display: block;
+        }
+
+        .case-figure figcaption {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 14px;
+            font-style: italic;
+        }
+
+        /* Presentation Gallery Grid Layout */
+        .presentation-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 50px 0 20px;
+        }
+
+        .presentation-gallery img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+        }
+
+        .pull-quote {
+            font-size: 1.5rem;
+            font-weight: 500;
+            line-height: 1.45;
+            color: inherit;
+            margin: 50px 0;
+            padding-left: 24px;
+            border-left: 3px solid var(--accent-pink);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 50px 0;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 35px 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--accent-pink);
+            display: block;
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--accent-pink);
+            display: block;
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 900px) {
+            /* Restructures the container layout since the image side is removed */
+            .split-profile-container { 
+                grid-template-columns: 1fr; 
+                gap: 0; 
+                margin: 40px 0;
+            }
+            /* Completely hides the train personnel image wrapper on tablet and mobile viewports */
+            .profile-sticky-media { 
+                display: none; 
+            }
+            /* Ensures the text container scales and flows naturally on smaller viewports */
+            .research-tab-card.is-active .tab-content {
+                max-height: none; 
+            }
+            /* Stacks the images vertically in a clean single column on mobile */
+            .presentation-gallery { 
+                grid-template-columns: 1fr; 
+                gap: 18px; 
+                margin: 30px 0 10px;
+            }
+            /* Forces every single image into the exact same horizontal landscape size */
+            .presentation-gallery img { 
+                height: 300px; /* Locks the height for a beautiful horizontal look */
+                width: 100%;
+                object-fit: cover; /* Crops the vertical image perfectly to match the horizontal frames */
+                border-radius: 8px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-constrained { padding: 0; margin-top: 80px; }
+            .hero-constrained img { border-radius: 0; border-left: none; border-right: none; }
+            .case-header { padding-top: 30px; }
+            .case-title { font-size: 2rem; }
+            .case-subtitle { font-size: 1.2rem; margin-bottom: 30px; }
+            .case-section { padding: 60px 0; }
+            .case-meta { gap: 20px; padding: 20px 0; }
+            .pull-quote { font-size: 1.25rem; margin: 35px 0; padding-left: 16px; }
+            .stats-grid { grid-template-columns: 1fr; gap: 16px; }
         }
     </style>
 </head>
 <body>
     <div class="cursor"></div>
+    
     <nav class="navbar">
         <div class="nav-content">
             <div class="logo"><a href="../index.html" style="text-decoration:none; color:inherit;">Alessia<span class="dot">.</span></a></div>
@@ -86,203 +498,259 @@
         </div>
     </nav>
 
-    <main class="container project-hero">
-        <a href="../index.html#work" style="text-decoration:none; color:var(--text-muted); font-size:0.9rem; margin-bottom:50px; display:inline-flex; align-items:center; gap:8px;">
+    <div class="hero-constrained">
+        <img src="../images/Homescreen_VR_black.png" alt="Back on Track Immersive Headset Home Interface">
+    </div>
+
+    <section class="case-header">
+        <a href="../index.html#work" style="text-decoration:none; color:var(--text-muted); font-size:0.9rem; margin-bottom:30px; display:inline-flex; align-items:center; gap:8px;">
             <i data-lucide="arrow-left" style="width:18px;"></i> Back to Projects
         </a>
 
-        <div class="study-grid">
-            <aside class="study-context">
-                <img src="../images/VRNS.jpg" alt="NS Back on Track VR" class="context-header-img">
-                <div class="context-inner">
-                    <span class="study-year">2024 • VR DESIGN</span>
-                    <h1 class="study-title">Back on Track: Re-Boarding with Confidence</h1>
-                    <p class="study-intro">
-                        Using <strong>Virtual Reality Exposure Therapy (VRET)</strong> to help NS train guards return to work safely after experiencing traumatic events on the job.
-                    </p>
+        <span class="study-year" style="font-family: inherit; font-weight: 600; font-size: 0.9rem; letter-spacing: 1px;">2024 • VR & UX </span>
+        <h1 class="case-title">Back on Track: Re-Boarding with Confidence<span class="dot">.</span></h1>
+        
+        <p class="case-subtitle" style="font-size: 1.05rem; line-height: 1.7; color: var(--text-muted);">
+            For a course in Virtual Reality during my time in University, NS (National Dutch Railways) came to us with the question: How can we use Virtual Reality (VR) to support NS frontline railway personnel during their daily tasks? With a team of six people, we ended up building a prototype for a VRET system with the goal to help NS employees overcome trauma after impactful incidents and return to work safely.
+        </p>
 
-                    <div class="study-meta">
-                        <div class="meta-group">
-                            <h4>The Team</h4>
-                            <div class="meta-tags">
-                                <span class="tag">Collaborative Project</span>
-                            </div>
-                        </div>
-                        <div class="meta-group">
-                            <h4>Skills Applied</h4>
-                            <div class="meta-tags">
-                                <span class="tag">VRET Research</span>
-                                <span class="tag">Unity 3D</span>
-                                <span class="tag">User Testing</span>
-                                <span class="tag">Stress Monitoring</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </aside>
-
-            <article class="study-content">
-
-                <div class="content-block" style="background: var(--bg-secondary); padding: 50px; border-radius: 20px; border: 1px solid var(--border-light); margin-bottom: 90px; max-width: 75ch;">
-                    <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-pink); font-weight: 700; display: block; margin-bottom: 15px;">Project Summary</span>
-                    <h2 style="margin-bottom: 20px; color: var(--text-main);">Combating Absenteeism through VR</h2>
-                    
-                    <p style="font-size: 1.05rem; margin-bottom: 35px;">
-                        Traumatic incidents—from aggression to railway fatalities—lead to high absenteeism (8.1%) among NS personnel. In collaboration with the Dutch Railways (NS), we developed <strong>"Back on Track"</strong>: a VR-based exposure therapy program. By simulating realistic, tiered scenarios in a safe environment, we aimed to lower the barrier for staff to return to work, breaking the cycle of staff shortages and decreased safety.
-                    </p>
-
-                    <div style="display: flex; gap: 20px; align-items: flex-start; background: var(--bg-main); padding: 30px; border-radius: 16px; border: 1px solid var(--border-light); box-shadow: 0 8px 30px rgba(0,0,0,0.02);">
-                        <div style="color: var(--accent-pink); margin-top: 2px;">
-                            <i data-lucide="shield-check" style="width: 24px; height: 24px;"></i>
-                        </div>
-                        <div>
-                            <span style="color: var(--text-main); text-transform: uppercase; font-size: 0.85rem; font-weight: 700; letter-spacing: 1.5px; display: block; margin-bottom: 8px;">The Vision</span>
-                            <p style="margin-bottom: 0; font-size: 1rem; color: var(--text-muted); line-height: 1.8;">
-                                A controlled virtual environment that bridges the gap between clinical therapy and stepping back onto a real train.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="content-block">
-                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-pink); font-weight: 700;">The Problem</span>
-                    <h2 style="margin-top: 10px;">The Vicious Cycle of Railway Safety</h2>
-                    <p>
-                        Our research highlighted a distressing trend: violent incidents against staff nearly doubled between 2020 and 2023. This increase in aggression leads to physical and psychological trauma, resulting in high absenteeism.
-                    </p>
-                    
-                    <div class="highlight-box">
-                        <h3>Connecting the Dots</h3>
-                        <p>
-                            We identified a <strong>vicious cycle</strong>: trauma leads to sick leave → sick leave leads to staff shortages → shortages lead to decreased safety on trains → decreased safety leads to more incidents. To break this, we focused on the most critical human bottleneck: <strong>rehabilitation.</strong>
-                        </p>
-                    </div>
-
-                    <div class="stats-grid">
-                        <div class="stat-box">
-                            <span class="stat-number">1,042</span>
-                            <span class="stat-label">Violent acts against staff in 2023</span>
-                        </div>
-                        <div class="stat-box">
-                            <span class="stat-number">8.1%</span>
-                            <span class="stat-label">Absenteeism rate at NS</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section-divider"></div>
-
-                <div class="content-block">
-                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-pink); font-weight: 700;">The Strategy</span>
-                    <h2 style="margin-top: 10px;">Why VRET? Transforming Clinical Research into UX</h2>
-                    <p>
-                        Through literature research, we validated that <strong>Virtual Reality Exposure Therapy (VRET)</strong> is a proven method for treating PTSD and occupational trauma. The core benefit of VR is <strong>control</strong>: it allows a therapist to create a realistic environment where the user can gradually confront their fears without being in actual danger.
-                    </p>
-                    <p>
-                        We designed the system with <strong>biometric stress monitoring</strong> in mind. By integrating heart-rate data, the simulation can automatically detect when a user's stress level is too high and trigger a "safety pause" with guided breathing exercises.
-                    </p>
-                    
-                    <div class="highlight-box">
-                        <h3>Gradual Exposure: The 7-Level Framework</h3>
-                        <p>
-                            We didn't just design one scenario; we designed a journey. The intensity increases systematically across seven levels to ensure a safe progression:
-                        </p>
-                        <ul style="color: var(--text-muted); line-height: 1.8; margin-top: 15px;">
-                            <li><strong>Level 1: Routine Check</strong> – Walking through an empty train to get reacquainted with the setting.</li>
-                            <li><strong>Level 2: Friendly Interaction</strong> – Helping a calm passenger with travel advice.</li>
-                            <li><strong>Level 3: The Busy Train</strong> – Managing ticket checks in a crowded, but polite, environment.</li>
-                            <li><strong>Level 4: The Rowdy Train</strong> – Dealing with noisy festival-goers and disrespect.</li>
-                            <li><strong>Level 5: The Night Shift</strong> – Navigating through a train with unruly, intoxicated passengers.</li>
-                            <li><strong>Level 6: Active Intervention</strong> – Breaking up a non-violent fight between two fans.</li>
-                            <li><strong>Level 7: Critical Incident</strong> – Managing a high-stress confrontation with an aggressive passenger.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="section-divider"></div>
-
-                <div class="content-block">
-                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-pink); font-weight: 700;">Technical Implementation</span>
-                    <h2>Creating a Believable Reality</h2>
-                    <p>
-                        For exposure therapy to work, the environment must be <strong>highly immersive</strong>. Since no high-fidelity 3D models of NS trains were available, we modeled a Dutch railway carriage from the ground up in <strong>Blender</strong> using real blueprints.
-                    </p>
-
-                    <div class="stats-grid">
-                        <div class="stat-box">
-                            <h3 style="color: var(--accent-pink); margin-bottom: 10px; font-weight: 600;">Spatial Audio</h3>
-                            <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0;">
-                                We implemented realistic soundscapes—engine hums, track vibrations, and overlapping passenger chatter—to trigger the same sensory responses as a real train.
-                            </p>
-                        </div>
-                        
-                        <div class="stat-box">
-                            <h3 style="color: var(--accent-pink); margin-bottom: 10px; font-weight: 600;">Haptic Feedback</h3>
-                            <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0;">
-                                Using the Meta Quest's haptics and potential haptic vests, we simulated the physical sensation of train movement and interpersonal proximity.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section-divider"></div>
-
-                <div class="content-block">
-                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-pink); font-weight: 700;">Final Design</span>
-                    <h2>The "Back on Track" Interface</h2>
-                    <p>
-                        The solution consists of two primary interfaces: the <strong>User VR Environment</strong> and the <strong>Therapist Control Panel</strong>. For the VR menu, we focused on extreme simplicity. Users returning from trauma may have a lower cognitive load capacity, so we utilized large, clear buttons and a logical progression system.
-                    </p>
-
-                    <div class="highlight-box">
-                        <h3>Dual-Perspective Functionality</h3>
-                        <p>
-                            <strong>The User:</strong> Experiences the 7-level journey, receiving supportive "nudges" like <em>"Relax, you've got this!"</em> and immediate access to calming exercises if heart rates spike.
-                        </p>
-                        <p style="margin-top: 15px;">
-                            <strong>The Therapist:</strong> Uses a dedicated dashboard to monitor live vital signs, view the user’s perspective in real-time, and manually adjust scenario intensity to match the user's progress.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="section-divider"></div>
-
-                <div class="content-block">
-                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-pink); font-weight: 700;">Validation</span>
-                    <h2>Presenting at NS Headquarters</h2>
-                    <p>
-                        We presented the "Back on Track" prototype at the NS headquarters in Utrecht. The feedback from NS personnel was overwhelmingly positive, specifically praising the <strong>"human angle"</strong> of the design.
-                    </p>
-                    
-                    <div class="stats-grid">
-                        <div class="stat-box">
-                            <h3 style="color: var(--accent-pink); margin-bottom: 10px; font-weight: 600;">Intuitive Controls</h3>
-                            <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0;">
-                                Testing showed that even staff with zero VR experience picked up the controls within minutes, validating our "low-barrier" design approach.
-                            </p>
-                        </div>
-                        
-                        <div class="stat-box">
-                            <h3 style="color: var(--accent-pink); margin-bottom: 10px; font-weight: 600;">Expert Validation</h3>
-                            <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0;">
-                                Former team leaders and psychologists at NS confirmed the potential value of the tool for staff who struggle with traditional "immediate return" protocols.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="content-block" style="background: var(--bg-secondary); padding: 50px; border-radius: 20px; border: 1px solid var(--border-light); max-width: 75ch;">
-                    <h2 style="margin-bottom: 20px; color: var(--text-main);">Project Reflection</h2>
-                    <p style="font-size: 1.05rem; margin-bottom: 0;">
-                        Working on the NS case allowed me to explore the intersection of <strong>high-tech VR</strong> and <strong>deeply human needs</strong>. While the majority of digital innovation in the railway industry focuses on automation and efficiency, this project proved that using technology to support the well-being and safety of the people behind the service is equally—if not more—critical.
-                    </p>
-                </div>
-
-            </article>
+        <div class="case-meta" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+            <div class="meta-block">
+                <h4>Context</h4>
+                <p>Collaborative Project<br>Dutch Railways (NS)</p>
+            </div>
+            <div class="meta-block">
+                <h4>Skills Applied</h4>
+                <ul>
+                    <li>VRET Research</li>
+                    <li>Unity 3D & Blender</li>
+                    <li>Biometric Stress Loops</li>
+                    <li>User Validation</li>
+                </ul>
+            </div>
+            <div class="meta-block">
+                <h4>Devices</h4>
+                <ul>
+                    <li>Meta Quest 3</li>
+                    <li>Therapist Dashboard</li>
+                </ul>
+            </div>
+            <div class="meta-block">
+                <h4>Team</h4>
+                <p>6 designers</p>
+            </div>
         </div>
-    </main>
+    </section>
 
-    <footer class="simple-footer" style="text-align:center; padding: 60px 0; border-top: 1px solid var(--border-light); color: var(--text-muted);">
+    <section class="case-section bg-dark-editorial">
+        <div class="content-col">
+            <span class="section-tag">The Discovery</span>
+            <h2>So how did we get there?</h2>
+            
+            <p>
+                To truly understand what railway staff face every day, we went out to a train station to interview conductors, drivers, and safety officers about their daily tasks, safety concerns and friction points.
+            </p>
+
+            <div class="split-profile-container">
+                <div class="profile-sticky-media" style="position: sticky; top: 120px;">
+                    <img src="../images/trainpersonnel.png" alt="NS Railway Conductors on the Platform Context">
+                </div>
+                <div class="research-tabs">
+                    <div class="research-tab-card is-active" onclick="toggleResearchTab(this)">
+                        <div class="tab-header">
+                            <div class="tab-title-group">
+                                <i data-lucide="user" style="width:20px; height:20px; color:var(--accent-pink);"></i>
+                                <h3>Train Driver</h3>
+                            </div>
+                            <i data-lucide="chevron-down" class="chevron-icon" style="width:18px;"></i>
+                        </div>
+                        <div class="tab-content">
+                            <p>The train driver we spoke to quietly opened up, revealing that critical communication links between the train cabins and regional offices break down constantly due to backend shortage strains.</p>
+                        </div>
+                    </div>
+
+                    <div class="research-tab-card" onclick="toggleResearchTab(this)">
+                        <div class="tab-header">
+                            <div class="tab-title-group">
+                                <i data-lucide="shield" style="width:20px; height:20px; color:var(--accent-pink);"></i>
+                                <h3>Train Guard</h3>
+                            </div>
+                            <i data-lucide="chevron-down" class="chevron-icon" style="width:18px;"></i>
+                        </div>
+                        <div class="tab-content">
+                            <p>They walked us through the intense, daily aggression they face: last-minute platform arguments, hostile ticket checks, and the overwhelming anxiety of dealing with passengers who refuse to leave.</p>
+                        </div>
+                    </div>
+
+                    <div class="research-tab-card" onclick="toggleResearchTab(this)">
+                        <div class="tab-header">
+                            <div class="tab-title-group">
+                                <i data-lucide="gauge" style="width:20px; height:20px; color:var(--accent-pink);"></i>
+                                <h3>Railway BOA</h3>
+                            </div>
+                            <i data-lucide="chevron-down" class="chevron-icon" style="width:18px;"></i>
+                        </div>
+                        <div class="tab-content">
+                            <p>These law enforcement teams carry an invisible psychological weight. When a critical track accident or tragedy occurs, they are the first on the line, managing and covering the scene until investigators arrive.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p>
+                NS asked us "how can VR support train operations?", but the more we listened, the clearer it got that the bottleneck weren’t only about efficiency and trains. It was also about people, and how impossibly hard it is to walk back into the carriage where the worst day of your career happened. 
+            </p>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <span class="stat-number">1,042</span>
+                    <span class="stat-label">Acts of Violence in 2023</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">8.1%</span>
+                    <span class="stat-label">NS Absenteeism Rate</span>
+                </div>
+            </div>
+
+            <p>
+                The current situation with sick leave due to a traumatic event is to slowly get back by yourself. However, we found that Virtual Reality Exposure Therapy (VRET) can assist them in this process. VRET has therapeutic benefits by providing highly controlled, immersive rehabilitation scenes. We therefore decided to design and build an empathetic VR system prototype that supports front-line railway staff through trauma recovery.
+            </p>
+        </div>
+    </section>
+
+    <section class="case-section bg-main">
+        <div class="content-col">
+            <span class="section-tag">Exposure Strategy</span>
+            <h2>The 7-Level Ladder<span class="dot">.</span></h2>
+            
+            <p>
+                Psychological safety cannot be rushed: it requires gradual progression and total control. To make sure our approach was safe and effective, we collaborated with a psychologist to create a 7-level exposure journey. The logic is simple: the simulation starts in total stillness and slowly introduces external stress. It begins in an empty train carriage, moves into crowded commuter settings, and gradually scales up to active verbal aggression defusal.
+            </p>
+            <div class="level-slider-wrapper">
+                <div class="level-slider-track" id="levelTrack">
+                    <div class="level-slide"><img src="../images/Level1.png" alt="Level 1: Routine Check - Empty Train Carriage Check"></div>
+                    <div class="level-slide"><img src="../images/Level2.png" alt="Level 2: Friendly Interaction - Basic Passenger Requests"></div>
+                    <div class="level-slide"><img src="../images/Level3.png" alt="Level 3: Busy Train - High Volume Commuter Setting"></div>
+                    <div class="level-slide"><img src="../images/Level4.png" alt="Level 4: Rowdy Train - Noisy Crowds & Dismissive Behavior"></div>
+                    <div class="level-slide"><img src="../images/Level5.png" alt="Level 5: Night Shift - Low Light Intoxication Management"></div>
+                    <div class="level-slide"><img src="../images/Level6.png" alt="Level 6: Active Intervention - De-escalating Passenger Fights"></div>
+                    <div class="level-slide"><img src="../images/Level7.png" alt="Level 7: Critical Incident - Direct Acute Aggression Defusal"></div>
+                </div>
+                <div class="slider-controls">
+                    <button class="slider-btn" id="slidePrev" aria-label="Previous level">
+                        <i data-lucide="chevron-left"></i>
+                    </button>
+                    <span class="slider-counter" id="slideCounter">Level 1 of 7</span>
+                    <button class="slider-btn" id="slideNext" aria-label="Next level">
+                        <i data-lucide="chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="case-section bg-dark-editorial">
+        <div class="content-col">
+            <span class="section-tag">Technical Realization</span>
+            <h2>Constructing a Believable Spatial Reality<span class="dot">.</span></h2>
+            
+            <p>
+                Exposure loops only work if the autonomic nervous system believes the room. Therefore, we've built a standard Intercity NS carriage interior from scratch in <strong>Blender</strong>, after which I later built the VR levels in <strong>Unity</strong>. 
+            </p>
+
+            <div class="presentation-gallery">
+                <img src="../images/Trein.png">
+                <img src="../images/Treincoupe.png">
+                <img src="../images/VRinTrein.png">
+            </div>
+        </div>
+    </section>
+
+    <section class="case-section bg-main">
+        <div class="content-col">
+            <span class="section-tag">Interface Design</span>
+            <h2>The Dual-Perspective Architecture<span class="dot">.</span></h2>
+            
+            <p>
+                To ensure the user never goes through therapy alone, we designed a dual-perspective system architecture that supports two opposite states of mind simultaneously: a highly stressed employee inside the headset and a calm specialist at the dashboard.
+            </p>
+
+            <p>
+                While Levels 1 to 3 allow for independent user autonomy in calm settings, Levels 4 to 7 unlock live dashboard overrides. This allows the attending therapist to manually tweak intensity parameters in real time to match the user's specific trauma triggers.
+            </p>
+
+            <figure class="case-figure">
+                <img src="../images/RelationsVR.png" alt="Ecosystem and System Architecture Mapping for VRET loops">
+                <figcaption>Fig 3. Technical system architecture blueprint linking the headset modules to therapist overrides.</figcaption>
+            </figure>
+
+            <p>
+                To accommodate these opposite structural needs, the layout splits into two distinct interfaces:
+            </p>
+
+            <p style="margin-bottom: 16px;">
+                <strong>1. The In-Headset Menu:</strong> Designed to keep cognitive load as low as possible during moments of high anxiety, we stripped away all text blocks and complex submenus in favor of massive touch targets, ultra-clean spacing, and absolute visual stillness.
+            </p>
+
+            <p>
+                <strong>2. The Therapist Dashboard:</strong> Operating as a clinical mission control, it displays a live stream of the user’s line of sight alongside real-time heart-rate telemetry lines. With a single click, the specialist can lower the situational intensity, pause the simulation, or open a direct audio line to guide the employee through grounding protocols.
+            </p>
+
+            <figure class="case-figure">
+                <img src="../images/Control Panel - therapist.png" alt="In-headset screenshots of different exposure intensity tiers">
+                <figcaption>Fig 4. Control interface for therapists.</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <section class="case-section bg-dark-editorial">
+        <div class="content-col">
+            <span class="section-tag">System & Interaction Architecture</span>
+            <h2>Mapping the Interaction Framework<span class="dot">.</span></h2>
+            
+            <p>
+                To ensure the interaction of NS staff with our solution is understood by everyone, we mapped out the interactions. This interaction chart illustrates the step-by-step experience from the initial psychological trigger to active recovery inside our VRET solution.
+            </p>
+
+            <figure class="case-figure">
+                <img src="../images/ProductUsage.png" alt="Therapist Dashboard Interface and Live Analytics Tracking">
+                <figcaption>Fig 5. Interaction architecture overview tracking user choices and framework responses.</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <section class="case-section bg-main">
+        <div class="content-col">
+            <span class="section-tag">Validation</span>
+            <h2>Pitching it back to NS Headquarters<span class="dot">.</span></h2>
+            
+            <p>
+                We were invited to demonstrate and validate our functioning system prototype directly at the NS corporate headquarters in Utrecht. We set up a live evaluation bay: our documentation layout on the table, an iPad running the active specialist telemetry panel, and a Meta Quest 3 headset ready for live testing.
+            </p>
+
+            <div class="presentation-gallery">
+                <img src="../images/NSBezoek.jpg">
+                <img src="../images/VRGebruik.png" alt="NS staff trying on the Meta Quest 3 headset tool">
+                <img src="../images/NSBezoek2.png" alt="Qualitative design review and notes session at Utrecht HQ">
+            </div>
+            <figure class="case-figure" style="margin-top: 0; margin-bottom: 40px;">
+                <figcaption>Fig 6. Live testing sessions, professional evaluations, and stakeholder review boards in Utrecht.</figcaption>
+            </figure>
+
+            <p>
+                The validation results proved that operators with zero previous spatial computing experience could fully master the interactive controls within minutes, confirming the interface's accessibility. The feedback from former team leaders and company specialists was very positive due to the human angle of the project. They confirmed that this could be a way to help railway staff to get back on track. 
+            </p>
+
+            <div class="highlight-box" style="margin-top: 70px; background: var(--bg-secondary); border-color: var(--border-light); padding: 30px; border-radius: 12px; border: 1px solid var(--border-light);">
+                <h3 style="margin-top:0; margin-bottom: 12px; font-size: 1.3rem; color: var(--text-main);">Final Reflection<span class="dot">.</span></h3>
+                <p style="margin-bottom: 0; color: var(--text-muted); line-height: 1.7; font-size: 1.05rem;">
+                    Seeing our prototype in action at headquarters highlighted a broader reality about industry innovation. The common temptation is to point spatial computing and VR entirely at logistical efficiency, building things like automated driving algorithms or mechanical diagnostic dashboards to optimize costs. While those projects are necessary, this experience showed me how powerful it is to focus on the human angle. With so much modern technology directed at maximizing efficiency or replacing staff, using advanced frameworks to actively protect and improve the lives of the people running the system is incredibly rewarding. It is the kind of meaningful impact I look forward to bringing to future design spaces.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="simple-footer" style="text-align:center; padding: 60px 0; border-top: 1px solid var(--border-light); color: var(--text-muted); background-color: var(--bg-main);">
         <p>&copy; 2026 Alessia Bertana. Designed with Insight ⚡</p>
     </footer>
 
@@ -291,6 +759,55 @@
         if (typeof lucide !== 'undefined') {
             lucide.createIcons();
         }
+
+        // --- INTERACTIVE ACCORDION ENGINE ---
+        function toggleResearchTab(selectedCard) {
+            const allCards = document.querySelectorAll('.research-tab-card');
+            allCards.forEach(card => {
+                if (card === selectedCard) {
+                    card.classList.toggle('is-active');
+                } else {
+                    card.classList.remove('is-active');
+                }
+            });
+        }
+
+        // --- LEVEL IMAGE SLIDER ENGINE ---
+        document.addEventListener("DOMContentLoaded", function () {
+            const track = document.getElementById("levelTrack");
+            const prevBtn = document.getElementById("slidePrev");
+            const nextBtn = document.getElementById("slideNext");
+            const counter = document.getElementById("slideCounter");
+            const slides = document.querySelectorAll(".level-slide");
+            
+            let currentIndex = 0;
+            const totalSlides = slides.length;
+
+            function updateSlider() {
+                track.style.transform = `translateX(-${currentIndex * 100}%)`;
+                counter.textContent = `Level ${currentIndex + 1} of ${totalSlides}`;
+            }
+
+            nextBtn.addEventListener("click", function () {
+                if (currentIndex < totalSlides - 1) {
+                    currentIndex++;
+                } else {
+                    currentIndex = 0; // Seamless loop back
+                }
+                updateSlider();
+            });
+
+            prevBtn.addEventListener("click", function () {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                } else {
+                    currentIndex = totalSlides - 1; // Seamless loop to end
+                }
+                updateSlider();
+            });
+
+            updateSlider();
+        });
     </script>
 </body>
 </html>
